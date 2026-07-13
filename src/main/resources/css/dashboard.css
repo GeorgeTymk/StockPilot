@@ -1,0 +1,616 @@
+/* ==================================================
+   STOCKPILOT DASHBOARD V2
+   ================================================== */
+
+.dashboard-background{
+    -fx-background-color:#EEF3F8;
+}
+
+.floating-dashboard{
+
+    -fx-background-color:white;
+
+    -fx-background-radius:28;
+
+    -fx-padding:35;
+
+    -fx-spacing:28;
+
+    -fx-effect:
+        dropshadow(
+            gaussian,
+            rgba(15,23,42,.10),
+            40,
+            .20,
+            0,
+            8
+        );
+}
+
+.modern-sidebar{
+
+    -fx-background-color:
+        linear-gradient(
+            to bottom,
+            #0B3A3C 0%,
+            #082D2E 50%,
+            #062224 100%
+        );
+
+    -fx-background-radius:28;
+
+    -fx-padding:30 20 30 20;
+
+    -fx-spacing:10;
+}
+
+.modern-sidebar-button{
+
+    -fx-background-color:transparent;
+
+    -fx-background-radius:16;
+
+    -fx-text-fill:#D1D5DB;
+
+    -fx-font-size:15px;
+
+    -fx-font-weight:700;
+
+    -fx-alignment:CENTER_LEFT;
+
+    -fx-content-display:LEFT;
+
+    -fx-graphic-text-gap:18;
+
+    -fx-max-width:Infinity;
+
+    -fx-pref-height:52;
+
+    -fx-padding:0 18 0 18;
+
+    -fx-cursor:hand;
+}
+
+.brand-title{
+
+    -fx-font-size:28;
+
+    -fx-font-weight:800;
+
+    -fx-text-fill:white;
+}
+
+.brand-subtitle{
+
+    -fx-font-size:13;
+
+    -fx-text-fill:#A7F3D0;
+}
+
+/* ===========================
+   HEADER
+   =========================== */
+
+.dashboard-header{
+
+    -fx-padding:0 0 10 0;
+
+    -fx-alignment:center-left;
+}
+
+.dashboard-search{
+
+    -fx-pref-width:320;
+
+    -fx-pref-height:46;
+
+    -fx-background-color:#F8FAFC;
+
+    -fx-background-radius:14;
+
+    -fx-border-color:#E2E8F0;
+
+    -fx-border-radius:14;
+
+    -fx-font-size:14px;
+
+    -fx-padding:0 18;
+}
+
+.header-action-button{
+
+    -fx-background-color:#16A34A;
+
+    -fx-background-radius:14;
+
+    -fx-pref-height:46;
+
+    -fx-padding:0 22;
+
+    -fx-text-fill:white;
+
+    -fx-font-size:14px;
+
+    -fx-font-weight:700;
+
+    -fx-cursor:hand;
+}
+
+.header-action-button:hover{
+
+    -fx-background-color:#15803D;
+}
+
+.notification-button{
+
+    -fx-background-color:white;
+
+    -fx-background-radius:14;
+
+    -fx-border-color:#E2E8F0;
+
+    -fx-border-radius:14;
+
+    -fx-pref-width:46;
+
+    -fx-pref-height:46;
+
+    -fx-cursor:hand;
+}
+
+.notification-button:hover{
+
+    -fx-background-color:#F8FAFC;
+}
+
+.dashboard-stat-card{
+
+    -fx-background-color:white;
+
+    -fx-background-radius:24;
+
+    -fx-border-radius:24;
+
+    -fx-border-color:#EEF2F7;
+
+    -fx-padding:32;
+
+    -fx-spacing:18;
+
+    -fx-min-height:170;
+
+    -fx-pref-height:170;
+
+    -fx-effect:
+        dropshadow(
+            gaussian,
+            rgba(15,23,42,0.08),
+            25,
+            0.18,
+            0,
+            6
+        );
+}
+
+.stat-heading{
+
+    -fx-font-size:14px;
+
+    -fx-font-weight:700;
+
+    -fx-text-fill:#64748B;
+
+}
+
+
+
+.trend-positive{
+
+    -fx-font-size:13px;
+
+    -fx-font-weight:700;
+
+    -fx-text-fill:#16A34A;
+
+}
+
+.green-icon-box{
+
+    -fx-background-color:#DCFCE7;
+
+    -fx-background-radius:16;
+
+    -fx-min-width:52;
+
+    -fx-min-height:52;
+
+    -fx-max-width:52;
+
+    -fx-max-height:52;
+
+    -fx-alignment:center;
+}
+
+.blue-icon-box{
+
+    -fx-background-color:#DBEAFE;
+
+    -fx-background-radius:16;
+
+    -fx-min-width:52;
+
+    -fx-min-height:52;
+
+    -fx-max-width:52;
+
+    -fx-max-height:52;
+
+    -fx-alignment:center;
+}
+
+.orange-icon-box{
+
+    -fx-background-color:#FEF3C7;
+
+    -fx-background-radius:16;
+
+    -fx-min-width:52;
+
+    -fx-min-height:52;
+
+    -fx-max-width:52;
+
+    -fx-max-height:52;
+
+    -fx-alignment:center;
+}
+
+.red-icon-box{
+
+    -fx-background-color:#FEE2E2;
+
+    -fx-background-radius:16;
+
+    -fx-min-width:52;
+
+    -fx-min-height:52;
+
+    -fx-max-width:52;
+
+    -fx-max-height:52;
+
+    -fx-alignment:center;
+}
+
+.chart-card{
+
+    -fx-background-color:white;
+
+    -fx-background-radius:24;
+
+    -fx-border-color:#E5E7EB;
+
+    -fx-border-radius:24;
+
+    -fx-padding:22;
+
+    -fx-spacing:15;
+
+    -fx-effect:dropshadow(
+        gaussian,
+        rgba(15,23,42,.08),
+        18,
+        .15,
+        0,
+        5
+    );
+}
+
+.chart-title{
+
+    -fx-font-size:18px;
+
+    -fx-font-weight:800;
+
+    -fx-text-fill:#0F172A;
+}
+
+.chart{
+
+    -fx-background-color:white;
+}
+
+.chart-plot-background{
+
+    -fx-background-color:#FFFFFF;
+}
+
+.chart-vertical-grid-lines{
+
+    -fx-stroke:#EDF2F7;
+}
+
+.chart-horizontal-grid-lines{
+
+    -fx-stroke:#EDF2F7;
+}
+
+.axis{
+
+    -fx-tick-label-fill:#64748B;
+}
+
+.chart-pie-label{
+
+    -fx-font-size:13px;
+
+    -fx-font-weight:bold;
+}
+
+.chart-legend{
+
+    -fx-background-color:transparent;
+}
+
+.dashboard-surface{
+
+    -fx-background-color:white;
+
+    -fx-background-radius:28;
+
+    -fx-padding:28;
+
+    -fx-effect:
+        dropshadow(
+            gaussian,
+            rgba(15,23,42,0.08),
+            30,
+            0.15,
+            0,
+            8
+        );
+
+}
+.dashboard-scroll {
+
+    -fx-background-color: transparent;
+
+    -fx-border-color: transparent;
+
+}
+
+
+.dashboard-scroll > .viewport {
+
+    -fx-background-color: transparent;
+
+}
+
+
+.dashboard-header {
+
+    -fx-min-height:90;
+
+    -fx-pref-height:90;
+
+}
+
+/* ============================
+   SALES OVERVIEW CHART STYLE
+   ============================ */
+
+
+.chart {
+
+    -fx-padding:20;
+
+}
+
+
+.chart-plot-background {
+
+    -fx-background-color:white;
+
+}
+
+
+.chart-vertical-grid-lines {
+
+    -fx-stroke:#E5E7EB;
+
+}
+
+
+.chart-horizontal-grid-lines {
+
+    -fx-stroke:#E5E7EB;
+
+}
+
+
+.axis {
+
+    -fx-tick-label-fill:#64748B;
+
+    -fx-font-size:12px;
+
+}
+
+
+.chart-series-line {
+
+    -fx-stroke:#16A34A;
+
+    -fx-stroke-width:3px;
+
+}
+
+
+.chart-line-symbol {
+
+    -fx-background-color:#16A34A, white;
+
+    -fx-background-radius:8px;
+
+    -fx-padding:6px;
+
+}
+
+
+.default-color0.chart-series-area-fill {
+
+    -fx-fill:#16A34A;
+
+    -fx-opacity:0.15;
+
+}
+
+
+.chart-legend {
+
+    -fx-background-color:transparent;
+
+}
+
+/* ==========================
+   ACTIVITY CARDS
+   ========================== */
+
+.activity-card{
+
+    -fx-background-color:white;
+
+    -fx-background-radius:18;
+
+    -fx-border-color:#E5E7EB;
+
+    -fx-border-radius:18;
+
+    -fx-padding:14;
+
+    -fx-spacing:6;
+
+}
+
+.activity-card:hover{
+
+    -fx-background-color:#F8FAFC;
+
+}
+
+.activity-title{
+
+    -fx-font-size:15px;
+
+    -fx-font-weight:bold;
+
+    -fx-text-fill:#0F172A;
+
+}
+
+.activity-time{
+
+    -fx-font-size:12px;
+
+    -fx-text-fill:#94A3B8;
+
+}
+
+.activity-restock{
+
+    -fx-background-color:#DCFCE7;
+
+    -fx-text-fill:#166534;
+
+    -fx-background-radius:20;
+
+    -fx-padding:3 10;
+
+    -fx-font-size:11px;
+
+    -fx-font-weight:bold;
+
+}
+
+.activity-sale{
+
+    -fx-background-color:#FEE2E2;
+
+    -fx-text-fill:#991B1B;
+
+    -fx-background-radius:20;
+
+    -fx-padding:3 10;
+
+    -fx-font-size:11px;
+
+    -fx-font-weight:bold;
+
+}
+
+.activity-default{
+
+    -fx-background-color:#E0F2FE;
+
+    -fx-text-fill:#075985;
+
+    -fx-background-radius:20;
+
+    -fx-padding:3 10;
+
+    -fx-font-size:11px;
+
+    -fx-font-weight:bold;
+
+}
+/* ========================= */
+/* DASHBOARD ICON COLORS */
+/* ========================= */
+
+
+.green-card-icon {
+
+    -fx-fill: #22c55e;
+
+    -fx-font-size: 24px;
+
+}
+
+
+
+.orange-card-icon {
+
+    -fx-fill: #f59e0b;
+
+    -fx-font-size: 24px;
+
+}
+
+
+
+.red-card-icon {
+
+    -fx-fill: #ef4444;
+
+    -fx-font-size: 24px;
+
+}
+
+.green-card-icon {
+
+    -fx-fill: #22c55e;
+
+}
+
+.orange-card-icon {
+
+    -fx-fill: #f59e0b;
+
+}
+
+
+.red-card-icon {
+
+    -fx-fill: #ef4444;
+
+}

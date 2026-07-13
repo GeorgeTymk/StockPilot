@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<VBox spacing="20"
+      alignment="CENTER"
+      xmlns="http://javafx.com/javafx/21"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.stockpilot.controller.SalesController">
+
+
+    <Label text="Record Sale"
+           style="-fx-font-size:26px;"/>
+
+
+
+    <ComboBox fx:id="recipeComboBox"
+              promptText="Select Recipe"
+              prefWidth="250"/>
+
+
+
+    <TextField fx:id="quantityField"
+               promptText="Quantity Sold"/>
+
+
+
+    <Label text="Total:"/>
+
+
+    <Label fx:id="totalLabel"
+           text="0"
+           style="-fx-font-size:20px;"/>
+
+
+
+    <HBox spacing="15">
+
+
+        <Button text="Save Sale"
+                onAction="#saveSale"/>
+
+
+
+        <Button text="Back"
+                onAction="#goBack"/>
+
+
+    </HBox>
+
+
+</VBox>

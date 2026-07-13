@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<BorderPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.stockpilot.controller.LowStockController">
+
+
+    <top>
+
+        <HBox spacing="20"
+              style="-fx-background-color:#1e293b;
+                     -fx-padding:15;">
+
+            <Label text="LOW STOCK WARNING"
+                   style="-fx-text-fill:white;
+                          -fx-font-size:20px;
+                          -fx-font-weight:bold;"/>
+
+        </HBox>
+
+    </top>
+
+
+
+    <center>
+
+        <TableView fx:id="lowStockTable">
+
+
+            <columns>
+
+
+                <TableColumn fx:id="nameColumn"
+                             text="Ingredient"
+                             prefWidth="200"/>
+
+
+                <TableColumn fx:id="quantityColumn"
+                             text="Current Quantity"
+                             prefWidth="150"/>
+
+
+                <TableColumn fx:id="minimumColumn"
+                             text="Minimum Stock"
+                             prefWidth="150"/>
+
+
+                <TableColumn fx:id="unitColumn"
+                             text="Unit"
+                             prefWidth="100"/>
+
+
+            </columns>
+
+
+        </TableView>
+<Button
+        text="← Back"
+        onAction="#goBack"
+        prefWidth="100"/>
+
+    </center>
+
+
+</BorderPane>

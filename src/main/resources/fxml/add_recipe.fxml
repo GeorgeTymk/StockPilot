@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<BorderPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.stockpilot.controller.AddRecipeController">
+
+
+    <center>
+
+
+        <VBox spacing="20"
+              alignment="CENTER">
+
+
+            <padding>
+
+                <Insets top="40"
+                        right="40"
+                        bottom="40"
+                        left="40"/>
+
+            </padding>
+
+
+
+            <Label text="Add Recipe"
+                   style="
+                   -fx-font-size:25px;
+                   -fx-font-weight:bold;
+                   "/>
+
+
+
+            <TextField fx:id="nameField"
+                       promptText="Recipe Name"/>
+
+
+
+            <TextArea fx:id="descriptionField"
+                      promptText="Description"
+                      prefHeight="120"/>
+
+
+
+            <TextField fx:id="priceField"
+                       promptText="Selling Price"/>
+
+
+
+            <Button text="Save Recipe"
+                    onAction="#saveRecipe"/>
+
+            <Button text="Back"
+        onAction="#goBack"/>
+
+
+
+        </VBox>
+
+
+    </center>
+
+
+</BorderPane>

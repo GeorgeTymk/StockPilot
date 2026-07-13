@@ -1,0 +1,40 @@
+.root{
+    -fx-background-color:#F5F6F8;
+    -fx-font-family:"Segoe UI";
+}
+
+.login-card{
+    -fx-background-color:white;
+    -fx-background-radius:15;
+    -fx-effect:dropshadow(gaussian, rgba(0,0,0,0.15),20,0,0,5);
+}
+
+.title{
+    -fx-font-size:30;
+    -fx-font-weight:bold;
+    -fx-text-fill:#556B2F;
+}
+
+.subtitle{
+    -fx-font-size:14;
+    -fx-text-fill:#666666;
+}
+
+.text-field,
+.password-field{
+    -fx-pref-height:42;
+    -fx-background-radius:8;
+    -fx-border-radius:8;
+}
+
+.login-button{
+    -fx-background-color:#556B2F;
+    -fx-text-fill:white;
+    -fx-font-size:15;
+    -fx-background-radius:8;
+    -fx-pref-height:45;
+}
+
+.login-button:hover{
+    -fx-background-color:#6B8E23;
+}

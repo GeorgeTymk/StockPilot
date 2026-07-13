@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<BorderPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.stockpilot.controller.RecipeController">
+
+
+    <!-- TOP HEADER -->
+
+    <top>
+
+        <VBox spacing="10">
+
+            <padding>
+                <Insets top="25"
+                        right="30"
+                        bottom="20"
+                        left="30"/>
+            </padding>
+
+
+            <Label text="Recipes"
+                   styleClass="title"/>
+
+
+            <Label text="Manage restaurant recipes"
+                   styleClass="subtitle"/>
+
+
+        </VBox>
+
+    </top>
+
+
+
+
+
+    <!-- CENTER CONTENT -->
+
+    <center>
+
+
+        <VBox spacing="20">
+
+
+            <padding>
+                <Insets top="20"
+                        right="30"
+                        bottom="20"
+                        left="30"/>
+            </padding>
+
+
+
+
+
+            <!-- RECIPE TABLE -->
+
+            <TableView fx:id="recipeTable"
+                       prefHeight="450">
+
+
+                <columns>
+
+
+                    <TableColumn fx:id="idColumn"
+                                 text="ID"
+                                 prefWidth="80"/>
+
+
+
+                    <TableColumn fx:id="nameColumn"
+                                 text="Recipe Name"
+                                 prefWidth="220"/>
+
+
+
+                    <TableColumn fx:id="descriptionColumn"
+                                 text="Description"
+                                 prefWidth="350"/>
+
+
+
+                    <TableColumn fx:id="priceColumn"
+                                 text="Selling Price"
+                                 prefWidth="150"/>
+
+
+                </columns>
+
+
+            </TableView>
+
+
+
+
+
+
+
+            <!-- BUTTON AREA -->
+
+
+            <HBox spacing="15"
+                  alignment="CENTER_LEFT">
+
+
+
+                <Button text="Add Recipe"
+                        onAction="#addRecipe"
+                        styleClass="login-button"/>
+
+
+
+                <Button text="View Recipe"
+                        onAction="#viewRecipe"
+                        styleClass="login-button"/>
+
+
+
+                <Button text="Back"
+                        onAction="#goBack"
+                        styleClass="login-button"/>
+
+
+
+            </HBox>
+
+
+
+
+        </VBox>
+
+
+    </center>
+
+
+
+</BorderPane>

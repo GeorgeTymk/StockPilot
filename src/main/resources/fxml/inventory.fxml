@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.stockpilot.controller.InventoryController">
+
+    <top>
+
+        <HBox spacing="20"
+              alignment="CENTER_LEFT"
+              style="-fx-background-color:#1e293b;">
+
+            <padding>
+                <Insets top="20"
+                        right="20"
+                        bottom="20"
+                        left="20"/>
+            </padding>
+
+            <Label text="Ingredient Inventory"
+                   style="-fx-text-fill:white;
+                          -fx-font-size:22px;
+                          -fx-font-weight:bold;"/>
+
+        </HBox>
+
+    </top>
+
+    <center>
+
+        <VBox spacing="20">
+
+            <padding>
+                <Insets top="20"
+                        right="20"
+                        bottom="20"
+                        left="20"/>
+            </padding>
+
+            <TableView fx:id="ingredientTable">
+
+                <columns>
+
+                    <TableColumn fx:id="nameColumn"
+                                 text="Ingredient"/>
+
+                    <TableColumn fx:id="quantityColumn"
+                                 text="Quantity"/>
+
+                    <TableColumn fx:id="unitColumn"
+                                 text="Unit"/>
+
+                    <TableColumn fx:id="minimumColumn"
+                                 text="Minimum Stock"/>
+
+                </columns>
+
+            </TableView>
+
+            <HBox spacing="15">
+
+                <Button text="Restock"
+                        onAction="#restockIngredient"/>
+
+                <Button text="Inventory History"
+        onAction="#openHistory"/>
+
+                <Button text="Back"
+                        onAction="#goBack"/>
+
+            </HBox>
+
+        </VBox>
+
+    </center>
+
+</BorderPane>

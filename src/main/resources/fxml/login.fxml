@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.stockpilot.controller.LoginController"
+            stylesheets="@../css/login.css">
+
+    <center>
+
+        <StackPane>
+
+            <VBox spacing="20"
+                  alignment="CENTER"
+                  maxWidth="420"
+                  styleClass="login-card">
+
+                <padding>
+                    <Insets top="40" right="40" bottom="40" left="40"/>
+                </padding>
+
+                <Label text="STOCKPILOT"
+                       styleClass="title"/>
+
+                <Label text="Restaurant Inventory Management"
+                       styleClass="subtitle"/>
+
+                <TextField fx:id="usernameField"
+                           promptText="Username"/>
+
+                <PasswordField fx:id="passwordField"
+                               promptText="Password"/>
+
+                <Button text="Sign In"
+                        onAction="#login"
+                        styleClass="login-button"
+                        maxWidth="Infinity"/>
+
+                <Button text="Back"
+        onAction="#goBack"/>
+
+            </VBox>
+
+        </StackPane>
+
+    </center>
+
+</BorderPane>
