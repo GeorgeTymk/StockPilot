@@ -1,40 +1,197 @@
 .root{
-    -fx-background-color:#F5F6F8;
+
+    -fx-background-color:#20231F;
     -fx-font-family:"Segoe UI";
+
 }
+
+
+/* MAIN AREA */
+
+.login-container{
+
+    -fx-background-color:white;
+    -fx-background-radius:20;
+
+    -fx-effect:dropshadow(
+        gaussian,
+        rgba(0,0,0,0.25),
+        30,
+        0,
+        0,
+        10
+    );
+
+}
+
+
+/* LEFT SIDE */
+
+
+.brand-panel{
+
+    -fx-background-color:#556B2F;
+
+    -fx-background-radius:
+    20 0 0 20;
+
+}
+
+
+.brand-title{
+
+    -fx-font-size:38px;
+    -fx-font-weight:bold;
+    -fx-text-fill:white;
+
+}
+
+
+.brand-description{
+
+    -fx-font-size:16px;
+    -fx-text-fill:white;
+
+    -fx-alignment:center;
+
+}
+
+
+.brand-small{
+
+    -fx-font-size:13px;
+    -fx-text-fill:#E6D690;
+
+}
+
+
+
+.social-box{
+
+    -fx-padding:20 0 0 0;
+
+}
+
+
+.social{
+
+    -fx-text-fill:white;
+    -fx-font-size:12px;
+
+}
+
+
+
+/* LOGIN CARD */
+
 
 .login-card{
+
     -fx-background-color:white;
-    -fx-background-radius:15;
-    -fx-effect:dropshadow(gaussian, rgba(0,0,0,0.15),20,0,0,5);
+
+    -fx-background-radius:0 20 20 0;
+
 }
 
-.title{
-    -fx-font-size:30;
+
+
+.welcome{
+
+    -fx-font-size:26px;
     -fx-font-weight:bold;
-    -fx-text-fill:#556B2F;
+
+    -fx-text-fill:#333333;
+
 }
+
 
 .subtitle{
-    -fx-font-size:14;
-    -fx-text-fill:#666666;
+
+    -fx-font-size:13px;
+    -fx-text-fill:#777777;
+
 }
 
-.text-field,
-.password-field{
+
+
+.input{
+
+    -fx-pref-width:260;
     -fx-pref-height:42;
-    -fx-background-radius:8;
-    -fx-border-radius:8;
+
+    -fx-background-radius:10;
+
+    -fx-border-radius:10;
+
+    -fx-border-color:#DDDDDD;
+
+    -fx-padding:0 12;
+
 }
+
+
+
+.input:focused{
+
+    -fx-border-color:#556B2F;
+
+}
+
+
+
+/* BUTTON */
+
 
 .login-button{
+
     -fx-background-color:#556B2F;
+
     -fx-text-fill:white;
-    -fx-font-size:15;
-    -fx-background-radius:8;
+
+    -fx-font-size:15px;
+
+    -fx-font-weight:bold;
+
     -fx-pref-height:45;
+
+    -fx-background-radius:10;
+
 }
 
+
+
 .login-button:hover{
+
     -fx-background-color:#6B8E23;
+
+}
+
+
+
+/* FOOTER */
+
+
+.footer{
+
+    -fx-padding:10;
+
+}
+
+
+
+.footer-text{
+
+    -fx-text-fill:#888888;
+
+    -fx-font-size:12px;
+
+}
+
+
+.footer-small{
+
+    -fx-text-fill:#555555;
+
+    -fx-font-size:11px;
+
 }
