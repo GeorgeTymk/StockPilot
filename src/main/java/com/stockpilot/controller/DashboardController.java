@@ -91,6 +91,8 @@ public class DashboardController {
 }
 
 
+    @FXML
+private SidebarController sidebarController;
 
     @FXML
     private Label totalSalesLabel;
@@ -137,6 +139,7 @@ loadSalesChart();
 loadRecentActivity();
 
 updateTrendLabels();
+sidebarController.setActive("dashboard");
 
 }
 

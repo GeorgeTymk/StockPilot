@@ -3,6 +3,9 @@
 <?import java.net.URL?>
 
 <?import javafx.scene.chart.LineChart?>
+
+<?import javafx.fxml.FXMLLoader?>
+
 <?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.NumberAxis?>
@@ -35,7 +38,7 @@
 
     <!-- MAIN APP FRAME -->
 
-    <HBox spacing="0"
+<HBox spacing="0"
       alignment="TOP_LEFT"
       AnchorPane.topAnchor="25.0"
       AnchorPane.bottomAnchor="25.0"
@@ -43,292 +46,17 @@
       AnchorPane.rightAnchor="25.0">
 
 
-        <!-- SIDEBAR -->
+    <!-- SIDEBAR -->
 
-        <VBox prefWidth="250"
-      minWidth="220"
-      maxWidth="280"
-      alignment="TOP_LEFT"
-      fillWidth="true"
-      spacing="15"
-      styleClass="modern-sidebar">
+    <fx:include fx:id="sidebar" source="sidebar.fxml"/>
 
-      
 
+    <!-- FLOATING WHITE DASHBOARD -->
 
-<padding>
-
-    <Insets top="20"
-            right="24"
-            bottom="24"
-            left="24"/>
-
-</padding>
-
-
-
-            <!-- LOGO -->
-
-            <VBox spacing="5">
-
-                <Label text="StockPilot"
-                       styleClass="brand-title"/>
-
-                <Label text="Restaurant OS"
-                       styleClass="brand-subtitle"/>
-
-            </VBox>
-
-
-
-            <Separator/>
-
-<Region prefHeight="15"/>
-
-
-
-            <!-- NAVIGATION -->
-
-
-            <Button text="Dashboard"
-                    styleClass="modern-sidebar-button sidebar-active">
-
-
-                <graphic>
-
-                    <ImageView fitWidth="20"
-                               fitHeight="20">
-
-                        <image>
-                            <Image url="@../icons/dashboard.png"/>
-                        </image>
-
-                    </ImageView>
-
-                </graphic>
-
-            </Button>
-
-
-
-            <Button text="Inventory"
-                    styleClass="modern-sidebar-button"
-                    onAction="#openInventory">
-
-                <graphic>
-
-                    <ImageView fitWidth="20"
-                               fitHeight="20">
-
-                        <image>
-                            <Image url="@../icons/inventory.png"/>
-                        </image>
-
-                    </ImageView>
-
-                </graphic>
-
-            </Button>
-
-
-
-            <Button text="Ingredients"
-                    styleClass="modern-sidebar-button"
-                    onAction="#openIngredients">
-
-                <graphic>
-
-                    <FontAwesomeIconView
-        glyphName="CUBES"
-        size="24"
-        styleClass="card-icon"/>
-
-                </graphic>
-
-            </Button>
-
-
-
-            <Button text="Recipes"
-                    styleClass="modern-sidebar-button"
-                    onAction="#openRecipes">
-
-                <graphic>
-
-                    <ImageView fitWidth="20"
-                               fitHeight="20">
-
-                        <image>
-                            <Image url="@../icons/recipes.png"/>
-                        </image>
-
-                    </ImageView>
-
-                </graphic>
-
-            </Button>
-
-
-
-            <Button text="Suppliers"
-                    styleClass="modern-sidebar-button"
-                    onAction="#openSuppliers">
-
-                <graphic>
-
-                    <ImageView fitWidth="20"
-                               fitHeight="20">
-
-                        <image>
-                            <Image url="@../icons/suppliers.png"/>
-                        </image>
-
-                    </ImageView>
-
-                </graphic>
-
-            </Button>
-
-
-
-            <Button text="Sales"
-                    styleClass="modern-sidebar-button"
-                    onAction="#openSales">
-
-                <graphic>
-
-                    <ImageView fitWidth="20"
-                               fitHeight="20">
-
-                        <image>
-                            <Image url="@../icons/sales.png"/>
-                        </image>
-
-                    </ImageView>
-
-                </graphic>
-
-            </Button>
-
-
-
-            <Button text="Sales History"
-                    styleClass="modern-sidebar-button"
-                    onAction="#openSalesHistory">
-
-                <graphic>
-
-                    <ImageView fitWidth="20"
-                               fitHeight="20">
-
-                        <image>
-                            <Image url="@../icons/history.png"/>
-                        </image>
-
-                    </ImageView>
-
-                </graphic>
-
-            </Button>
-
-
-
-            <Button text="Reports"
-                    styleClass="modern-sidebar-button"
-                    onAction="#openReports">
-
-                <graphic>
-
-                    <ImageView fitWidth="20"
-                               fitHeight="20">
-
-                        <image>
-                            <Image url="@../icons/reports.png"/>
-                        </image>
-
-                    </ImageView>
-
-                </graphic>
-
-            </Button>
-
-
-
-            <Button text="Low Stock"
-                    styleClass="modern-sidebar-button"
-                    onAction="#openLowStock">
-
-                <graphic>
-
-                    <ImageView fitWidth="20"
-                               fitHeight="20">
-
-                        <image>
-                            <Image url="@../icons/warning.png"/>
-                        </image>
-
-                    </ImageView>
-
-                </graphic>
-
-            </Button>
-
-
-
-  
-
-
-
-            <!-- USER PROFILE -->
-
-            <VBox styleClass="profile-box"
-                  spacing="3">
-
-
-                <Label text="Admin"
-                       styleClass="profile-name"/>
-
-
-                <Label text="Administrator"
-                       styleClass="profile-role"/>
-
-
-            </VBox>
-
-
-
-            <Button text="Logout"
-                    styleClass="modern-sidebar-button"
-                    onAction="#logout">
-
-                <graphic>
-
-                    <ImageView fitWidth="20"
-                               fitHeight="20">
-
-                        <image>
-                            <Image url="@../icons/logout.png"/>
-                        </image>
-
-                    </ImageView>
-
-                </graphic>
-
-            </Button>
-
-
-        </VBox>
-
-
-
-
-
-        <!-- FLOATING WHITE DASHBOARD -->
-
-<ScrollPane HBox.hgrow="ALWAYS"
-            fitToWidth="true"
-            fitToHeight="true"
-            styleClass="dashboard-scroll">
+    <ScrollPane HBox.hgrow="ALWAYS"
+                fitToWidth="true"
+                fitToHeight="true"
+                styleClass="dashboard-scroll">
 
             <VBox fillWidth="true"
       spacing="15"

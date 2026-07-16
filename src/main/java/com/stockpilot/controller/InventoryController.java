@@ -16,6 +16,9 @@ import java.util.Optional;
 public class InventoryController {
 
     @FXML
+    private SidebarController sidebarController;
+
+    @FXML
     private TableView<Ingredient> ingredientTable;
 
     @FXML
@@ -36,6 +39,11 @@ public class InventoryController {
     @FXML
     public void initialize() {
 
+        // Highlight Inventory in sidebar
+        if (sidebarController != null) {
+            sidebarController.setActive("inventory");
+        }
+
         nameColumn.setCellValueFactory(
                 new PropertyValueFactory<>("name")
         );
@@ -53,7 +61,6 @@ public class InventoryController {
         );
 
         loadIngredients();
-
     }
 
     private void loadIngredients() {
@@ -79,7 +86,6 @@ public class InventoryController {
         if (ingredient == null) {
 
             System.out.println("Please select an ingredient.");
-
             return;
 
         }
@@ -121,8 +127,7 @@ public class InventoryController {
                         "Ingredient restocked successfully."
                 );
 
-            }
-            catch (NumberFormatException e) {
+            } catch (NumberFormatException e) {
 
                 System.out.println(
                         "Please enter a valid number."
@@ -133,19 +138,22 @@ public class InventoryController {
         }
 
     }
-@FXML
-private void openHistory(){
 
-    Navigator.goTo(
-            "inventory_history.fxml"
-    );
+    @FXML
+    private void openHistory() {
 
-}
+        Navigator.goTo(
+                "inventory_history.fxml"
+        );
+
+    }
+
     @FXML
     private void goBack() {
 
         Navigator.goBack();
 
     }
+    
 
 }
