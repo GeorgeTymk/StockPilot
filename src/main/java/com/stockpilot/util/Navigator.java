@@ -29,12 +29,14 @@ public class Navigator {
 
 
 
+
     public static void goTo(String fxmlFile){
 
 
         try {
 
 
+            // Save current page for back button
             if(stage.getScene() != null
                     && stage.getScene().getRoot().getUserData() != null){
 
@@ -66,11 +68,28 @@ public class Navigator {
 
 
 
+            Scene oldScene = stage.getScene();
+
+
+            double width = 1280;
+            double height = 750;
+
+
+            // Keep current window size
+            if(oldScene != null){
+
+                width = oldScene.getWidth();
+                height = oldScene.getHeight();
+
+            }
+
+
+
             Scene scene =
                     new Scene(
                             root,
-                            stage.getWidth(),
-                            stage.getHeight()
+                            width,
+                            height
                     );
 
 
@@ -78,22 +97,17 @@ public class Navigator {
             stage.setScene(scene);
 
 
+
+            // Normal desktop window
             stage.setResizable(true);
 
+            stage.setMinWidth(1100);
 
-            // Normal desktop window size
-            if(stage.getWidth() < 1200){
-
-                stage.setWidth(1200);
-
-            }
+            stage.setMinHeight(650);
 
 
-            if(stage.getHeight() < 750){
-
-                stage.setHeight(750);
-
-            }
+            // Prevent accidental fullscreen behaviour
+            stage.setMaximized(false);
 
 
 
@@ -101,18 +115,20 @@ public class Navigator {
 
 
 
-            // Allow JavaFX to finish sizing before refreshing
+
             Platform.runLater(() -> {
 
                 root.applyCss();
 
                 root.layout();
 
+
             });
 
 
 
-        } catch(Exception e){
+        }
+        catch(Exception e){
 
             e.printStackTrace();
 
@@ -120,6 +136,9 @@ public class Navigator {
 
 
     }
+
+
+
 
 
 
@@ -130,61 +149,88 @@ public class Navigator {
         try {
 
 
-            if(!history.isEmpty()){
+            if(history.isEmpty()){
 
-
-                String previous =
-                        history.pop();
-
-
-
-                FXMLLoader loader =
-                        new FXMLLoader(
-                                Navigator.class.getResource(
-                                        "/fxml/" + previous
-                                )
-                        );
-
-
-
-                Parent root =
-                        loader.load();
-
-
-
-                root.setUserData(previous);
-
-
-
-                Scene scene =
-                        new Scene(
-                                root,
-                                stage.getWidth(),
-                                stage.getHeight()
-                        );
-
-
-
-                stage.setScene(scene);
-
-
-                stage.show();
-
-
-
-                Platform.runLater(() -> {
-
-                    root.applyCss();
-
-                    root.layout();
-
-                });
-
+                return;
 
             }
 
 
-        }catch(Exception e){
+
+            String previous =
+                    history.pop();
+
+
+
+
+            FXMLLoader loader =
+                    new FXMLLoader(
+                            Navigator.class.getResource(
+                                    "/fxml/" + previous
+                            )
+                    );
+
+
+
+
+            Parent root =
+                    loader.load();
+
+
+
+
+            root.setUserData(previous);
+
+
+
+
+
+            Scene oldScene =
+                    stage.getScene();
+
+
+
+            Scene scene =
+                    new Scene(
+                            root,
+                            oldScene.getWidth(),
+                            oldScene.getHeight()
+                    );
+
+
+
+
+            stage.setScene(scene);
+
+
+
+
+            stage.setResizable(true);
+
+            stage.setMaximized(false);
+
+
+
+
+            stage.show();
+
+
+
+
+
+            Platform.runLater(() -> {
+
+                root.applyCss();
+
+                root.layout();
+
+
+            });
+
+
+
+        }
+        catch(Exception e){
 
             e.printStackTrace();
 
@@ -192,6 +238,7 @@ public class Navigator {
 
 
     }
+
 
 
 }

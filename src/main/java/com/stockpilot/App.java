@@ -69,13 +69,18 @@ scene.getStylesheets().add(
 
         stage.setScene(scene);
 
+        
 
+        stage.setResizable(true);
 
-        stage.setMinWidth(1100);
-
+stage.setMinWidth(1100);
 stage.setMinHeight(650);
 
+stage.setMaximized(false);
+
 stage.centerOnScreen();
+
+
 
         stage.show();
 

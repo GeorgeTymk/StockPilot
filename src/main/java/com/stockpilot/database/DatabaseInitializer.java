@@ -1,11 +1,15 @@
 package com.stockpilot.database;
 
+
 import java.sql.Connection;
 import java.sql.Statement;
 
+
 public class DatabaseInitializer {
 
+
     public static void createTables() {
+
 
         String usersTable = """
                 CREATE TABLE IF NOT EXISTS users (
@@ -20,6 +24,8 @@ public class DatabaseInitializer {
 
                 );
                 """;
+
+
 
         String productsTable = """
                 CREATE TABLE IF NOT EXISTS products (
@@ -39,6 +45,8 @@ public class DatabaseInitializer {
                 );
                 """;
 
+
+
         String ingredientsTable = """
                 CREATE TABLE IF NOT EXISTS ingredients (
 
@@ -57,6 +65,8 @@ public class DatabaseInitializer {
                 );
                 """;
 
+
+
         String inventoryHistoryTable = """
                 CREATE TABLE IF NOT EXISTS inventory_history (
 
@@ -71,10 +81,28 @@ public class DatabaseInitializer {
                     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
 
                     FOREIGN KEY (ingredient_id)
-                        REFERENCES ingredients(id)
+                    REFERENCES ingredients(id)
 
                 );
                 """;
+
+
+
+        String activitiesTable = """
+                CREATE TABLE IF NOT EXISTS activities (
+
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+
+                    message TEXT,
+
+                    type TEXT,
+
+                    activity_time DATETIME DEFAULT CURRENT_TIMESTAMP
+
+                );
+                """;
+
+
 
         String suppliersTable = """
                 CREATE TABLE IF NOT EXISTS suppliers (
@@ -92,6 +120,80 @@ public class DatabaseInitializer {
                 );
                 """;
 
+
+
+        // CONNECT SUPPLIERS WITH INGREDIENTS
+
+        String supplierIngredientsTable = """
+                CREATE TABLE IF NOT EXISTS supplier_ingredients (
+
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+
+                    supplier_id INTEGER NOT NULL,
+
+                    ingredient_id INTEGER NOT NULL,
+
+                    FOREIGN KEY(supplier_id)
+                    REFERENCES suppliers(id)
+                    ON DELETE CASCADE,
+
+                    FOREIGN KEY(ingredient_id)
+                    REFERENCES ingredients(id)
+                    ON DELETE CASCADE
+
+                );
+                """;
+
+
+
+        // MAIN PURCHASE RECORD
+
+        String purchasesTable = """
+                CREATE TABLE IF NOT EXISTS purchases (
+
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+
+                    supplier_id INTEGER NOT NULL,
+
+                    total_cost REAL NOT NULL DEFAULT 0,
+
+                    purchase_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+
+                    FOREIGN KEY(supplier_id)
+                    REFERENCES suppliers(id)
+
+                );
+                """;
+
+
+
+        // PURCHASE ITEMS
+
+        String purchaseItemsTable = """
+                CREATE TABLE IF NOT EXISTS purchase_items (
+
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+
+                    purchase_id INTEGER NOT NULL,
+
+                    ingredient_id INTEGER NOT NULL,
+
+                    quantity REAL NOT NULL,
+
+                    cost REAL NOT NULL,
+
+                    FOREIGN KEY(purchase_id)
+                    REFERENCES purchases(id)
+                    ON DELETE CASCADE,
+
+                    FOREIGN KEY(ingredient_id)
+                    REFERENCES ingredients(id)
+
+                );
+                """;
+
+
+
         String recipesTable = """
                 CREATE TABLE IF NOT EXISTS recipes (
 
@@ -108,6 +210,8 @@ public class DatabaseInitializer {
                 );
                 """;
 
+
+
         String recipeIngredientsTable = """
                 CREATE TABLE IF NOT EXISTS recipe_ingredients (
 
@@ -119,9 +223,11 @@ public class DatabaseInitializer {
 
                     quantity_used REAL NOT NULL,
 
+
                     FOREIGN KEY(recipe_id)
                     REFERENCES recipes(id)
                     ON DELETE CASCADE,
+
 
                     FOREIGN KEY(ingredient_id)
                     REFERENCES ingredients(id)
@@ -129,6 +235,8 @@ public class DatabaseInitializer {
 
                 );
                 """;
+
+
 
         String salesTable = """
                 CREATE TABLE IF NOT EXISTS sales (
@@ -143,6 +251,7 @@ public class DatabaseInitializer {
 
                     sale_date DATETIME DEFAULT CURRENT_TIMESTAMP,
 
+
                     FOREIGN KEY(recipe_id)
                     REFERENCES recipes(id)
                     ON DELETE CASCADE
@@ -150,25 +259,44 @@ public class DatabaseInitializer {
                 );
                 """;
 
+
+
         String ingredientIndex = """
                 CREATE INDEX IF NOT EXISTS idx_ingredient_name
+
                 ON ingredients(name);
                 """;
 
+
+
         String productIndex = """
                 CREATE INDEX IF NOT EXISTS idx_product_name
+
                 ON products(name);
                 """;
 
+
+
         String salesDateIndex = """
                 CREATE INDEX IF NOT EXISTS idx_sales_date
+
                 ON sales(sale_date);
                 """;
 
-        try (
-                Connection connection = Database.connect();
-                Statement statement = connection.createStatement()
-        ) {
+
+
+
+        try(
+
+                Connection connection =
+                        Database.connect();
+
+
+                Statement statement =
+                        connection.createStatement()
+
+        ){
+
 
             statement.execute(usersTable);
 
@@ -176,9 +304,22 @@ public class DatabaseInitializer {
 
             statement.execute(ingredientsTable);
 
-            statement.execute(inventoryHistoryTable);   // <-- ADD THIS
+            statement.execute(inventoryHistoryTable);
+
+            statement.execute(activitiesTable);
 
             statement.execute(suppliersTable);
+
+
+            // NEW SUPPLIER SYSTEM TABLES
+
+            statement.execute(supplierIngredientsTable);
+
+            statement.execute(purchasesTable);
+
+            statement.execute(purchaseItemsTable);
+
+
 
             statement.execute(recipesTable);
 
@@ -186,20 +327,30 @@ public class DatabaseInitializer {
 
             statement.execute(salesTable);
 
+
+
             statement.execute(ingredientIndex);
 
             statement.execute(productIndex);
 
             statement.execute(salesDateIndex);
 
-            System.out.println("Database tables created successfully");
 
-        } catch (Exception e) {
+
+            System.out.println(
+                    "Database tables created successfully"
+            );
+
+
+        }
+        catch(Exception e){
 
             e.printStackTrace();
 
         }
 
+
     }
+
 
 }

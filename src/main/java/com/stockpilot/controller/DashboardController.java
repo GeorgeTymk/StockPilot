@@ -1,5 +1,6 @@
 package com.stockpilot.controller;
 
+
 import com.stockpilot.model.Activity;
 import com.stockpilot.service.ActivityService;
 import com.stockpilot.service.DashboardService;
@@ -7,51 +8,39 @@ import com.stockpilot.service.IngredientService;
 import com.stockpilot.service.SaleService;
 import com.stockpilot.util.Navigator;
 
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
-
-import javafx.scene.chart.NumberAxis;
-
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.text.NumberFormat;
-import java.util.Locale;
-import java.util.Map;
 
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
 import javafx.fxml.FXML;
-import javafx.scene.Node;
+
 import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
+
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Tooltip;
+
 import javafx.scene.layout.VBox;
+
+
+import java.text.NumberFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
+import java.util.Map;
 
 
 
 public class DashboardController {
 
-        private void updateTrendLabels(){
 
+    private final DashboardService dashboardService =
+            new DashboardService();
 
-    String trend =
-            getSalesTrend();
-
-
-    // later we attach this
-    // to all percentage labels
-
-}
-
-        private final DashboardService dashboardService =
-        new DashboardService();
-
-        private final NumberFormat currencyFormat =
-        NumberFormat.getNumberInstance(Locale.US);
 
     private final SaleService saleService =
             new SaleService();
@@ -64,64 +53,44 @@ public class DashboardController {
     private final ActivityService activityService =
             new ActivityService();
 
-            private String getSalesTrend(){
 
 
-    double change =
-            dashboardService.getMonthlySalesChange();
+    private final NumberFormat currencyFormat =
+            NumberFormat.getNumberInstance(Locale.US);
 
-
-    if(change >= 0){
-
-        return String.format(
-                "+%.1f%% from last month",
-                change
-        );
-
-    }
-    else{
-
-        return String.format(
-                "%.1f%% from last month",
-                change
-        );
-
-    }
-
-}
 
 
     @FXML
-private SidebarController sidebarController;
+    private SidebarController sidebarController;
+
+
 
     @FXML
     private Label totalSalesLabel;
 
-
     @FXML
     private Label totalOrdersLabel;
-
 
     @FXML
     private Label todaySalesLabel;
 
-
     @FXML
     private Label bestSellerLabel;
-
 
     @FXML
     private Label lowStockLabel;
 
-
     @FXML
     private Label totalIngredientsLabel;
 
-@FXML
-private LineChart<String, Number> salesChart;
-
     @FXML
     private Label outOfStockLabel;
+
+
+
+    @FXML
+    private LineChart<String,Number> salesChart;
+
 
 
     @FXML
@@ -129,25 +98,37 @@ private LineChart<String, Number> salesChart;
 
 
 
-   @FXML
-public void initialize() {
 
-    loadDashboardStatistics();
-
-loadSalesChart();
-
-loadRecentActivity();
-
-updateTrendLabels();
-sidebarController.setActive("dashboard");
-
-}
+    @FXML
+    public void initialize(){
 
 
+        loadDashboardStatistics();
 
-    private void loadDashboardStatistics() {
 
-        
+        loadSalesChart();
+
+
+        loadRecentActivity();
+
+
+
+        if(sidebarController != null){
+
+            sidebarController.setActive("dashboard");
+
+        }
+
+
+    }
+
+
+
+
+
+
+    private void loadDashboardStatistics(){
+
 
         double totalSales =
                 saleService.getTotalSales();
@@ -164,17 +145,16 @@ sidebarController.setActive("dashboard");
         String bestSeller =
                 saleService.getBestSellingRecipe();
 
-                System.out.println("Best Seller: " + bestSeller);
 
 
         int lowStock =
                 ingredientService.getLowStockCount();
 
-                System.out.println("Low Stock: " + lowStock);
 
 
         int totalIngredients =
                 ingredientService.getIngredientCount();
+
 
 
         int outOfStock =
@@ -182,28 +162,37 @@ sidebarController.setActive("dashboard");
 
 
 
+
+
         if(totalSalesLabel != null)
-    totalSalesLabel.setText(
-            "MK " + currencyFormat.format(totalSales)
-            + ".00"
-    );
+            totalSalesLabel.setText(
+                    "MK "
+                    + currencyFormat.format(totalSales)
+                    + ".00"
+            );
+
 
 
         if(totalOrdersLabel != null)
-    totalOrdersLabel.setText(
-            currencyFormat.format(totalOrders)
-    );
+            totalOrdersLabel.setText(
+                    String.valueOf(totalOrders)
+            );
+
 
 
         if(todaySalesLabel != null)
-    todaySalesLabel.setText(
-            "MK " + currencyFormat.format(todaySales)
-            + ".00"
-    );
+            todaySalesLabel.setText(
+                    "MK "
+                    + currencyFormat.format(todaySales)
+                    + ".00"
+            );
+
 
 
         if(bestSellerLabel != null)
-            bestSellerLabel.setText(bestSeller);
+            bestSellerLabel.setText(
+                    bestSeller
+            );
 
 
 
@@ -213,10 +202,12 @@ sidebarController.setActive("dashboard");
             );
 
 
+
         if(totalIngredientsLabel != null)
             totalIngredientsLabel.setText(
                     String.valueOf(totalIngredients)
             );
+
 
 
         if(outOfStockLabel != null)
@@ -224,307 +215,459 @@ sidebarController.setActive("dashboard");
                     String.valueOf(outOfStock)
             );
 
+
     }
 
 
-private String formatChartDate(String date){
-
-    try{
-
-        java.time.LocalDate d =
-                java.time.LocalDate.parse(date);
 
 
-        return d.format(
-                java.time.format.DateTimeFormatter
-                .ofPattern("dd MMM yy")
+
+
+
+
+    private void loadRecentActivity(){
+
+
+        if(activityListView == null){
+
+            System.out.println(
+                    "activityListView not connected"
+            );
+
+            return;
+
+        }
+
+
+
+        setupActivityList();
+
+
+
+        ObservableList<Activity> activities =
+
+                FXCollections.observableArrayList(
+
+                        activityService.getRecentActivities()
+
+                );
+
+
+
+        System.out.println(
+                "Dashboard received: "
+                + activities.size()
         );
 
+
+
+        for(Activity activity : activities){
+
+            System.out.println(
+                    activity.getMessage()
+            );
+
+        }
+
+
+
+        activityListView.setItems(
+                activities
+        );
+
+
+        activityListView.refresh();
+
+
     }
-    catch(Exception e){
 
-        return date;
+
+
+
+
+
+
+
+    private void setupActivityList(){
+
+
+        activityListView.setCellFactory(list ->
+
+                new ListCell<Activity>(){
+
+
+                    @Override
+                    protected void updateItem(
+                            Activity activity,
+                            boolean empty
+                    ){
+
+
+                        super.updateItem(
+                                activity,
+                                empty
+                        );
+
+
+
+                        if(empty || activity == null){
+
+
+                            setGraphic(null);
+
+                            setText(null);
+
+                            return;
+
+                        }
+
+
+
+
+
+                        Label message =
+                                new Label(
+                                        activity.getMessage()
+                                );
+
+
+                        message.getStyleClass()
+                                .add(
+                                        "activity-title"
+                                );
+
+
+
+                        Label type =
+                                new Label(
+                                        activity.getType()
+                                                .toUpperCase()
+                                );
+
+
+
+                        switch(
+                                activity.getType()
+                                .toUpperCase()
+                        ){
+
+
+                            case "RESTOCK":
+
+                                type.getStyleClass()
+                                        .add(
+                                                "activity-restock"
+                                        );
+
+                                break;
+
+
+
+                            case "SALE":
+
+                                type.getStyleClass()
+                                        .add(
+                                                "activity-sale"
+                                        );
+
+                                break;
+
+
+
+                            default:
+
+                                type.getStyleClass()
+                                        .add(
+                                                "activity-default"
+                                        );
+
+                        }
+
+
+
+
+                        Label time =
+                                new Label(
+                                        activity.getTime()
+                                );
+
+
+
+                        time.getStyleClass()
+                                .add(
+                                        "activity-time"
+                                );
+
+
+
+
+
+                        VBox box =
+        new VBox(6);
+
+box.setPrefWidth(600);
+
+
+box.getChildren()
+        .addAll(
+                message,
+                type,
+                time
+        );
+
+
+
+                        box.getStyleClass()
+                                .add(
+                                        "activity-card"
+                                );
+
+
+
+                        setPrefHeight(80);
+
+
+
+                        setGraphic(box);
+
+
+                    }
+
+
+                }
+
+        );
+
 
     }
 
-}
 
 
-    private void loadRecentActivity() {
 
 
-        if(activityListView != null) {
 
 
-            setupActivityList();
 
 
-            ObservableList<Activity> activities =
-                    FXCollections.observableArrayList(
-                            activityService.getRecentActivities()
+
+    private void loadSalesChart(){
+
+
+        if(salesChart == null)
+            return;
+
+
+
+
+        if(salesChart.getYAxis() instanceof NumberAxis axis){
+
+
+            axis.setTickLabelFormatter(
+
+                    new NumberAxis.DefaultFormatter(
+                            axis,
+                            "MK ",
+                            ""
+                    )
+
+            );
+
+        }
+
+
+
+
+        XYChart.Series<String,Number> series =
+
+                new XYChart.Series<>();
+
+
+        series.setName("Sales");
+
+
+
+        Map<String,Double> sales =
+
+                saleService.getSalesOverview();
+
+
+
+
+        DateTimeFormatter formatter =
+
+                DateTimeFormatter.ofPattern(
+                        "dd MMM yy"
+                );
+
+
+
+
+        for(
+                Map.Entry<String,Double> entry :
+                sales.entrySet()
+        ){
+
+
+            LocalDate date =
+                    LocalDate.parse(
+                            entry.getKey()
                     );
 
 
-            activityListView.setItems(activities);
+
+            series.getData()
+                    .add(
+
+                            new XYChart.Data<>(
+
+                                    date.format(formatter),
+
+                                    entry.getValue()
+
+                            )
+
+                    );
 
         }
+
+
+
+
+        salesChart.getData()
+                .clear();
+
+
+        salesChart.getData()
+                .add(series);
+
+
+
+        Platform.runLater(() -> {
+
+
+            for(
+                    XYChart.Data<String,Number> data :
+                    series.getData()
+            ){
+
+
+                if(data.getNode()!=null){
+
+
+                    Tooltip.install(
+
+                            data.getNode(),
+
+                            new Tooltip(
+
+                                    data.getXValue()
+                                    +
+                                    "\nSales: MK "
+                                    +
+                                    String.format(
+                                            "%,.2f",
+                                            data.getYValue()
+                                    )
+
+                            )
+
+                    );
+
+
+                }
+
+            }
+
+
+        });
+
 
     }
 
 
 
-
-    private void setupActivityList() {
-
-    activityListView.setCellFactory(list -> new ListCell<Activity>() {
-
-        @Override
-        protected void updateItem(Activity activity, boolean empty) {
-
-            super.updateItem(activity, empty);
-
-            if (empty || activity == null) {
-
-                setText(null);
-                setGraphic(null);
-                return;
-
-            }
-
-            Label message = new Label(activity.getMessage());
-            message.getStyleClass().add("activity-title");
-
-            Label type = new Label(activity.getType().toUpperCase());
-
-            switch (activity.getType().toUpperCase()) {
-
-                case "RESTOCK":
-                    type.getStyleClass().add("activity-restock");
-                    break;
-
-                case "SALE":
-                    type.getStyleClass().add("activity-sale");
-                    break;
-
-                default:
-                    type.getStyleClass().add("activity-default");
-                    break;
-
-            }
-
-            Label time = new Label(activity.getTime());
-            time.getStyleClass().add("activity-time");
-
-            VBox box = new VBox(6);
-
-            box.getChildren().addAll(
-                    message,
-                    type,
-                    time
-            );
-
-            box.getStyleClass().add("activity-card");
-
-            setGraphic(box);
-
-        }
-
-    });
-
-}
 
 
 
 
     @FXML
-    private void openSellRecipe() {
+    private void openSellRecipe(){
 
         Navigator.goTo("sell_recipe.fxml");
 
     }
 
 
-
     @FXML
-    private void openInventory() {
+    private void openInventory(){
 
         Navigator.goTo("inventory.fxml");
 
     }
 
 
-
     @FXML
-    private void openSales() {
+    private void openSales(){
 
         Navigator.goTo("sales.fxml");
 
     }
 
 
-
     @FXML
-    private void openSalesHistory() {
+    private void openSalesHistory(){
 
         Navigator.goTo("sales_history.fxml");
 
     }
 
 
-
     @FXML
-    private void openRecipes() {
+    private void openRecipes(){
 
         Navigator.goTo("recipes.fxml");
 
     }
 
 
-
     @FXML
-    private void openSuppliers() {
+    private void openSuppliers(){
 
         Navigator.goTo("suppliers.fxml");
 
     }
 
 
-
     @FXML
-    private void openIngredients() {
+    private void openIngredients(){
 
         Navigator.goTo("ingredients.fxml");
 
     }
 
 
-
     @FXML
-    private void openLowStock() {
+    private void openLowStock(){
 
         Navigator.goTo("low_stock.fxml");
 
     }
 
 
-
     @FXML
-    private void openReports() {
+    private void openReports(){
 
         Navigator.goTo("reports.fxml");
 
     }
 
 
-
     @FXML
-    private void logout() {
+    private void logout(){
 
         Navigator.goTo("login.fxml");
 
     }
 
-private void loadSalesChart(){
-
-        if(salesChart.getYAxis() instanceof NumberAxis axis){
-
-    axis.setTickLabelFormatter(
-            new NumberAxis.DefaultFormatter(
-                    axis,
-                    "MK ",
-                    ""
-            )
-    );
-
-}
-
-    if(salesChart == null)
-        return;
-
-
-    XYChart.Series<String, Number> series =
-            new XYChart.Series<>();
-
-
-    series.setName("Sales");
-
-
-    Map<String, Double> sales =
-            saleService.getSalesOverview();
-
-
-    DateTimeFormatter formatter =
-            DateTimeFormatter.ofPattern("dd MMM yy");
-
-
-
-    for(Map.Entry<String, Double> entry : sales.entrySet()){
-
-
-        LocalDate date =
-                LocalDate.parse(entry.getKey());
-
-
-        XYChart.Data<String, Number> data =
-                new XYChart.Data<>(
-                        date.format(formatter),
-                        entry.getValue()
-                );
-
-
-        series.getData().add(data);
-
-    }
-
-
-
-    salesChart.getData().clear();
-
-salesChart.getData().add(series);
-
-salesChart.setAnimated(true);
-
-salesChart.setCreateSymbols(true);
-
-
-
-    Platform.runLater(() -> {
-
-
-        for(XYChart.Data<String, Number> data :
-                series.getData()){
-
-
-            if(data.getNode() != null){
-
-
-                Tooltip tooltip =
-                        new Tooltip(
-
-                                data.getXValue()
-                                +
-                                "\n\nSales: MK "
-                                +
-                                String.format(
-                                        "%,.2f",
-                                        data.getYValue()
-                                )
-
-                        );
-
-
-                Tooltip.install(
-                        data.getNode(),
-                        tooltip
-                );
-
-            }
-
-        }
-
-    });
-    
-
-}
 
 }

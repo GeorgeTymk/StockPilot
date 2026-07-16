@@ -14,9 +14,9 @@
 <VBox xmlns="http://javafx.com/javafx/21"
       xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="com.stockpilot.controller.SidebarController"
-      prefWidth="250"
-      minWidth="220"
-      maxWidth="280"
+      prefWidth="230"
+minWidth="260"
+maxWidth="260"
       alignment="TOP_LEFT"
       fillWidth="true"
       spacing="15"
@@ -25,10 +25,10 @@
 
     <padding>
 
-        <Insets top="20"
-                right="24"
-                bottom="24"
-                left="24"/>
+        <Insets top="25"
+        right="20"
+        bottom="25"
+        left="20"/>
 
     </padding>
 
@@ -56,7 +56,8 @@
 
 <Button fx:id="dashboardBtn"
         text="Dashboard"
-        styleClass="modern-sidebar-button sidebar-active">
+        styleClass="modern-sidebar-button sidebar-active"
+        onAction="#openDashboard">
 
     <graphic>
         <ImageView fitWidth="20" fitHeight="20">
@@ -208,6 +209,7 @@
 
 </VBox>
 
+<Region VBox.vgrow="ALWAYS"/>
 
 <Button text="Logout"
         styleClass="modern-sidebar-button"

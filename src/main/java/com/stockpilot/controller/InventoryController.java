@@ -13,57 +13,70 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.util.Optional;
 
+
 public class InventoryController {
 
-    @FXML
-    private SidebarController sidebarController;
 
     @FXML
     private TableView<Ingredient> ingredientTable;
 
+
     @FXML
     private TableColumn<Ingredient, String> nameColumn;
+
 
     @FXML
     private TableColumn<Ingredient, Double> quantityColumn;
 
+
     @FXML
     private TableColumn<Ingredient, String> unitColumn;
+
 
     @FXML
     private TableColumn<Ingredient, Double> minimumColumn;
 
+
+
     private final IngredientService ingredientService =
             new IngredientService();
+
+
 
     @FXML
     public void initialize() {
 
-        // Highlight Inventory in sidebar
-        if (sidebarController != null) {
-            sidebarController.setActive("inventory");
-        }
 
         nameColumn.setCellValueFactory(
                 new PropertyValueFactory<>("name")
         );
 
+
         quantityColumn.setCellValueFactory(
                 new PropertyValueFactory<>("quantity")
         );
+
 
         unitColumn.setCellValueFactory(
                 new PropertyValueFactory<>("unit")
         );
 
+
         minimumColumn.setCellValueFactory(
                 new PropertyValueFactory<>("minimumStock")
         );
 
+
         loadIngredients();
+
     }
 
+
+
+
+
     private void loadIngredients() {
+
 
         ingredientTable.setItems(
 
@@ -75,85 +88,134 @@ public class InventoryController {
 
         );
 
+
     }
+
+
+
+
 
     @FXML
     private void restockIngredient() {
 
+
         Ingredient ingredient =
-                ingredientTable.getSelectionModel().getSelectedItem();
+                ingredientTable.getSelectionModel()
+                        .getSelectedItem();
+
+
 
         if (ingredient == null) {
 
-            System.out.println("Please select an ingredient.");
+            System.out.println(
+                    "Please select an ingredient."
+            );
+
             return;
 
         }
 
+
+
         TextInputDialog dialog =
                 new TextInputDialog();
 
-        dialog.setTitle("Restock Ingredient");
+
+
+        dialog.setTitle(
+                "Restock Ingredient"
+        );
+
 
         dialog.setHeaderText(
                 "Restock " + ingredient.getName()
         );
 
+
         dialog.setContentText(
                 "Quantity to add:"
         );
 
+
+
         Optional<String> result =
                 dialog.showAndWait();
 
-        if (result.isPresent()) {
+
+
+        if(result.isPresent()) {
+
 
             try {
 
+
                 double amount =
-                        Double.parseDouble(result.get());
+                        Double.parseDouble(
+                                result.get()
+                        );
+
+
 
                 ingredientService.addStock(
-
                         ingredient.getId(),
-
                         amount
-
                 );
 
+
+
                 loadIngredients();
+
+
 
                 System.out.println(
                         "Ingredient restocked successfully."
                 );
 
-            } catch (NumberFormatException e) {
+
+            }
+            catch(NumberFormatException e) {
+
 
                 System.out.println(
                         "Please enter a valid number."
                 );
 
+
             }
+
 
         }
 
+
     }
+
+
+
+
 
     @FXML
     private void openHistory() {
+
 
         Navigator.goTo(
                 "inventory_history.fxml"
         );
 
+
     }
+
+
+
+
 
     @FXML
     private void goBack() {
 
+
         Navigator.goBack();
 
+
     }
-    
+
 
 }

@@ -1,54 +1,178 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
 
-<VBox spacing="20"
-      alignment="CENTER"
-      xmlns="http://javafx.com/javafx/21"
+<HBox xmlns="http://javafx.com/javafx/21"
       xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.stockpilot.controller.SalesController">
+      fx:controller="com.stockpilot.controller.SalesController"
+      spacing="0">
 
 
-    <Label text="Record Sale"
-           style="-fx-font-size:26px;"/>
+    <!-- SIDEBAR -->
 
-
-
-    <ComboBox fx:id="recipeComboBox"
-              promptText="Select Recipe"
-              prefWidth="250"/>
+    <fx:include source="sidebar.fxml"/>
 
 
 
-    <TextField fx:id="quantityField"
-               promptText="Quantity Sold"/>
+
+    <!-- PAGE CONTENT -->
+
+    <BorderPane HBox.hgrow="ALWAYS"
+                styleClass="page-container">
 
 
 
-    <Label text="Total:"/>
+        <!-- HEADER -->
+
+        <top>
 
 
-    <Label fx:id="totalLabel"
-           text="0"
-           style="-fx-font-size:20px;"/>
+            <HBox alignment="CENTER_LEFT"
+                  styleClass="page-header">
+
+
+                <padding>
+
+                    <Insets top="20"
+                            right="25"
+                            bottom="20"
+                            left="25"/>
+
+                </padding>
 
 
 
-    <HBox spacing="15">
+                <VBox spacing="5">
 
 
-        <Button text="Save Sale"
-                onAction="#saveSale"/>
+                    <Label text="Record Sale"
+                           styleClass="page-title"/>
+
+
+                    <Label text="Sell recipes and update inventory automatically"
+                           styleClass="subtitle"/>
+
+
+                </VBox>
+
+
+            </HBox>
+
+
+        </top>
 
 
 
-        <Button text="Back"
-                onAction="#goBack"/>
 
 
-    </HBox>
+        <!-- CONTENT -->
+
+        <center>
 
 
-</VBox>
+            <VBox spacing="20">
+
+
+                <padding>
+
+                    <Insets top="30"
+                            right="40"
+                            bottom="30"
+                            left="40"/>
+
+                </padding>
+
+
+
+
+
+                <Label text="Select Recipe"/>
+
+
+
+                <ComboBox fx:id="recipeComboBox"
+                          prefWidth="350"
+                          promptText="Choose recipe"/>
+
+
+
+
+                <Label text="Quantity Sold"/>
+
+
+
+                <TextField fx:id="quantityField"
+                           prefWidth="350"
+                           promptText="Enter quantity"/>
+
+
+
+
+
+
+                <HBox spacing="10">
+
+
+                    <Label text="Total:"
+                           styleClass="subtitle"/>
+
+
+                    <Label fx:id="totalLabel"
+                           text="0"
+                           styleClass="title"/>
+
+
+                </HBox>
+
+
+
+
+
+
+
+                <HBox spacing="15">
+
+
+
+                    <Button text="Save Sale"
+                            onAction="#saveSale"
+                            styleClass="primary-button"/>
+
+
+
+                    <Button text="Dashboard"
+                            onAction="#openDashboard"
+                            styleClass="secondary-button"/>
+
+
+
+                    <Button text="Back"
+                            onAction="#goBack"
+                            styleClass="secondary-button"/>
+
+
+
+                </HBox>
+
+
+
+
+
+            </VBox>
+
+
+
+        </center>
+
+
+
+
+    </BorderPane>
+
+
+
+
+</HBox>

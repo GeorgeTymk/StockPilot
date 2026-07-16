@@ -21,12 +21,7 @@ public class SupplierController {
     @FXML
     private TableView<Supplier> supplierTable;
 
-    @FXML
-private void goBack(){
 
-    Navigator.goBack();
-
-}
 
     @FXML
     private TableColumn<Supplier,Integer> idColumn;
@@ -51,6 +46,7 @@ private void goBack(){
 
     private final SupplierService supplierService =
             new SupplierService();
+
 
 
 
@@ -81,8 +77,8 @@ private void goBack(){
 
         loadSuppliers();
 
-
     }
+
 
 
 
@@ -93,7 +89,9 @@ private void goBack(){
         supplierTable.setItems(
 
                 FXCollections.observableArrayList(
+
                         supplierService.getAllSuppliers()
+
                 )
 
         );
@@ -104,11 +102,46 @@ private void goBack(){
 
 
 
+
+
+
     @FXML
     private void addSupplier(){
 
 
-        Navigator.goTo("add_supplier.fxml");
+        Navigator.goTo(
+                "add_supplier.fxml"
+        );
+
+
+    }
+
+
+
+
+
+    @FXML
+    private void openDashboard(){
+
+
+        Navigator.goTo(
+                "dashboard.fxml"
+        );
+
+
+    }
+
+
+
+
+
+
+
+    @FXML
+    private void goBack(){
+
+
+        Navigator.goBack();
 
 
     }

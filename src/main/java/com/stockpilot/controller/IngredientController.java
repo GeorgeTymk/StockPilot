@@ -541,7 +541,12 @@ public class IngredientController {
 
 
 
+@FXML
+private void openHistory() {
 
+    Navigator.goTo("inventory_history.fxml");
+
+}
 
 
 

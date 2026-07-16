@@ -6,27 +6,33 @@ import com.stockpilot.service.RecipeService;
 import com.stockpilot.service.SaleService;
 import com.stockpilot.util.Navigator;
 
+
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 
 
 
 public class SalesController {
 
 
+
     @FXML
     private ComboBox<Recipe> recipeComboBox;
+
 
 
     @FXML
     private TextField quantityField;
 
 
+
     @FXML
     private Label totalLabel;
+
+
 
 
 
@@ -42,6 +48,8 @@ public class SalesController {
 
 
 
+
+
     @FXML
     public void initialize(){
 
@@ -49,28 +57,26 @@ public class SalesController {
         recipeComboBox.setItems(
 
                 FXCollections.observableArrayList(
+
                         recipeService.getAllRecipes()
+
                 )
 
         );
 
 
 
-        // Update total when recipe changes
-
         recipeComboBox.setOnAction(
-                event -> calculateTotal()
+                e -> calculateTotal()
         );
 
 
 
-        // Update total when quantity changes
-
         quantityField.textProperty()
                 .addListener(
 
-                        (observable, oldValue, newValue) -> 
-                                calculateTotal()
+                        (obs,oldValue,newValue)
+                                -> calculateTotal()
 
                 );
 
@@ -84,7 +90,7 @@ public class SalesController {
 
 
     @FXML
-    public void calculateTotal(){
+    private void calculateTotal(){
 
 
         Recipe recipe =
@@ -93,7 +99,6 @@ public class SalesController {
 
 
         if(recipe == null){
-
 
             totalLabel.setText("0");
 
@@ -104,26 +109,23 @@ public class SalesController {
 
 
 
-
         try{
 
 
             int quantity =
                     Integer.parseInt(
-                            quantityField.getText().trim()
+                            quantityField.getText()
                     );
 
 
 
             if(quantity <= 0){
 
-
                 totalLabel.setText("0");
 
                 return;
 
             }
-
 
 
 
@@ -166,9 +168,8 @@ public class SalesController {
 
 
 
-
     @FXML
-    public void saveSale(){
+    private void saveSale(){
 
 
 
@@ -177,21 +178,11 @@ public class SalesController {
 
 
 
-
         if(recipe == null){
-
-
-            System.out.println(
-                    "Please select a recipe"
-            );
-
 
             return;
 
-
         }
-
-
 
 
 
@@ -199,32 +190,10 @@ public class SalesController {
         try{
 
 
-
             int quantity =
                     Integer.parseInt(
-                            quantityField.getText().trim()
+                            quantityField.getText()
                     );
-
-
-
-
-
-            if(quantity <= 0){
-
-
-                System.out.println(
-                        "Invalid quantity"
-                );
-
-
-                return;
-
-
-            }
-
-
-
-
 
 
 
@@ -232,9 +201,6 @@ public class SalesController {
                     recipe.getSellingPrice()
                     *
                     quantity;
-
-
-
 
 
 
@@ -254,19 +220,10 @@ public class SalesController {
 
 
 
-
-
             if(success){
 
 
-                System.out.println(
-                        "Sale completed successfully"
-                );
-
-
-
                 quantityField.clear();
-
 
 
                 recipeComboBox
@@ -278,37 +235,14 @@ public class SalesController {
                 totalLabel.setText("0");
 
 
-
-            }
-            else{
-
-
-                System.out.println(
-                        "Sale failed"
-                );
-
-
             }
 
-
-
-
-
-        }
-        catch(NumberFormatException e){
-
-
-            System.out.println(
-                    "Enter a valid quantity"
-            );
 
 
         }
         catch(Exception e){
 
-
             e.printStackTrace();
-
 
         }
 
@@ -323,9 +257,25 @@ public class SalesController {
 
 
 
+    @FXML
+    private void openDashboard(){
+
+
+        Navigator.goTo(
+                "dashboard.fxml"
+        );
+
+
+    }
+
+
+
+
+
+
 
     @FXML
-    public void goBack(){
+    private void goBack(){
 
 
         Navigator.goBack();

@@ -8,6 +8,7 @@ import com.stockpilot.util.Navigator;
 
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -17,30 +18,24 @@ import javafx.scene.control.cell.PropertyValueFactory;
 public class RecipeController {
 
 
-
     @FXML
     private TableView<Recipe> recipeTable;
-
 
 
     @FXML
     private TableColumn<Recipe, Integer> idColumn;
 
 
-
     @FXML
     private TableColumn<Recipe, String> nameColumn;
-
 
 
     @FXML
     private TableColumn<Recipe, String> descriptionColumn;
 
 
-
     @FXML
     private TableColumn<Recipe, Double> priceColumn;
-
 
 
 
@@ -49,16 +44,29 @@ public class RecipeController {
 
 
 
-
-    // Stores currently selected recipe
+    // Selected recipe shared with RecipeDetailsController
     public static Recipe selectedRecipe;
-
 
 
 
 
     @FXML
     public void initialize(){
+
+
+        setupColumns();
+
+
+        loadRecipes();
+
+
+    }
+
+
+
+
+
+    private void setupColumns(){
 
 
         idColumn.setCellValueFactory(
@@ -81,10 +89,8 @@ public class RecipeController {
         );
 
 
-        loadRecipes();
-
-
     }
+
 
 
 
@@ -96,19 +102,17 @@ public class RecipeController {
         recipeTable.setItems(
 
                 FXCollections.observableArrayList(
+
                         recipeService.getAllRecipes()
+
                 )
 
         );
 
 
-        System.out.println(
-                "Recipes loaded: "
-                + recipeTable.getItems().size()
-        );
-
-
     }
+
+
 
 
 
@@ -129,11 +133,15 @@ public class RecipeController {
 
 
 
+
+
     @FXML
     private void viewRecipe(){
 
 
+
         Recipe recipe =
+
                 recipeTable
                         .getSelectionModel()
                         .getSelectedItem();
@@ -143,26 +151,21 @@ public class RecipeController {
         if(recipe == null){
 
 
-            System.out.println(
-                    "Please select a recipe first"
+            showAlert(
+                    Alert.AlertType.WARNING,
+                    "No Recipe Selected",
+                    "Please select a recipe before viewing details."
             );
 
 
             return;
 
-
         }
 
 
 
+
         selectedRecipe = recipe;
-
-
-
-        System.out.println(
-                "Selected recipe: "
-                + recipe.getName()
-        );
 
 
 
@@ -171,7 +174,10 @@ public class RecipeController {
         );
 
 
+
     }
+
+
 
 
 
@@ -189,10 +195,63 @@ public class RecipeController {
 
 
 
+
+
+    @FXML
+    private void openDashboard(){
+
+
+        Navigator.goTo(
+                "dashboard.fxml"
+        );
+
+
+    }
+
+
+
+
+
+
     public void refresh(){
 
 
         loadRecipes();
+
+
+    }
+
+
+
+
+
+
+
+    private void showAlert(
+
+            Alert.AlertType type,
+
+            String title,
+
+            String message
+
+    ){
+
+
+        Alert alert =
+                new Alert(type);
+
+
+        alert.setTitle(title);
+
+
+        alert.setHeaderText(null);
+
+
+        alert.setContentText(message);
+
+
+        alert.showAndWait();
 
 
     }

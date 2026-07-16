@@ -57,6 +57,12 @@ private Button lowStockBtn;
         Navigator.goTo("suppliers.fxml");
     }
 
+    @FXML
+private void openDashboard(){
+
+    Navigator.goTo("dashboard.fxml");
+
+}
 
     @FXML
     private void openSales() {

@@ -24,27 +24,29 @@ public class SalesHistoryController {
 
 
     @FXML
-    private TableColumn<Sale, Integer> idColumn;
+    private TableColumn<Sale,Integer> idColumn;
 
 
 
     @FXML
-    private TableColumn<Sale, String> recipeColumn;
+    private TableColumn<Sale,String> recipeColumn;
 
 
 
     @FXML
-    private TableColumn<Sale, Integer> quantityColumn;
+    private TableColumn<Sale,Integer> quantityColumn;
 
 
 
     @FXML
-    private TableColumn<Sale, Double> totalColumn;
+    private TableColumn<Sale,Double> totalColumn;
 
 
 
     @FXML
-    private TableColumn<Sale, String> dateColumn;
+    private TableColumn<Sale,String> dateColumn;
+
+
 
 
 
@@ -55,8 +57,11 @@ public class SalesHistoryController {
 
 
 
+
+
     @FXML
     public void initialize(){
+
 
 
         idColumn.setCellValueFactory(
@@ -64,9 +69,11 @@ public class SalesHistoryController {
         );
 
 
+
         recipeColumn.setCellValueFactory(
                 new PropertyValueFactory<>("recipeName")
         );
+
 
 
         quantityColumn.setCellValueFactory(
@@ -74,9 +81,11 @@ public class SalesHistoryController {
         );
 
 
+
         totalColumn.setCellValueFactory(
                 new PropertyValueFactory<>("total")
         );
+
 
 
         dateColumn.setCellValueFactory(
@@ -95,7 +104,9 @@ public class SalesHistoryController {
 
 
 
+
     private void loadSales(){
+
 
 
         salesTable.setItems(
@@ -118,7 +129,7 @@ public class SalesHistoryController {
 
 
     @FXML
-    public void refreshSales(){
+    private void refreshSales(){
 
 
         loadSales();
@@ -133,7 +144,24 @@ public class SalesHistoryController {
 
 
     @FXML
-    public void goBack(){
+    private void openDashboard(){
+
+
+        Navigator.goTo(
+                "dashboard.fxml"
+        );
+
+
+    }
+
+
+
+
+
+
+
+    @FXML
+    private void goBack(){
 
 
         Navigator.goBack();

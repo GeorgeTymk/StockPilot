@@ -703,78 +703,12 @@
 
 
 
-<VBox spacing="12">
-
-    <!-- Activity 1 -->
-
-    <HBox spacing="15"
-          alignment="CENTER_LEFT"
-          styleClass="activity-item">
-
-        <StackPane styleClass="activity-green-dot"/>
-
-        <VBox HBox.hgrow="ALWAYS">
-
-            <Label text="Sale Completed"
-                   styleClass="activity-title"/>
-
-            <Label text="Burger Combo"
-                   styleClass="activity-subtitle"/>
-
-        </VBox>
-
-        <Label text="2 min ago"
-               styleClass="activity-time"/>
-
-    </HBox>
-
-    <!-- Activity 2 -->
-
-    <HBox spacing="15"
-          alignment="CENTER_LEFT"
-          styleClass="activity-item">
-
-        <StackPane styleClass="activity-yellow-dot"/>
-
-        <VBox HBox.hgrow="ALWAYS">
-
-            <Label text="Ingredient Updated"
-                   styleClass="activity-title"/>
-
-            <Label text="Chicken Breast"
-                   styleClass="activity-subtitle"/>
-
-        </VBox>
-
-        <Label text="10 min ago"
-               styleClass="activity-time"/>
-
-    </HBox>
-
-    <!-- Activity 3 -->
-
-    <HBox spacing="15"
-          alignment="CENTER_LEFT"
-          styleClass="activity-item">
-
-        <StackPane styleClass="activity-red-dot"/>
-
-        <VBox HBox.hgrow="ALWAYS">
-
-            <Label text="Low Stock Alert"
-                   styleClass="activity-title"/>
-
-            <Label text="Cooking Oil"
-                   styleClass="activity-subtitle"/>
-
-        </VBox>
-
-        <Label text="18 min ago"
-               styleClass="activity-time"/>
-
-    </HBox>
-
-</VBox>
+<ListView
+    fx:id="activityListView"
+    prefHeight="260"
+    prefWidth="650"
+    minHeight="260"
+    styleClass="activity-list"/>
 
 
 

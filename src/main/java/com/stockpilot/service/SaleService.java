@@ -16,11 +16,18 @@ public class SaleService {
 
 
 
+    private final InventoryHistoryService historyService =
+            new InventoryHistoryService();
+
+
+
+
     public boolean saveSale(
             int recipeId,
             int quantity,
             double total
     ){
+
 
         String saleSQL =
                 """
@@ -34,6 +41,7 @@ public class SaleService {
                 """;
 
 
+
         String ingredientSQL =
                 """
                 SELECT
@@ -44,6 +52,7 @@ public class SaleService {
                 """;
 
 
+
         String updateSQL =
                 """
                 UPDATE ingredients
@@ -52,34 +61,53 @@ public class SaleService {
                 """;
 
 
+
         try(
                 Connection connection = Database.connect()
         ){
 
+
             connection.setAutoCommit(false);
 
+
+
+            // SAVE SALE
 
             try(
                     PreparedStatement sale =
                             connection.prepareStatement(saleSQL)
             ){
 
+
                 sale.setInt(1, recipeId);
+
                 sale.setInt(2, quantity);
+
                 sale.setDouble(3, total);
 
+
                 sale.executeUpdate();
+
 
             }
 
 
+
+
+
+            // REDUCE INGREDIENT STOCK
 
             try(
                     PreparedStatement ingredient =
                             connection.prepareStatement(ingredientSQL)
             ){
 
-                ingredient.setInt(1, recipeId);
+
+                ingredient.setInt(
+                        1,
+                        recipeId
+                );
+
 
 
                 try(
@@ -87,13 +115,28 @@ public class SaleService {
                                 ingredient.executeQuery()
                 ){
 
+
+
                     while(rs.next()){
 
 
                         double reduction =
-                                rs.getDouble("quantity_used")
+                                rs.getDouble(
+                                        "quantity_used"
+                                )
                                 *
                                 quantity;
+
+
+
+
+                        int ingredientId =
+                                rs.getInt(
+                                        "ingredient_id"
+                                );
+
+
+
 
 
                         try(
@@ -101,37 +144,79 @@ public class SaleService {
                                         connection.prepareStatement(updateSQL)
                         ){
 
-                            update.setDouble(1,reduction);
+
+                            update.setDouble(
+                                    1,
+                                    reduction
+                            );
+
 
                             update.setInt(
                                     2,
-                                    rs.getInt("ingredient_id")
+                                    ingredientId
                             );
+
 
                             update.executeUpdate();
 
+
                         }
+
+
+
+
+
+                        // RECORD INVENTORY HISTORY
+
+                        historyService.recordMovement(
+
+                                ingredientId,
+
+                                "SALE",
+
+                                reduction
+
+                        );
+
+
 
                     }
 
+
+
                 }
+
 
             }
 
 
+
+
             connection.commit();
 
+
+
+            System.out.println(
+                    "Sale completed and stock updated"
+            );
+
+
             return true;
+
 
 
         }
         catch(Exception e){
 
+
             e.printStackTrace();
+
 
             return false;
 
+
         }
+
 
     }
 
@@ -139,10 +224,16 @@ public class SaleService {
 
 
 
+
+
+
+
     public List<Sale> getAllSales(){
+
 
         List<Sale> sales =
                 new ArrayList<>();
+
 
 
         String sql =
@@ -165,11 +256,16 @@ public class SaleService {
                 """;
 
 
+
         try(
-                Connection connection = Database.connect();
+
+                Connection connection =
+                        Database.connect();
+
 
                 PreparedStatement statement =
                         connection.prepareStatement(sql);
+
 
                 ResultSet result =
                         statement.executeQuery()
@@ -177,10 +273,12 @@ public class SaleService {
         ){
 
 
+
             while(result.next()){
 
 
                 sales.add(
+
                         new Sale(
 
                                 result.getInt("id"),
@@ -196,8 +294,67 @@ public class SaleService {
                                 result.getString("sale_date")
 
                         )
+
                 );
 
+
+            }
+
+
+
+        }
+        catch(Exception e){
+
+            e.printStackTrace();
+
+        }
+
+
+
+        return sales;
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+    public double getTotalSales(){
+
+
+        String sql =
+                """
+                SELECT IFNULL(SUM(total),0)
+                FROM sales
+                """;
+
+
+
+        try(
+
+                Connection connection =
+                        Database.connect();
+
+
+                PreparedStatement statement =
+                        connection.prepareStatement(sql);
+
+
+                ResultSet result =
+                        statement.executeQuery()
+
+        ){
+
+
+            if(result.next()){
+
+                return result.getDouble(1);
 
             }
 
@@ -210,56 +367,22 @@ public class SaleService {
         }
 
 
-        return sales;
-
-    }
-
-
-
-
-
-
-    public double getTotalSales(){
-
-        String sql =
-                """
-                SELECT IFNULL(SUM(total),0)
-                FROM sales
-                """;
-
-
-        try(
-                Connection connection = Database.connect();
-
-                PreparedStatement statement =
-                        connection.prepareStatement(sql);
-
-                ResultSet result =
-                        statement.executeQuery()
-
-        ){
-
-            if(result.next())
-                return result.getDouble(1);
-
-
-        }
-        catch(Exception e){
-
-            e.printStackTrace();
-
-        }
-
 
         return 0;
 
+
     }
+
+
+
+
 
 
 
 
 
     public int getTotalOrders(){
+
 
         String sql =
                 """
@@ -268,19 +391,29 @@ public class SaleService {
                 """;
 
 
+
         try(
-                Connection connection = Database.connect();
+
+                Connection connection =
+                        Database.connect();
+
 
                 PreparedStatement statement =
                         connection.prepareStatement(sql);
+
 
                 ResultSet result =
                         statement.executeQuery()
 
         ){
 
-            if(result.next())
+
+            if(result.next()){
+
                 return result.getInt(1);
+
+            }
+
 
         }
         catch(Exception e){
@@ -290,7 +423,9 @@ public class SaleService {
         }
 
 
+
         return 0;
+
 
     }
 
@@ -298,7 +433,12 @@ public class SaleService {
 
 
 
+
+
+
+
     public double getTodaySales(){
+
 
         String sql =
                 """
@@ -310,19 +450,29 @@ public class SaleService {
                 """;
 
 
+
         try(
-                Connection connection = Database.connect();
+
+                Connection connection =
+                        Database.connect();
+
 
                 PreparedStatement statement =
                         connection.prepareStatement(sql);
+
 
                 ResultSet result =
                         statement.executeQuery()
 
         ){
 
-            if(result.next())
+
+            if(result.next()){
+
                 return result.getDouble(1);
+
+            }
+
 
         }
         catch(Exception e){
@@ -332,7 +482,9 @@ public class SaleService {
         }
 
 
+
         return 0;
+
 
     }
 
@@ -342,10 +494,14 @@ public class SaleService {
 
 
 
-    public Map<String, Double> getSalesOverview(){
 
-        Map<String, Double> sales =
+
+    public Map<String,Double> getSalesOverview(){
+
+
+        Map<String,Double> sales =
                 new LinkedHashMap<>();
+
 
 
         String sql =
@@ -365,21 +521,29 @@ public class SaleService {
 
                 ORDER BY DATE(sale_date)
 
+
                 LIMIT 7
 
                 """;
 
 
+
         try(
-                Connection connection = Database.connect();
+
+                Connection connection =
+                        Database.connect();
+
 
                 PreparedStatement statement =
                         connection.prepareStatement(sql);
+
 
                 ResultSet result =
                         statement.executeQuery()
 
         ){
+
+
 
             while(result.next()){
 
@@ -404,9 +568,13 @@ public class SaleService {
         }
 
 
+
         return sales;
 
+
     }
+
+
 
 
 
@@ -436,19 +604,28 @@ public class SaleService {
                 """;
 
 
+
         try(
-                Connection connection = Database.connect();
+
+                Connection connection =
+                        Database.connect();
+
 
                 PreparedStatement statement =
                         connection.prepareStatement(sql);
+
 
                 ResultSet result =
                         statement.executeQuery()
 
         ){
 
-            if(result.next())
+
+            if(result.next()){
+
                 return result.getString("name");
+
+            }
 
 
         }
@@ -459,9 +636,12 @@ public class SaleService {
         }
 
 
+
         return "No sales yet";
 
+
     }
+
 
 
 }

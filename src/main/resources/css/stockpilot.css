@@ -223,64 +223,83 @@
 
 
 
-/* MAIN SIDEBAR This changes the side Bar colour........................*/
+/* ===========================
+   STOCKPILOT SIDEBAR
+   =========================== */
 
-.modern-sidebar{
+
+.modern-sidebar {
 
     -fx-background-color:
         linear-gradient(
             to bottom,
-            #0B3A3C 0%,
-            #082D2E 50%,
-            #062224 100%
+            #0B3A3C,
+            #062224
         );
 
     -fx-background-radius:28;
 
+    -fx-padding:24;
 
-    -fx-spacing:15;
+    -fx-spacing:14;
+
+    -fx-effect:
+        dropshadow(
+            gaussian,
+            rgba(15,23,42,0.18),
+            25,
+            0.15,
+            0,
+            8
+        );
+
 }
 
 
 
-.brand-title{
+/* BRAND */
+
+.brand-title {
 
     -fx-font-size:30px;
 
-    -fx-font-weight:800;
+    -fx-font-weight:900;
 
     -fx-text-fill:white;
 
 }
 
 
-
-.brand-subtitle{
+.brand-subtitle {
 
     -fx-font-size:13px;
 
-    -fx-text-fill:#A7F3D0;
+    -fx-text-fill:#86EFAC;
 
 }
 
 
 
+/* MENU BUTTONS */
 
-.modern-sidebar-button{
+.modern-sidebar-button {
 
-    -fx-background-color: transparent;
 
-    -fx-background-radius:16;
-
-    -fx-pref-height:52;
+    -fx-pref-height:50px;
 
     -fx-max-width:Infinity;
 
-    -fx-alignment:CENTER_LEFT;
+    -fx-background-color:transparent;
+
+    -fx-background-radius:16;
 
     -fx-padding:0 18;
 
-    -fx-spacing:16;
+
+    -fx-alignment:CENTER_LEFT;
+
+    -fx-spacing:15;
+
 
     -fx-text-fill:#D1D5DB;
 
@@ -294,17 +313,22 @@
 
 
 
-.page-subtitle {
+/* ICONS */
 
-    -fx-font-size: 17px;
+.modern-sidebar-button .graphic {
 
-    -fx-text-fill: #64748B;
+    -fx-padding:0 8 0 0;
 
 }
 
-.modern-sidebar-button:hover{
 
-    -fx-background-color:#114B26;
+
+/* HOVER */
+
+.modern-sidebar-button:hover {
+
+
+    -fx-background-color:#14532D;
 
     -fx-text-fill:white;
 
@@ -312,71 +336,78 @@
 
 
 
-.sidebar-active{
+/* ACTIVE PAGE */
+
+.sidebar-active {
+
 
     -fx-background-color:#16A34A;
 
-    -fx-background-radius:16;
-
     -fx-text-fill:white;
 
-    -fx-effect:dropshadow(
-        gaussian,
-        rgba(34,197,94,.35),
-        18,
-        .30,
-        0,
-        3
-    );
+
+    -fx-effect:
+
+        dropshadow(
+            gaussian,
+            rgba(34,197,94,.35),
+            15,
+            .2,
+            0,
+            3
+        );
 
 }
 
-.sidebar-active:hover{
+
+
+.sidebar-active:hover {
+
 
     -fx-background-color:#22C55E;
-}
 
+}
 
 
 
 /* PROFILE */
 
 
-.profile-box{
+.profile-box {
 
-    -fx-background-color:#0F3F21;
+
+    -fx-background-color:#0F5132;
 
     -fx-background-radius:18;
 
-    -fx-padding:18;
+    -fx-padding:16;
 
-    -fx-spacing:4;
 
 }
 
 
 
-.profile-name{
+.profile-name {
+
 
     -fx-font-size:15px;
 
-    -fx-font-weight:700;
+    -fx-font-weight:bold;
 
     -fx-text-fill:white;
 
 }
 
-.profile-role{
+
+
+.profile-role {
+
 
     -fx-font-size:12px;
 
-    -fx-text-fill:#A7F3D0;
+    -fx-text-fill:#BBF7D0;
 
 }
-
-
-
-/* FLOATING DASHBOARD */
 
 
 .floating-dashboard{
@@ -569,8 +600,7 @@
 
 
 
-/* ACTIVITY */
-
+/* ACTIVITY PANEL */
 
 .activity-panel{
 
@@ -594,23 +624,112 @@
         0,
         5
     );
+
 }
 
 
 
 .section-title {
 
-    -fx-font-size: 18px;
+    -fx-font-size:18px;
 
-    -fx-font-weight: bold;
+    -fx-font-weight:bold;
 
 }
 
 
 
-.modern-activity-list {
 
-    -fx-background-radius: 15;
+/* LIST */
+
+.activity-list {
+
+    -fx-background-color:transparent;
+
+    -fx-border-color:transparent;
+
+    -fx-padding:5;
+
+}
+
+
+
+.activity-list .list-cell {
+
+    -fx-background-color:transparent;
+
+    -fx-padding:8;
+
+}
+
+
+
+.activity-list .list-cell:filled {
+
+    -fx-background-color:transparent;
+
+}
+
+
+
+
+/* CARD INSIDE CELL */
+
+.activity-card {
+
+    -fx-background-color:white;
+
+    -fx-background-radius:12;
+
+    -fx-border-color:#eeeeee;
+
+    -fx-border-radius:12;
+
+    -fx-padding:14;
+
+}
+
+
+
+
+
+.activity-title {
+
+    -fx-font-size:14px;
+
+    -fx-font-weight:bold;
+
+    -fx-text-fill:#1f2937;
+
+}
+
+
+
+.activity-time {
+
+    -fx-font-size:12px;
+
+    -fx-text-fill:#6b7280;
+
+}
+
+
+
+.activity-restock {
+
+    -fx-text-fill:#16a34a;
+
+    -fx-font-size:11px;
+
+}
+
+
+
+.activity-sale {
+
+    -fx-text-fill:#dc2626;
+
+    -fx-font-size:11px;
 
 }
 
@@ -618,11 +737,11 @@
 
 .small-action-button {
 
-    -fx-background-color: #eff6ff;
+    -fx-background-color:#eff6ff;
 
-    -fx-text-fill: #2563eb;
+    -fx-text-fill:#2563eb;
 
-    -fx-background-radius: 10;
+    -fx-background-radius:10;
 
 }
 
@@ -1238,6 +1357,24 @@ rgba(15,23,42,0.12),
             0,
             0,
             5
+        );
+
+}
+
+.app-frame{
+
+    -fx-background-color:white;
+
+    -fx-background-radius:28;
+
+    -fx-effect:
+        dropshadow(
+            gaussian,
+            rgba(15,23,42,0.12),
+            35,
+            0.15,
+            0,
+            8
         );
 
 }

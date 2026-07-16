@@ -1,69 +1,173 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
 
-<BorderPane xmlns="http://javafx.com/javafx/21"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.stockpilot.controller.LowStockController">
+<HBox xmlns="http://javafx.com/javafx/21"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.stockpilot.controller.LowStockController"
+      spacing="0">
 
 
-    <top>
+    <!-- SHARED SIDEBAR -->
 
-        <HBox spacing="20"
-              style="-fx-background-color:#1e293b;
-                     -fx-padding:15;">
-
-            <Label text="LOW STOCK WARNING"
-                   style="-fx-text-fill:white;
-                          -fx-font-size:20px;
-                          -fx-font-weight:bold;"/>
-
-        </HBox>
-
-    </top>
+    <fx:include source="sidebar.fxml"/>
 
 
 
-    <center>
 
-        <TableView fx:id="lowStockTable">
+    <!-- PAGE CONTENT -->
 
-
-            <columns>
-
-
-                <TableColumn fx:id="nameColumn"
-                             text="Ingredient"
-                             prefWidth="200"/>
+    <BorderPane HBox.hgrow="ALWAYS"
+                styleClass="page-container">
 
 
-                <TableColumn fx:id="quantityColumn"
-                             text="Current Quantity"
-                             prefWidth="150"/>
+
+        <!-- HEADER -->
+
+        <top>
 
 
-                <TableColumn fx:id="minimumColumn"
-                             text="Minimum Stock"
-                             prefWidth="150"/>
+            <HBox alignment="CENTER_LEFT"
+                  styleClass="page-header">
 
 
-                <TableColumn fx:id="unitColumn"
-                             text="Unit"
-                             prefWidth="100"/>
+                <padding>
+
+                    <Insets top="20"
+                            right="25"
+                            bottom="20"
+                            left="25"/>
+
+                </padding>
 
 
-            </columns>
+
+                <VBox spacing="5">
 
 
-        </TableView>
-<Button
-        text="← Back"
-        onAction="#goBack"
-        prefWidth="100"/>
-
-    </center>
+                    <Label text="Low Stock Warning"
+                           styleClass="page-title"/>
 
 
-</BorderPane>
+                    <Label text="Ingredients requiring attention"
+                           styleClass="subtitle"/>
+
+
+                </VBox>
+
+
+
+            </HBox>
+
+
+        </top>
+
+
+
+
+
+
+        <!-- CONTENT -->
+
+        <center>
+
+
+            <VBox spacing="20">
+
+
+                <padding>
+
+                    <Insets top="25"
+                            right="25"
+                            bottom="25"
+                            left="25"/>
+
+                </padding>
+
+
+
+
+
+                <TableView fx:id="lowStockTable"
+                           VBox.vgrow="ALWAYS">
+
+
+
+                    <columns>
+
+
+
+                        <TableColumn fx:id="nameColumn"
+                                     text="Ingredient"
+                                     prefWidth="250"/>
+
+
+
+                        <TableColumn fx:id="quantityColumn"
+                                     text="Current Quantity"
+                                     prefWidth="180"/>
+
+
+
+                        <TableColumn fx:id="minimumColumn"
+                                     text="Minimum Stock"
+                                     prefWidth="180"/>
+
+
+
+                        <TableColumn fx:id="unitColumn"
+                                     text="Unit"
+                                     prefWidth="120"/>
+
+
+
+                    </columns>
+
+
+
+                </TableView>
+
+
+
+
+
+
+                <HBox spacing="15"
+                      alignment="CENTER_LEFT">
+
+
+                    <Button text="Refresh"
+                            onAction="#refresh"
+                            styleClass="primary-button"/>
+
+
+
+                    <Button text="Back"
+                            onAction="#goBack"
+                            styleClass="secondary-button"/>
+
+
+                </HBox>
+
+
+
+
+
+            </VBox>
+
+
+
+        </center>
+
+
+
+
+
+    </BorderPane>
+
+
+
+</HBox>

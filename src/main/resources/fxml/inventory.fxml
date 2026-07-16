@@ -1,121 +1,200 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.fxml.FXMLLoader?>
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
 
-<HBox xmlns="http://javafx.com/javafx/21"
-      xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.stockpilot.controller.InventoryController">
+<StackPane xmlns="http://javafx.com/javafx/21"
+           xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="com.stockpilot.controller.InventoryController"
+           styleClass="dashboard-background">
+
+           
 
 
-    <!-- REUSABLE SIDEBAR -->
+    <stylesheets>
 
-    <fx:include fx:id="sidebar"
-            source="sidebar.fxml"/>
+        <URL value="@../css/stockpilot.css"/>
+        <URL value="@../css/dashboard.css"/>
 
-
-
-    <!-- INVENTORY CONTENT -->
-
-    <BorderPane HBox.hgrow="ALWAYS">
+    </stylesheets>
 
 
-        <top>
 
-            <HBox spacing="20"
-                  alignment="CENTER_LEFT"
-                  style="-fx-background-color:#1e293b;">
+    <!-- FLOATING APPLICATION FRAME -->
+
+    <HBox spacing="8"
+      styleClass="app-frame">
+
+
+        <padding>
+
+            <Insets top="20"
+        right="20"
+        bottom="20"
+        left="20"/>
+
+        </padding>
+
+
+
+
+        <!-- SIDEBAR -->
+
+        <fx:include fx:id="sidebar"
+                    source="sidebar.fxml"/>
+
+
+
+
+
+        <!-- MAIN CONTENT -->
+
+        <StackPane HBox.hgrow="ALWAYS">
+
+
+            <VBox spacing="20"
+                  styleClass="floating-dashboard">
+
+
 
                 <padding>
-                    <Insets top="20"
-                            right="20"
-                            bottom="20"
-                            left="20"/>
+
+                    <Insets top="30"
+                            right="35"
+                            bottom="30"
+                            left="35"/>
+
                 </padding>
 
 
-                <Label text="Ingredient Inventory"
-                       style="-fx-text-fill:white;
-                              -fx-font-size:22px;
-                              -fx-font-weight:bold;"/>
-
-
-            </HBox>
-
-        </top>
 
 
 
-        <center>
+                <!-- HEADER -->
 
-            <VBox spacing="20">
-
-                <padding>
-                    <Insets top="20"
-                            right="20"
-                            bottom="20"
-                            left="20"/>
-                </padding>
+                <HBox alignment="CENTER_LEFT"
+                      spacing="20">
 
 
-
-                <TableView fx:id="ingredientTable">
-
-
-                    <columns>
+                    <VBox HBox.hgrow="ALWAYS"
+                          spacing="5">
 
 
-                        <TableColumn fx:id="nameColumn"
-                                     text="Ingredient"/>
+                        <Label text="Inventory"
+                               styleClass="page-title"/>
 
 
-                        <TableColumn fx:id="quantityColumn"
-                                     text="Quantity"/>
+                        <Label text="Manage restaurant ingredients and stock levels"
+                               styleClass="page-subtitle"/>
 
 
-                        <TableColumn fx:id="unitColumn"
-                                     text="Unit"/>
+                    </VBox>
 
 
-                        <TableColumn fx:id="minimumColumn"
-                                     text="Minimum Stock"/>
 
 
-                    </columns>
+                    <TextField promptText="Search ingredients..."
+                               styleClass="dashboard-search"/>
 
 
-                </TableView>
+
+                    <Button text="+ Restock"
+                            styleClass="green-action-button"
+                            onAction="#restockIngredient"/>
+
+
+                </HBox>
+
+
+
+
+
+
+
+                <!-- TABLE -->
+
+                <VBox spacing="15"
+                      VBox.vgrow="ALWAYS"
+                      styleClass="chart-card">
+
+
+                    <Label text="Ingredient Inventory"
+                           styleClass="section-title"/>
+
+
+
+                    <TableView fx:id="ingredientTable"
+                               VBox.vgrow="ALWAYS"
+                               styleClass="inventory-table">
+
+
+                        <columns>
+
+
+                            <TableColumn fx:id="nameColumn"
+                                         text="Ingredient"
+                                         prefWidth="250"/>
+
+
+                            <TableColumn fx:id="quantityColumn"
+                                         text="Quantity"
+                                         prefWidth="150"/>
+
+
+                            <TableColumn fx:id="unitColumn"
+                                         text="Unit"
+                                         prefWidth="150"/>
+
+
+                            <TableColumn fx:id="minimumColumn"
+                                         text="Minimum Stock"
+                                         prefWidth="180"/>
+
+
+                        </columns>
+
+
+                    </TableView>
+
+
+                </VBox>
+
+
+
 
 
 
                 <HBox spacing="15">
 
 
-                    <Button text="Restock"
-                            onAction="#restockIngredient"/>
-
-
                     <Button text="Inventory History"
+                            styleClass="secondary-action"
                             onAction="#openHistory"/>
 
 
+
                     <Button text="Back"
+                            styleClass="secondary-action"
                             onAction="#goBack"/>
 
 
                 </HBox>
 
 
+
             </VBox>
 
 
-        </center>
+
+        </StackPane>
 
 
-    </BorderPane>
+
+    </HBox>
 
 
-</HBox>
+
+</StackPane>

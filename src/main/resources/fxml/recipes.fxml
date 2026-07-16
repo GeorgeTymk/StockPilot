@@ -4,140 +4,110 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<HBox xmlns="http://javafx.com/javafx/21"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.stockpilot.controller.RecipeController"
+      spacing="0">
 
-<BorderPane xmlns="http://javafx.com/javafx/21"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.stockpilot.controller.RecipeController">
+    <!-- SHARED SIDEBAR -->
+    <fx:include source="sidebar.fxml"/>
 
+    <!-- PAGE CONTENT -->
+    <BorderPane HBox.hgrow="ALWAYS"
+                styleClass="page-container">
 
-    <!-- TOP HEADER -->
+        <!-- HEADER -->
+        <top>
 
-    <top>
+            <HBox alignment="CENTER_LEFT"
+                  styleClass="page-header">
 
-        <VBox spacing="10">
+                <padding>
+                    <Insets top="20"
+                            right="25"
+                            bottom="20"
+                            left="25"/>
+                </padding>
 
-            <padding>
-                <Insets top="25"
-                        right="30"
-                        bottom="20"
-                        left="30"/>
-            </padding>
+                <VBox spacing="5">
 
+                    <Label text="Recipes"
+                           styleClass="page-title"/>
 
-            <Label text="Recipes"
-                   styleClass="title"/>
+                    <Label text="Manage restaurant recipes"
+                           styleClass="subtitle"/>
 
-
-            <Label text="Manage restaurant recipes"
-                   styleClass="subtitle"/>
-
-
-        </VBox>
-
-    </top>
-
-
-
-
-
-    <!-- CENTER CONTENT -->
-
-    <center>
-
-
-        <VBox spacing="20">
-
-
-            <padding>
-                <Insets top="20"
-                        right="30"
-                        bottom="20"
-                        left="30"/>
-            </padding>
-
-
-
-
-
-            <!-- RECIPE TABLE -->
-
-            <TableView fx:id="recipeTable"
-                       prefHeight="450">
-
-
-                <columns>
-
-
-                    <TableColumn fx:id="idColumn"
-                                 text="ID"
-                                 prefWidth="80"/>
-
-
-
-                    <TableColumn fx:id="nameColumn"
-                                 text="Recipe Name"
-                                 prefWidth="220"/>
-
-
-
-                    <TableColumn fx:id="descriptionColumn"
-                                 text="Description"
-                                 prefWidth="350"/>
-
-
-
-                    <TableColumn fx:id="priceColumn"
-                                 text="Selling Price"
-                                 prefWidth="150"/>
-
-
-                </columns>
-
-
-            </TableView>
-
-
-
-
-
-
-
-            <!-- BUTTON AREA -->
-
-
-            <HBox spacing="15"
-                  alignment="CENTER_LEFT">
-
-
-
-                <Button text="Add Recipe"
-                        onAction="#addRecipe"
-                        styleClass="login-button"/>
-
-
-
-                <Button text="View Recipe"
-                        onAction="#viewRecipe"
-                        styleClass="login-button"/>
-
-
-
-                <Button text="Back"
-                        onAction="#goBack"
-                        styleClass="login-button"/>
-
-
+                </VBox>
 
             </HBox>
 
+        </top>
 
+        <!-- CENTER -->
+        <center>
 
+            <VBox spacing="20"
+                  fillWidth="true">
 
-        </VBox>
+                <padding>
+                    <Insets top="25"
+                            right="25"
+                            bottom="25"
+                            left="25"/>
+                </padding>
 
+                <!-- TABLE -->
+                <TableView fx:id="recipeTable"
+                           VBox.vgrow="ALWAYS">
 
-    </center>
+                    <columns>
 
+                        <TableColumn fx:id="idColumn"
+                                     text="ID"
+                                     prefWidth="80"/>
 
+                        <TableColumn fx:id="nameColumn"
+                                     text="Recipe Name"
+                                     prefWidth="220"/>
 
-</BorderPane>
+                        <TableColumn fx:id="descriptionColumn"
+                                     text="Description"
+                                     prefWidth="350"/>
+
+                        <TableColumn fx:id="priceColumn"
+                                     text="Selling Price"
+                                     prefWidth="150"/>
+
+                    </columns>
+
+                </TableView>
+
+                <!-- BUTTONS -->
+                <HBox spacing="15"
+                      alignment="CENTER_LEFT">
+
+                    <Button text="Add Recipe"
+                            styleClass="primary-button"
+                            onAction="#addRecipe"/>
+
+                    <Button text="View Recipe"
+                            styleClass="primary-button"
+                            onAction="#viewRecipe"/>
+
+                            <Button text="Dashboard"
+        onAction="#openDashboard"
+        styleClass="secondary-button"/>
+
+                    <Button text="Back"
+                            styleClass="secondary-button"
+                            onAction="#goBack"/>
+
+                </HBox>
+
+            </VBox>
+
+        </center>
+
+    </BorderPane>
+
+</HBox>

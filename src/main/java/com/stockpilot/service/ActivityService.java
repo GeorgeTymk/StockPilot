@@ -3,6 +3,8 @@ package com.stockpilot.service;
 import com.stockpilot.database.Database;
 import com.stockpilot.model.Activity;
 
+import java.text.DecimalFormat;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,6 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ActivityService {
+
+        private final DecimalFormat quantityFormat =
+        new DecimalFormat("0.##");
 
     public List<Activity> getRecentActivities() {
 
@@ -30,7 +35,7 @@ public class ActivityService {
                 JOIN ingredients
                     ON ingredients.id = inventory_history.ingredient_id
 
-                ORDER BY inventory_history.created_at DESC
+                ORDER BY inventory_history.id DESC
 
                 LIMIT 10
                 """;
@@ -69,19 +74,23 @@ public class ActivityService {
 
                     case "RESTOCK":
 
-                        message =
-                                "🟢 Restocked "
-                                + ingredientName
-                                + " (+" + quantity + ")";
+    message =
+            "🟢 Restocked "
+            + ingredientName
+            + " (+"
+            + quantityFormat.format(quantity)
+            + ")";
 
-                        break;
+    break;
 
                     case "SALE":
 
-                        message =
-                                "🔴 Used "
-                                + ingredientName
-                                + " (-" + quantity + ")";
+                       message =
+        "🔴 Used "
+        + ingredientName
+        + " (-"
+        + quantityFormat.format(quantity)
+        + ")";
 
                         break;
 
@@ -117,7 +126,18 @@ public class ActivityService {
 
         }
 
+                System.out.println(
+    "Activities loaded: "
+    + activities.size()
+);
+System.out.println("Activities found: " + activities.size());
+
+for (Activity activity : activities) {
+    System.out.println(activity.getMessage());
+}
         return activities;
+
+
 
     }
 
