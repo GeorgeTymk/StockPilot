@@ -10,13 +10,15 @@
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.NumberAxis?>
 
-<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+  
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
+
+<?import org.kordamp.ikonli.javafx.FontIcon?>
 
 <StackPane xmlns="http://javafx.com/javafx/21"
            xmlns:fx="http://javafx.com/fxml/1"
@@ -40,15 +42,15 @@
 
 <HBox spacing="0"
       alignment="TOP_LEFT"
-      AnchorPane.topAnchor="25.0"
-      AnchorPane.bottomAnchor="25.0"
-      AnchorPane.leftAnchor="25.0"
-      AnchorPane.rightAnchor="25.0">
+      AnchorPane.topAnchor="30.0"
+      AnchorPane.bottomAnchor="30.0"
+      AnchorPane.leftAnchor="30.0"
+      AnchorPane.rightAnchor="30.0">
 
 
     <!-- SIDEBAR -->
 
-    <fx:include fx:id="sidebar" source="sidebar.fxml"/>
+
 
 
     <!-- FLOATING WHITE DASHBOARD -->
@@ -59,8 +61,10 @@
                 styleClass="dashboard-scroll">
 
             <VBox fillWidth="true"
+            HBox.hgrow="ALWAYS"
       spacing="15"
       styleClass="floating-dashboard">
+      
 
 
             <padding>
@@ -189,10 +193,9 @@
 
                 <StackPane>
 
-                    <FontAwesomeIconView
-        glyphName="USD"
-        size="24"
-        styleClass="green-card-icon"/>
+                     <FontIcon iconLiteral="fas-money-bill"
+          iconSize="20"
+          styleClass="card-icon"/>
 
                 </StackPane>
 
@@ -246,10 +249,9 @@
 
                 <StackPane>
 
-                    <FontAwesomeIconView
-                            glyphName="FILE_TEXT"
-                            size="24"
-                            styleClass="green-card-icon"/>
+                    <FontIcon iconLiteral="fas-shopping-cart"
+          iconSize="20"
+          styleClass="card-icon"/>
 
                 </StackPane>
 
@@ -309,10 +311,9 @@
                 <StackPane>
 
 
-                    <FontAwesomeIconView
-                            glyphName="USD"
-                            size="24"
-                            styleClass="green-card-icon"/>
+                    <FontIcon iconLiteral="fas-calendar"
+          iconSize="20"
+          styleClass="card-icon"/>
 
 
                 </StackPane>
@@ -374,10 +375,9 @@
                 <StackPane>
 
 
-                    <FontAwesomeIconView
-                            glyphName="STAR"
-                            size="24"
-                            styleClass="green-card-icon"/>
+                    <FontIcon iconLiteral="fas-star"
+          iconSize="20"
+          styleClass="card-icon"/>
 
 
                 </StackPane>
@@ -458,10 +458,9 @@
 
 
 
-                <FontAwesomeIconView
-        glyphName="WARNING"
-        size="24"
-        styleClass="orange-card-icon"/>
+                <FontIcon iconLiteral="fas-exclamation-triangle"
+          iconSize="20"
+          styleClass="low-stock-icon"/>
 
 
 
@@ -509,10 +508,9 @@
 
 
 
-                <FontAwesomeIconView
-                        glyphName="LEAF"
-                        size="24"
-                        styleClass="green-card-icon"/>
+              <FontIcon iconLiteral="fas-cube"
+          iconSize="20"
+          styleClass="card-icon"/>
 
 
 
@@ -560,10 +558,9 @@
 
 
 
-                <FontAwesomeIconView
-        glyphName="EXCLAMATION_TRIANGLE"
-        size="24"
-        styleClass="red-card-icon"/>
+               <FontIcon iconLiteral="fas-times-circle"
+          iconSize="20"
+          styleClass="out-stock-icon"/>
 
 
 

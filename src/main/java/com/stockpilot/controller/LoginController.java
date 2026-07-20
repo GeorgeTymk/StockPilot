@@ -47,13 +47,14 @@ public class LoginController {
     public void initialize() {
 
 
-        if(root != null) {
+        if (root != null) {
 
 
-            FadeTransition fade = new FadeTransition(
-                    Duration.millis(900),
-                    root
-            );
+            FadeTransition fade =
+                    new FadeTransition(
+                            Duration.millis(900),
+                            root
+                    );
 
 
             fade.setFromValue(0);
@@ -61,6 +62,7 @@ public class LoginController {
             fade.setToValue(1);
 
             fade.play();
+
 
 
 
@@ -95,40 +97,62 @@ public class LoginController {
 
 
 
-        String username = usernameField.getText();
+        String username =
+                usernameField.getText();
 
-        String password = passwordField.getText();
+
+
+        String password =
+                passwordField.getText();
+
 
 
 
 
         boolean success =
-                authService.authenticate(username, password);
+                authService.authenticate(
+                        username,
+                        password
+                );
 
 
 
 
-        if(success) {
+
+        if (success) {
 
 
-            System.out.println("Login successful");
+            System.out.println(
+                    "Login successful"
+            );
 
 
-            Navigator.goTo("dashboard.fxml");
+
+            /*
+             * Load the main application shell.
+             * The sidebar stays fixed here.
+             * Pages load inside contentArea.
+             */
+
+            Navigator.goTo(
+                    "shell/MainShell.fxml"
+            );
 
 
+        } 
+        else {
 
-        } else {
 
-
-            System.out.println("Invalid username or password");
+            System.out.println(
+                    "Invalid username or password"
+            );
 
 
         }
 
 
-
     }
+
 
 
 

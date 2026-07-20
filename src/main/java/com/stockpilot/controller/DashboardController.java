@@ -60,31 +60,35 @@ public class DashboardController {
 
 
 
-    @FXML
-    private SidebarController sidebarController;
-
 
 
     @FXML
     private Label totalSalesLabel;
 
+
     @FXML
     private Label totalOrdersLabel;
+
 
     @FXML
     private Label todaySalesLabel;
 
+
     @FXML
     private Label bestSellerLabel;
+
 
     @FXML
     private Label lowStockLabel;
 
+
     @FXML
     private Label totalIngredientsLabel;
 
+
     @FXML
     private Label outOfStockLabel;
+
 
 
 
@@ -95,6 +99,9 @@ public class DashboardController {
 
     @FXML
     private ListView<Activity> activityListView;
+
+
+
 
 
 
@@ -112,14 +119,6 @@ public class DashboardController {
         loadRecentActivity();
 
 
-
-        if(sidebarController != null){
-
-            sidebarController.setActive("dashboard");
-
-        }
-
-
     }
 
 
@@ -127,19 +126,31 @@ public class DashboardController {
 
 
 
+
+
+
+    // =====================================================
+    // DASHBOARD NUMBERS
+    // =====================================================
+
+
     private void loadDashboardStatistics(){
+
 
 
         double totalSales =
                 saleService.getTotalSales();
 
 
+
         int totalOrders =
                 saleService.getTotalOrders();
 
 
+
         double todaySales =
                 saleService.getTodaySales();
+
 
 
         String bestSeller =
@@ -147,15 +158,25 @@ public class DashboardController {
 
 
 
+
+
+        /*
+         LOW STOCK:
+         quantity is above zero
+         but below minimum level
+        */
+
         int lowStock =
                 ingredientService.getLowStockCount();
 
 
 
-        int totalIngredients =
-                ingredientService.getIngredientCount();
 
 
+        /*
+         OUT OF STOCK:
+         quantity is zero or below
+        */
 
         int outOfStock =
                 ingredientService.getOutOfStockCount();
@@ -164,56 +185,124 @@ public class DashboardController {
 
 
 
-        if(totalSalesLabel != null)
+        int totalIngredients =
+                ingredientService.getIngredientCount();
+
+
+
+
+
+
+
+
+        if(totalSalesLabel != null){
+
             totalSalesLabel.setText(
                     "MK "
                     + currencyFormat.format(totalSales)
                     + ".00"
             );
 
+        }
 
 
-        if(totalOrdersLabel != null)
+
+
+
+
+        if(totalOrdersLabel != null){
+
             totalOrdersLabel.setText(
                     String.valueOf(totalOrders)
             );
 
+        }
 
 
-        if(todaySalesLabel != null)
+
+
+
+
+
+        if(todaySalesLabel != null){
+
             todaySalesLabel.setText(
                     "MK "
                     + currencyFormat.format(todaySales)
                     + ".00"
             );
 
+        }
 
 
-        if(bestSellerLabel != null)
+
+
+
+
+        if(bestSellerLabel != null){
+
             bestSellerLabel.setText(
                     bestSeller
             );
 
+        }
 
 
-        if(lowStockLabel != null)
+
+
+
+
+
+
+        if(lowStockLabel != null){
+
             lowStockLabel.setText(
                     String.valueOf(lowStock)
             );
 
+        }
 
 
-        if(totalIngredientsLabel != null)
+
+
+
+
+
+        if(totalIngredientsLabel != null){
+
             totalIngredientsLabel.setText(
                     String.valueOf(totalIngredients)
             );
 
+        }
 
 
-        if(outOfStockLabel != null)
+
+
+
+
+
+        if(outOfStockLabel != null){
+
             outOfStockLabel.setText(
                     String.valueOf(outOfStock)
             );
+
+        }
+
+
+
+
+        System.out.println(
+                "LOW STOCK: "
+                + lowStock
+        );
+
+
+        System.out.println(
+                "OUT OF STOCK: "
+                + outOfStock
+        );
 
 
     }
@@ -223,6 +312,12 @@ public class DashboardController {
 
 
 
+
+
+
+    // =====================================================
+    // RECENT ACTIVITY
+    // =====================================================
 
 
     private void loadRecentActivity(){
@@ -230,69 +325,13 @@ public class DashboardController {
 
         if(activityListView == null){
 
-            System.out.println(
-                    "activityListView not connected"
-            );
-
             return;
 
         }
 
 
 
-        setupActivityList();
-
-
-
-        ObservableList<Activity> activities =
-
-                FXCollections.observableArrayList(
-
-                        activityService.getRecentActivities()
-
-                );
-
-
-
-        System.out.println(
-                "Dashboard received: "
-                + activities.size()
-        );
-
-
-
-        for(Activity activity : activities){
-
-            System.out.println(
-                    activity.getMessage()
-            );
-
-        }
-
-
-
-        activityListView.setItems(
-                activities
-        );
-
-
-        activityListView.refresh();
-
-
-    }
-
-
-
-
-
-
-
-
-    private void setupActivityList(){
-
-
         activityListView.setCellFactory(list ->
-
                 new ListCell<Activity>(){
 
 
@@ -309,18 +348,14 @@ public class DashboardController {
                         );
 
 
-
                         if(empty || activity == null){
 
-
                             setGraphic(null);
-
                             setText(null);
 
                             return;
 
                         }
-
 
 
 
@@ -331,58 +366,11 @@ public class DashboardController {
                                 );
 
 
-                        message.getStyleClass()
-                                .add(
-                                        "activity-title"
-                                );
-
-
-
                         Label type =
                                 new Label(
                                         activity.getType()
                                                 .toUpperCase()
                                 );
-
-
-
-                        switch(
-                                activity.getType()
-                                .toUpperCase()
-                        ){
-
-
-                            case "RESTOCK":
-
-                                type.getStyleClass()
-                                        .add(
-                                                "activity-restock"
-                                        );
-
-                                break;
-
-
-
-                            case "SALE":
-
-                                type.getStyleClass()
-                                        .add(
-                                                "activity-sale"
-                                        );
-
-                                break;
-
-
-
-                            default:
-
-                                type.getStyleClass()
-                                        .add(
-                                                "activity-default"
-                                        );
-
-                        }
-
 
 
 
@@ -393,38 +381,18 @@ public class DashboardController {
 
 
 
-                        time.getStyleClass()
-                                .add(
-                                        "activity-time"
-                                );
-
-
-
-
-
                         VBox box =
-        new VBox(6);
-
-box.setPrefWidth(600);
-
-
-box.getChildren()
-        .addAll(
-                message,
-                type,
-                time
-        );
-
-
-
-                        box.getStyleClass()
-                                .add(
-                                        "activity-card"
+                                new VBox(
+                                        6
                                 );
 
 
-
-                        setPrefHeight(80);
+                        box.getChildren()
+                                .addAll(
+                                        message,
+                                        type,
+                                        time
+                                );
 
 
 
@@ -433,10 +401,27 @@ box.getChildren()
 
                     }
 
-
                 }
-
         );
+
+
+
+
+
+        ObservableList<Activity> activities =
+
+                FXCollections.observableArrayList(
+
+                        activityService.getRecentActivities()
+
+                );
+
+
+
+        activityListView.setItems(
+                activities
+        );
+
 
 
     }
@@ -449,31 +434,19 @@ box.getChildren()
 
 
 
+    // =====================================================
+    // SALES CHART
+    // =====================================================
+
 
     private void loadSalesChart(){
 
 
-        if(salesChart == null)
+        if(salesChart == null){
+
             return;
 
-
-
-
-        if(salesChart.getYAxis() instanceof NumberAxis axis){
-
-
-            axis.setTickLabelFormatter(
-
-                    new NumberAxis.DefaultFormatter(
-                            axis,
-                            "MK ",
-                            ""
-                    )
-
-            );
-
         }
-
 
 
 
@@ -487,18 +460,15 @@ box.getChildren()
 
 
         Map<String,Double> sales =
-
                 saleService.getSalesOverview();
 
 
 
 
         DateTimeFormatter formatter =
-
                 DateTimeFormatter.ofPattern(
                         "dd MMM yy"
                 );
-
 
 
 
@@ -537,50 +507,12 @@ box.getChildren()
                 .clear();
 
 
+
         salesChart.getData()
                 .add(series);
 
 
 
-        Platform.runLater(() -> {
-
-
-            for(
-                    XYChart.Data<String,Number> data :
-                    series.getData()
-            ){
-
-
-                if(data.getNode()!=null){
-
-
-                    Tooltip.install(
-
-                            data.getNode(),
-
-                            new Tooltip(
-
-                                    data.getXValue()
-                                    +
-                                    "\nSales: MK "
-                                    +
-                                    String.format(
-                                            "%,.2f",
-                                            data.getYValue()
-                                    )
-
-                            )
-
-                    );
-
-
-                }
-
-            }
-
-
-        });
-
 
     }
 
@@ -588,86 +520,124 @@ box.getChildren()
 
 
 
+
+
+
+
+
+    // =====================================================
+    // NAVIGATION
+    // =====================================================
 
 
     @FXML
     private void openSellRecipe(){
 
-        Navigator.goTo("sell_recipe.fxml");
+        Navigator.goTo(
+                "sell_recipe.fxml"
+        );
 
     }
+
 
 
     @FXML
     private void openInventory(){
 
-        Navigator.goTo("inventory.fxml");
+        Navigator.goTo(
+                "inventory.fxml"
+        );
 
     }
+
 
 
     @FXML
     private void openSales(){
 
-        Navigator.goTo("sales.fxml");
+        Navigator.goTo(
+                "sales.fxml"
+        );
 
     }
+
 
 
     @FXML
     private void openSalesHistory(){
 
-        Navigator.goTo("sales_history.fxml");
+        Navigator.goTo(
+                "sales_history.fxml"
+        );
 
     }
+
 
 
     @FXML
     private void openRecipes(){
 
-        Navigator.goTo("recipes.fxml");
+        Navigator.goTo(
+                "recipes.fxml"
+        );
 
     }
+
 
 
     @FXML
     private void openSuppliers(){
 
-        Navigator.goTo("suppliers.fxml");
+        Navigator.goTo(
+                "suppliers.fxml"
+        );
 
     }
+
 
 
     @FXML
     private void openIngredients(){
 
-        Navigator.goTo("ingredients.fxml");
+        Navigator.goTo(
+                "ingredients.fxml"
+        );
 
     }
+
 
 
     @FXML
     private void openLowStock(){
 
-        Navigator.goTo("low_stock.fxml");
+        Navigator.goTo(
+                "low_stock.fxml"
+        );
 
     }
+
 
 
     @FXML
     private void openReports(){
 
-        Navigator.goTo("reports.fxml");
+        Navigator.goTo(
+                "reports.fxml"
+        );
 
     }
+
 
 
     @FXML
     private void logout(){
 
-        Navigator.goTo("login.fxml");
+        Navigator.goTo(
+                "login.fxml"
+        );
 
     }
+
 
 
 }

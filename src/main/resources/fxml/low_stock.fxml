@@ -13,7 +13,7 @@
 
     <!-- SHARED SIDEBAR -->
 
-    <fx:include source="sidebar.fxml"/>
+
 
 
 

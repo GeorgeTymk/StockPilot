@@ -1,200 +1,134 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
 
-<StackPane xmlns="http://javafx.com/javafx/21"
-           xmlns:fx="http://javafx.com/fxml/1"
-           fx:controller="com.stockpilot.controller.InventoryController"
-           styleClass="dashboard-background">
+<VBox xmlns="http://javafx.com/javafx/21"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.stockpilot.controller.InventoryController"
+      spacing="20"
+      styleClass="floating-dashboard">
 
-           
 
+    <padding>
 
-    <stylesheets>
+        <Insets top="30"
+                right="35"
+                bottom="30"
+                left="35"/>
 
-        <URL value="@../css/stockpilot.css"/>
-        <URL value="@../css/dashboard.css"/>
+    </padding>
 
-    </stylesheets>
 
 
+    <!-- HEADER -->
 
-    <!-- FLOATING APPLICATION FRAME -->
+    <HBox alignment="CENTER_LEFT"
+          spacing="20">
 
-    <HBox spacing="8"
-      styleClass="app-frame">
 
+        <VBox spacing="5"
+              HBox.hgrow="ALWAYS">
 
-        <padding>
 
-            <Insets top="20"
-        right="20"
-        bottom="20"
-        left="20"/>
+            <Label text="Inventory"
+                   styleClass="page-title"/>
 
-        </padding>
 
+            <Label text="Manage restaurant ingredients and stock levels"
+                   styleClass="page-subtitle"/>
 
 
+        </VBox>
 
-        <!-- SIDEBAR -->
 
-        <fx:include fx:id="sidebar"
-                    source="sidebar.fxml"/>
 
+        <TextField promptText="Search ingredients..."
+                   styleClass="dashboard-search"/>
 
 
 
-
-        <!-- MAIN CONTENT -->
-
-        <StackPane HBox.hgrow="ALWAYS">
-
-
-            <VBox spacing="20"
-                  styleClass="floating-dashboard">
-
-
-
-                <padding>
-
-                    <Insets top="30"
-                            right="35"
-                            bottom="30"
-                            left="35"/>
-
-                </padding>
-
-
-
-
-
-                <!-- HEADER -->
-
-                <HBox alignment="CENTER_LEFT"
-                      spacing="20">
-
-
-                    <VBox HBox.hgrow="ALWAYS"
-                          spacing="5">
-
-
-                        <Label text="Inventory"
-                               styleClass="page-title"/>
-
-
-                        <Label text="Manage restaurant ingredients and stock levels"
-                               styleClass="page-subtitle"/>
-
-
-                    </VBox>
-
-
-
-
-                    <TextField promptText="Search ingredients..."
-                               styleClass="dashboard-search"/>
-
-
-
-                    <Button text="+ Restock"
-                            styleClass="green-action-button"
-                            onAction="#restockIngredient"/>
-
-
-                </HBox>
-
-
-
-
-
-
-
-                <!-- TABLE -->
-
-                <VBox spacing="15"
-                      VBox.vgrow="ALWAYS"
-                      styleClass="chart-card">
-
-
-                    <Label text="Ingredient Inventory"
-                           styleClass="section-title"/>
-
-
-
-                    <TableView fx:id="ingredientTable"
-                               VBox.vgrow="ALWAYS"
-                               styleClass="inventory-table">
-
-
-                        <columns>
-
-
-                            <TableColumn fx:id="nameColumn"
-                                         text="Ingredient"
-                                         prefWidth="250"/>
-
-
-                            <TableColumn fx:id="quantityColumn"
-                                         text="Quantity"
-                                         prefWidth="150"/>
-
-
-                            <TableColumn fx:id="unitColumn"
-                                         text="Unit"
-                                         prefWidth="150"/>
-
-
-                            <TableColumn fx:id="minimumColumn"
-                                         text="Minimum Stock"
-                                         prefWidth="180"/>
-
-
-                        </columns>
-
-
-                    </TableView>
-
-
-                </VBox>
-
-
-
-
-
-
-                <HBox spacing="15">
-
-
-                    <Button text="Inventory History"
-                            styleClass="secondary-action"
-                            onAction="#openHistory"/>
-
-
-
-                    <Button text="Back"
-                            styleClass="secondary-action"
-                            onAction="#goBack"/>
-
-
-                </HBox>
-
-
-
-            </VBox>
-
-
-
-        </StackPane>
-
+        <Button text="+ Restock"
+                styleClass="green-action-button"
+                onAction="#restockIngredient"/>
 
 
     </HBox>
 
 
 
-</StackPane>
+
+
+    <!-- TABLE CARD -->
+
+    <VBox spacing="15"
+          VBox.vgrow="ALWAYS"
+          styleClass="chart-card">
+
+
+        <Label text="Ingredient Inventory"
+               styleClass="section-title"/>
+
+
+
+        <TableView fx:id="ingredientTable"
+                   VBox.vgrow="ALWAYS"
+                   styleClass="inventory-table">
+
+
+            <columns>
+
+
+                <TableColumn fx:id="nameColumn"
+                             text="Ingredient"
+                             prefWidth="250"/>
+
+
+                <TableColumn fx:id="quantityColumn"
+                             text="Quantity"
+                             prefWidth="150"/>
+
+
+                <TableColumn fx:id="unitColumn"
+                             text="Unit"
+                             prefWidth="150"/>
+
+
+                <TableColumn fx:id="minimumColumn"
+                             text="Minimum Stock"
+                             prefWidth="180"/>
+
+
+            </columns>
+
+
+        </TableView>
+
+
+    </VBox>
+
+
+
+
+    <!-- BUTTONS -->
+
+    <HBox spacing="15">
+
+
+        <Button text="Inventory History"
+                styleClass="secondary-action"
+                onAction="#openHistory"/>
+
+
+
+        <Button text="Back"
+                styleClass="secondary-action"
+                onAction="#goBack"/>
+
+
+    </HBox>
+
+
+</VBox>

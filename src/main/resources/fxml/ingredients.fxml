@@ -5,153 +5,115 @@
 <?import javafx.scene.layout.*?>
 
 
-<HBox xmlns="http://javafx.com/javafx/21"
+<VBox xmlns="http://javafx.com/javafx/21"
       xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="com.stockpilot.controller.IngredientController"
-      spacing="0">
+      spacing="20"
+      styleClass="floating-dashboard">
 
 
-    <!-- SIDEBAR -->
+    <padding>
 
-    <fx:include source="sidebar.fxml"/>
+        <Insets top="30"
+                right="35"
+                bottom="30"
+                left="35"/>
 
+    </padding>
 
 
-    <!-- CONTENT -->
 
-    <BorderPane HBox.hgrow="ALWAYS"
-                styleClass="page-container">
+    <VBox spacing="5">
 
 
+        <Label text="Ingredient Management"
+               styleClass="page-title"/>
 
-        <!-- HEADER -->
 
-        <top>
+        <Label text="Manage restaurant ingredients"
+               styleClass="page-subtitle"/>
 
-            <HBox alignment="CENTER_LEFT"
-                  styleClass="page-header">
 
-                <padding>
+    </VBox>
 
-                    <Insets top="20"
-                            right="25"
-                            bottom="20"
-                            left="25"/>
 
-                </padding>
 
 
-                <Label text="Ingredient Management"
-                       styleClass="page-title"/>
 
-            </HBox>
+    <TableView fx:id="ingredientTable"
+               VBox.vgrow="ALWAYS"
+               styleClass="inventory-table">
 
-        </top>
 
+        <columns>
 
 
+            <TableColumn fx:id="idColumn"
+                         text="ID"
+                         prefWidth="80"/>
 
-        <!-- TABLE AREA -->
 
-        <center>
+            <TableColumn fx:id="nameColumn"
+                         text="Ingredient"
+                         prefWidth="200"/>
 
-            <VBox spacing="20"
-                  fillWidth="true">
 
+            <TableColumn fx:id="quantityColumn"
+                         text="Quantity"
+                         prefWidth="120"/>
 
-                <padding>
 
-                    <Insets top="25"
-                            right="25"
-                            bottom="25"
-                            left="25"/>
+            <TableColumn fx:id="unitColumn"
+                         text="Unit"
+                         prefWidth="120"/>
 
-                </padding>
 
+            <TableColumn fx:id="minimumColumn"
+                         text="Minimum Stock"
+                         prefWidth="150"/>
 
 
-                <TableView fx:id="ingredientTable"
-           prefHeight="500">
+            <TableColumn fx:id="statusColumn"
+                         text="Status"
+                         prefWidth="120"/>
 
 
-                    <columns>
+        </columns>
 
 
-                        <TableColumn fx:id="idColumn"
-                                     text="ID"
-                                     prefWidth="80"/>
+    </TableView>
 
 
-                        <TableColumn fx:id="nameColumn"
-                                     text="Ingredient"
-                                     prefWidth="200"/>
 
 
-                        <TableColumn fx:id="quantityColumn"
-                                     text="Quantity"
-                                     prefWidth="120"/>
 
+    <HBox spacing="15">
 
-                        <TableColumn fx:id="unitColumn"
-                                     text="Unit"
-                                     prefWidth="120"/>
 
+        <Button text="Add Ingredient"
+                styleClass="primary-button"
+                onAction="#addIngredient"/>
 
-                        <TableColumn fx:id="minimumColumn"
-                                     text="Minimum Stock"
-                                     prefWidth="150"/>
 
 
-                        <TableColumn fx:id="statusColumn"
-                                     text="Status"
-                                     prefWidth="120"/>
+        <Button text="Restock"
+                styleClass="primary-button"
+                onAction="#restockIngredient"/>
 
 
-                    </columns>
 
+        <Button text="Inventory History"
+                styleClass="secondary-button"
+                onAction="#openHistory"/>
 
-                </TableView>
 
 
+        <Button text="Back"
+                styleClass="secondary-button"
+                onAction="#goBack"/>
 
-                <!-- BUTTONS -->
 
-<HBox spacing="15"
-      alignment="CENTER_LEFT"
-      styleClass="button-bar">
+    </HBox>
 
 
-    <Button text="Add Ingredient"
-            styleClass="primary-button"
-            onAction="#addIngredient"/>
-
-
-    <Button text="Restock"
-            styleClass="primary-button"
-            onAction="#restockIngredient"/>
-
-
-    <Button text="Inventory History"
-            styleClass="secondary-button"
-            onAction="#openHistory"/>
-
-
-    <Button text="Back"
-            styleClass="secondary-button"
-            onAction="#goBack"/>
-
-
-</HBox>
-
-
-            </VBox>
-
-
-        </center>
-
-
-
-    </BorderPane>
-
-
-</HBox>
+</VBox>

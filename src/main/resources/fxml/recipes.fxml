@@ -10,7 +10,7 @@
       spacing="0">
 
     <!-- SHARED SIDEBAR -->
-    <fx:include source="sidebar.fxml"/>
+  
 
     <!-- PAGE CONTENT -->
     <BorderPane HBox.hgrow="ALWAYS"

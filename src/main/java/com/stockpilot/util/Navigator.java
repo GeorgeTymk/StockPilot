@@ -7,7 +7,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+
 import java.util.Stack;
+
 
 
 public class Navigator {
@@ -20,6 +22,9 @@ public class Navigator {
             new Stack<>();
 
 
+    private static String currentPage;
+
+
 
     public static void setStage(Stage primaryStage){
 
@@ -30,23 +35,28 @@ public class Navigator {
 
 
 
+
     public static void goTo(String fxmlFile){
 
 
         try {
 
 
-            // Save current page for back button
-            if(stage.getScene() != null
-                    && stage.getScene().getRoot().getUserData() != null){
+            if(stage == null){
 
-
-                history.push(
-                        stage.getScene()
-                                .getRoot()
-                                .getUserData()
-                                .toString()
+                throw new IllegalStateException(
+                        "Navigator stage not initialized"
                 );
+
+            }
+
+
+
+            if(currentPage != null
+                    && !currentPage.equals(fxmlFile)){
+
+
+                history.push(currentPage);
 
             }
 
@@ -64,51 +74,55 @@ public class Navigator {
             Parent root = loader.load();
 
 
+
             root.setUserData(fxmlFile);
 
 
 
-            Scene oldScene = stage.getScene();
+            currentPage = fxmlFile;
 
 
-            double width = 1280;
-            double height = 750;
 
 
-            // Keep current window size
-            if(oldScene != null){
+            Scene scene = stage.getScene();
 
-                width = oldScene.getWidth();
-                height = oldScene.getHeight();
+
+
+            if(scene == null){
+
+
+                scene = new Scene(
+                        root,
+                        1280,
+                        750
+                );
+
+
+                stage.setScene(scene);
+
+
+            }
+            else {
+
+
+                /*
+                 * Instant page swap
+                 * No animation = no flashing
+                 */
+
+                scene.setRoot(root);
+
 
             }
 
 
 
-            Scene scene =
-                    new Scene(
-                            root,
-                            width,
-                            height
-                    );
 
-
-
-            stage.setScene(scene);
-
-
-
-            // Normal desktop window
             stage.setResizable(true);
 
             stage.setMinWidth(1100);
 
             stage.setMinHeight(650);
-
-
-            // Prevent accidental fullscreen behaviour
-            stage.setMaximized(false);
-
 
 
             stage.show();
@@ -121,7 +135,6 @@ public class Navigator {
                 root.applyCss();
 
                 root.layout();
-
 
             });
 
@@ -146,99 +159,47 @@ public class Navigator {
     public static void goBack(){
 
 
-        try {
+        if(history.isEmpty()){
 
-
-            if(history.isEmpty()){
-
-                return;
-
-            }
-
-
-
-            String previous =
-                    history.pop();
-
-
-
-
-            FXMLLoader loader =
-                    new FXMLLoader(
-                            Navigator.class.getResource(
-                                    "/fxml/" + previous
-                            )
-                    );
-
-
-
-
-            Parent root =
-                    loader.load();
-
-
-
-
-            root.setUserData(previous);
-
-
-
-
-
-            Scene oldScene =
-                    stage.getScene();
-
-
-
-            Scene scene =
-                    new Scene(
-                            root,
-                            oldScene.getWidth(),
-                            oldScene.getHeight()
-                    );
-
-
-
-
-            stage.setScene(scene);
-
-
-
-
-            stage.setResizable(true);
-
-            stage.setMaximized(false);
-
-
-
-
-            stage.show();
-
-
-
-
-
-            Platform.runLater(() -> {
-
-                root.applyCss();
-
-                root.layout();
-
-
-            });
-
-
+            return;
 
         }
-        catch(Exception e){
 
-            e.printStackTrace();
 
-        }
+
+        String previous =
+                history.pop();
+
+
+
+        goTo(previous);
 
 
     }
 
+
+
+
+
+
+
+    public static String getCurrentPage(){
+
+        return currentPage;
+
+    }
+
+
+
+
+
+
+
+    public static void clearHistory(){
+
+        history.clear();
+
+    }
 
 
 }

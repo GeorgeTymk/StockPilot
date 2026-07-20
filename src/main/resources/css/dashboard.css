@@ -2,103 +2,85 @@
    STOCKPILOT DASHBOARD V2
    ================================================== */
 
-.dashboard-background{
-    -fx-background-color:#EEF3F8;
+
+
+/* ==================================================
+   DASHBOARD CONTAINERS
+   ================================================== */
+
+
+.dashboard-background {
+
+    -fx-background-color:#F8FAFC;
+
 }
 
-.floating-dashboard{
 
-    -fx-background-color:white;
 
-    -fx-background-radius:28;
+.floating-dashboard {
 
-    -fx-padding:35;
+        -fx-pref-height: 650px;
 
-    -fx-spacing:28;
+    -fx-background-color: white;
+
+    -fx-background-radius: 22;
+
+    -fx-padding: 30;
 
     -fx-effect:
         dropshadow(
             gaussian,
-            rgba(15,23,42,.10),
-            40,
-            .20,
+            rgba(0,0,0,0.15),
+            20,
             0,
-            8
-        );
-}
-
-.modern-sidebar{
-
-    -fx-background-color:
-        linear-gradient(
-            to bottom,
-            #0B3A3C 0%,
-            #082D2E 50%,
-            #062224 100%
+            0,
+            5
         );
 
-    -fx-background-radius:28;
-
-    -fx-padding:30 20 30 20;
-
-    -fx-spacing:10;
 }
 
-.modern-sidebar-button{
+
+
+.dashboard-scroll {
 
     -fx-background-color:transparent;
 
-    -fx-background-radius:16;
+    -fx-border-color:transparent;
 
-    -fx-text-fill:#D1D5DB;
-
-    -fx-font-size:15px;
-
-    -fx-font-weight:700;
-
-    -fx-alignment:CENTER_LEFT;
-
-    -fx-content-display:LEFT;
-
-    -fx-graphic-text-gap:18;
-
-    -fx-max-width:Infinity;
-
-    -fx-pref-height:52;
-
-    -fx-padding:0 18 0 18;
-
-    -fx-cursor:hand;
 }
 
-.brand-title{
 
-    -fx-font-size:28;
 
-    -fx-font-weight:800;
+.dashboard-scroll > .viewport {
 
-    -fx-text-fill:white;
+    -fx-background-color:transparent;
+
 }
 
-.brand-subtitle{
 
-    -fx-font-size:13;
 
-    -fx-text-fill:#A7F3D0;
-}
 
-/* ===========================
-   HEADER
-   =========================== */
 
-.dashboard-header{
+.dashboard-header {
 
-    -fx-padding:0 0 10 0;
+    -fx-min-height:90;
+
+    -fx-pref-height:90;
 
     -fx-alignment:center-left;
+
 }
 
-.dashboard-search{
+
+
+
+
+/* ==================================================
+   HEADER SEARCH
+   ================================================== */
+
+
+.dashboard-search {
 
     -fx-pref-width:320;
 
@@ -112,76 +94,124 @@
 
     -fx-border-radius:14;
 
+    -fx-padding:0 18;
+
     -fx-font-size:14px;
 
-    -fx-padding:0 18;
 }
 
-.header-action-button{
+
+
+
+
+/* ==================================================
+   HEADER BUTTONS
+   ================================================== */
+
+
+.header-action-button {
+
 
     -fx-background-color:#16A34A;
 
+
     -fx-background-radius:14;
 
+
     -fx-pref-height:46;
+
 
     -fx-padding:0 22;
 
+
     -fx-text-fill:white;
 
-    -fx-font-size:14px;
 
     -fx-font-weight:700;
 
+
     -fx-cursor:hand;
+
+
 }
 
-.header-action-button:hover{
+
+
+.header-action-button:hover {
+
 
     -fx-background-color:#15803D;
+
+
 }
 
-.notification-button{
+
+
+
+
+.notification-button {
+
 
     -fx-background-color:white;
+
 
     -fx-background-radius:14;
 
+
     -fx-border-color:#E2E8F0;
+
 
     -fx-border-radius:14;
 
+
     -fx-pref-width:46;
+
 
     -fx-pref-height:46;
 
-    -fx-cursor:hand;
+
 }
 
-.notification-button:hover{
 
-    -fx-background-color:#F8FAFC;
-}
 
-.dashboard-stat-card{
+
+
+
+/* ==================================================
+   DASHBOARD STAT CARDS
+   ================================================== */
+
+
+.dashboard-stat-card {
+
 
     -fx-background-color:white;
 
+
     -fx-background-radius:24;
 
-    -fx-border-radius:24;
 
     -fx-border-color:#EEF2F7;
 
+
+    -fx-border-radius:24;
+
+
     -fx-padding:32;
+
 
     -fx-spacing:18;
 
+
     -fx-min-height:170;
+
 
     -fx-pref-height:170;
 
+
     -fx-effect:
+
+
         dropshadow(
             gaussian,
             rgba(15,23,42,0.08),
@@ -190,31 +220,28 @@
             0,
             6
         );
-}
-
-.stat-heading{
-
-    -fx-font-size:14px;
-
-    -fx-font-weight:700;
-
-    -fx-text-fill:#64748B;
 
 }
 
 
 
-.trend-positive{
+.dashboard-stat-card:hover {
 
-    -fx-font-size:13px;
 
-    -fx-font-weight:700;
-
-    -fx-text-fill:#16A34A;
+    -fx-translate-y:-3;
 
 }
 
-.green-icon-box{
+
+
+
+
+/* ==================================================
+   ICON BOXES
+   ================================================== */
+
+
+.green-icon-box {
 
     -fx-background-color:#DCFCE7;
 
@@ -224,14 +251,11 @@
 
     -fx-min-height:52;
 
-    -fx-max-width:52;
-
-    -fx-max-height:52;
-
-    -fx-alignment:center;
 }
 
-.blue-icon-box{
+
+
+.blue-icon-box {
 
     -fx-background-color:#DBEAFE;
 
@@ -241,14 +265,11 @@
 
     -fx-min-height:52;
 
-    -fx-max-width:52;
-
-    -fx-max-height:52;
-
-    -fx-alignment:center;
 }
 
-.orange-icon-box{
+
+
+.orange-icon-box {
 
     -fx-background-color:#FEF3C7;
 
@@ -258,14 +279,11 @@
 
     -fx-min-height:52;
 
-    -fx-max-width:52;
-
-    -fx-max-height:52;
-
-    -fx-alignment:center;
 }
 
-.red-icon-box{
+
+
+.red-icon-box {
 
     -fx-background-color:#FEE2E2;
 
@@ -275,352 +293,204 @@
 
     -fx-min-height:52;
 
-    -fx-max-width:52;
-
-    -fx-max-height:52;
-
-    -fx-alignment:center;
 }
 
-.chart-card{
+
+
+
+
+
+
+/* ==================================================
+   CHART CARDS
+   ================================================== */
+
+
+.chart-card {
+
 
     -fx-background-color:white;
+
 
     -fx-background-radius:24;
 
+
     -fx-border-color:#E5E7EB;
+
 
     -fx-border-radius:24;
 
+
     -fx-padding:22;
+
 
     -fx-spacing:15;
 
-    -fx-effect:dropshadow(
-        gaussian,
-        rgba(15,23,42,.08),
-        18,
-        .15,
-        0,
-        5
-    );
-}
-
-.chart-title{
-
-    -fx-font-size:18px;
-
-    -fx-font-weight:800;
-
-    -fx-text-fill:#0F172A;
-}
-
-.chart{
-
-    -fx-background-color:white;
-}
-
-.chart-plot-background{
-
-    -fx-background-color:#FFFFFF;
-}
-
-.chart-vertical-grid-lines{
-
-    -fx-stroke:#EDF2F7;
-}
-
-.chart-horizontal-grid-lines{
-
-    -fx-stroke:#EDF2F7;
-}
-
-.axis{
-
-    -fx-tick-label-fill:#64748B;
-}
-
-.chart-pie-label{
-
-    -fx-font-size:13px;
-
-    -fx-font-weight:bold;
-}
-
-.chart-legend{
-
-    -fx-background-color:transparent;
-}
-
-.dashboard-surface{
-
-    -fx-background-color:white;
-
-    -fx-background-radius:28;
-
-    -fx-padding:28;
 
     -fx-effect:
+
+
         dropshadow(
             gaussian,
             rgba(15,23,42,0.08),
-            30,
+            18,
             0.15,
             0,
-            8
+            5
         );
 
 }
-.dashboard-scroll {
-
-    -fx-background-color: transparent;
-
-    -fx-border-color: transparent;
-
-}
 
 
-.dashboard-scroll > .viewport {
-
-    -fx-background-color: transparent;
-
-}
 
 
-.dashboard-header {
 
-    -fx-min-height:90;
+.chart-title {
 
-    -fx-pref-height:90;
+
+    -fx-font-size:18px;
+
+
+    -fx-font-weight:800;
+
+
+    -fx-text-fill:#0F172A;
+
 
 }
 
-/* ============================
-   SALES OVERVIEW CHART STYLE
-   ============================ */
+
+
 
 
 .chart {
 
-    -fx-padding:20;
-
-}
-
-
-.chart-plot-background {
 
     -fx-background-color:white;
 
 }
 
 
+
+
+
+.chart-plot-background {
+
+
+    -fx-background-color:white;
+
+}
+
+
+
+
+
+.chart-horizontal-grid-lines,
+
 .chart-vertical-grid-lines {
 
-    -fx-stroke:#E5E7EB;
-
-}
-
-
-.chart-horizontal-grid-lines {
 
     -fx-stroke:#E5E7EB;
 
 }
+
+
+
 
 
 .axis {
 
+
     -fx-tick-label-fill:#64748B;
+
 
     -fx-font-size:12px;
 
+
 }
+
+
+
+
 
 
 .chart-series-line {
 
+
     -fx-stroke:#16A34A;
+
 
     -fx-stroke-width:3px;
 
+
 }
+
+
+
 
 
 .chart-line-symbol {
 
-    -fx-background-color:#16A34A, white;
 
-    -fx-background-radius:8px;
+    -fx-background-radius:8;
 
-    -fx-padding:6px;
+
+    -fx-padding:6;
+
 
 }
 
 
-.default-color0.chart-series-area-fill {
 
-    -fx-fill:#16A34A;
-
-    -fx-opacity:0.15;
-
-}
 
 
 .chart-legend {
+
 
     -fx-background-color:transparent;
 
 }
 
-/* ==========================
-   ACTIVITY CARDS
-   ========================== */
 
-.activity-card{
+
+
+
+
+
+/* ==================================================
+   ACTIVITY SECTION
+   ================================================== */
+
+
+.activity-panel {
+
 
     -fx-background-color:white;
 
-    -fx-background-radius:18;
 
-    -fx-border-color:#E5E7EB;
-
-    -fx-border-radius:18;
-
-    -fx-padding:14;
-
-    -fx-spacing:6;
-
-}
-
-.activity-card:hover{
-
-    -fx-background-color:#F8FAFC;
-
-}
-
-.activity-title{
-
-    -fx-font-size:15px;
-
-    -fx-font-weight:bold;
-
-    -fx-text-fill:#0F172A;
-
-}
-
-.activity-time{
-
-    -fx-font-size:12px;
-
-    -fx-text-fill:#94A3B8;
-
-}
-
-.activity-restock{
-
-    -fx-background-color:#DCFCE7;
-
-    -fx-text-fill:#166534;
-
-    -fx-background-radius:20;
-
-    -fx-padding:3 10;
-
-    -fx-font-size:11px;
-
-    -fx-font-weight:bold;
-
-}
-
-.activity-sale{
-
-    -fx-background-color:#FEE2E2;
-
-    -fx-text-fill:#991B1B;
-
-    -fx-background-radius:20;
-
-    -fx-padding:3 10;
-
-    -fx-font-size:11px;
-
-    -fx-font-weight:bold;
-
-}
-
-.activity-default{
-
-    -fx-background-color:#E0F2FE;
-
-    -fx-text-fill:#075985;
-
-    -fx-background-radius:20;
-
-    -fx-padding:3 10;
-
-    -fx-font-size:11px;
-
-    -fx-font-weight:bold;
-
-}
-/* ========================= */
-/* DASHBOARD ICON COLORS */
-/* ========================= */
+    -fx-background-radius:24;
 
 
-.green-card-icon {
+    -fx-padding:22;
 
-    -fx-fill: #22c55e;
 
-    -fx-font-size: 24px;
+    -fx-spacing:15;
+
 
 }
 
 
 
-.orange-card-icon {
 
-    -fx-fill: #f59e0b;
-
-    -fx-font-size: 24px;
-
-}
-
-
-
-.red-card-icon {
-
-    -fx-fill: #ef4444;
-
-    -fx-font-size: 24px;
-
-}
-
-.green-card-icon {
-
-    -fx-fill: #22c55e;
-
-}
-
-.orange-card-icon {
-
-    -fx-fill: #f59e0b;
-
-}
-
-
-.red-card-icon {
-
-    -fx-fill: #ef4444;
-
-}
 
 .activity-list {
 
-    -fx-background-color: transparent;
-    -fx-border-color: transparent;
-    -fx-background-insets: 0;
-    -fx-padding: 5;
+
+    -fx-background-color:transparent;
+
+
+    -fx-border-color:transparent;
+
 
 }
 
@@ -628,341 +498,129 @@
 
 .activity-list .list-cell {
 
-    -fx-background-color: transparent;
 
-    -fx-padding: 8;
-
-    -fx-pref-height: 80;
-
-}
+    -fx-background-color:transparent;
 
 
+    -fx-padding:10;
 
-.activity-list .list-cell:filled:hover {
 
-    -fx-background-color: transparent;
+    -fx-min-height:70;
+
 
 }
+
+
+
+
 
 
 
 .activity-card {
 
-    -fx-background-color: white;
 
-    -fx-background-radius: 12;
+    -fx-background-color:white;
 
-    -fx-padding: 14;
 
-    -fx-border-color: #eeeeee;
+    -fx-background-radius:18;
 
-    -fx-border-radius: 12;
 
-    -fx-spacing: 6;
+    -fx-padding:14;
+
+
+    -fx-border-color:#E5E7EB;
+
+
+    -fx-border-radius:18;
+
 
 }
+
+
+
+
+
+.activity-card:hover {
+
+
+    -fx-background-color:#F8FAFC;
+
+}
+
+
 
 
 
 .activity-title {
 
-    -fx-font-size: 14px;
 
-    -fx-font-weight: bold;
+    -fx-font-size:14px;
 
-    -fx-text-fill: #222222;
+
+    -fx-font-weight:bold;
+
+
+    -fx-text-fill:#0F172A;
+
 
 }
+
+
 
 
 
 .activity-time {
 
-    -fx-font-size: 12px;
 
-    -fx-text-fill: #777777;
+    -fx-font-size:11px;
+
+
+    -fx-text-fill:#777777;
+
 
 }
+
+
 
 
 
 .activity-restock {
 
-    -fx-font-size: 11px;
 
-    -fx-font-weight: bold;
+    -fx-text-fill:#2E7D32;
 
-    -fx-text-fill: #2e7d32;
+
+    -fx-font-weight:bold;
+
 
 }
+
+
 
 
 
 .activity-sale {
 
-    -fx-font-size: 11px;
 
-    -fx-font-weight: bold;
+    -fx-text-fill:#D32F2F;
 
-    -fx-text-fill: #c62828;
+
+    -fx-font-weight:bold;
+
 
 }
+
+
 
 
 
 .activity-default {
 
-    -fx-font-size: 11px;
 
-    -fx-text-fill: #666666;
+    -fx-text-fill:#1976D2;
 
-}
-
-.activity-title{
-    -fx-font-size: 14px;
-    -fx-font-weight: bold;
-}
-
-.activity-time{
-    -fx-text-fill: #777777;
-    -fx-font-size: 11px;
-}
-
-.activity-restock{
-    -fx-text-fill: #2e7d32;
-    -fx-font-weight: bold;
-}
-
-.activity-sale{
-    -fx-text-fill: #d32f2f;
-    -fx-font-weight: bold;
-}
-
-.activity-default{
-    -fx-text-fill: #1976d2;
-    -fx-font-weight: bold;
-}
-
-.activity-list {
-    -fx-background-color: transparent;
-    -fx-border-color: transparent;
-}
-
-.activity-list .list-cell {
-
-    -fx-background-color: transparent;
-
-    -fx-padding: 10;
-
-    -fx-min-height: 70;
-
-}
-
-
-.activity-card {
-
-    -fx-background-color: white;
-
-    -fx-background-radius: 12;
-
-    -fx-padding: 12;
-
-    -fx-spacing: 5;
-
-}
-
-
-.activity-title {
-
-    -fx-font-size: 14px;
-
-    -fx-font-weight: bold;
-
-    -fx-text-fill: #222222;
-
-}
-
-
-.activity-time {
-
-    -fx-font-size: 11px;
-
-    -fx-text-fill: #777777;
-
-}
-
-
-.activity-restock {
-
-    -fx-text-fill: #2e7d32;
-
-}
-
-
-.activity-sale {
-
-    -fx-text-fill: #d32f2f;
-
-}
-
-/* ==============================
-   INVENTORY PAGE
-   ============================== */
-
-
-.inventory-table{
-
-    -fx-background-color:white;
-
-    -fx-background-radius:18;
-
-    -fx-border-radius:18;
-
-    -fx-border-color:#E5E7EB;
-
-    -fx-padding:10;
-
-}
-
-
-
-.inventory-table .column-header-background{
-
-    -fx-background-color:#F8FAFC;
-
-}
-
-
-
-.inventory-table .column-header{
-
-    -fx-background-color:#F8FAFC;
-
-}
-
-
-
-.inventory-table .column-header .label{
-
-    -fx-text-fill:#475569;
 
     -fx-font-weight:bold;
 
-}
-
-
-
-.inventory-table .table-cell{
-
-    -fx-font-size:14px;
-
-    -fx-text-fill:#334155;
-
-    -fx-padding:12;
-
-}
-
-
-
-.inventory-table .table-row-cell{
-
-    -fx-background-color:white;
-
-}
-
-
-
-.inventory-table .table-row-cell:hover{
-
-    -fx-background-color:#F0FDF4;
-
-}
-
-
-
-.inventory-table .table-row-cell:selected{
-
-    -fx-background-color:#DCFCE7;
-
-}
-
-
-
-.secondary-action{
-
-    -fx-background-color:#EFF6FF;
-
-    -fx-text-fill:#2563EB;
-
-    -fx-background-radius:14;
-
-    -fx-padding:12 22;
-
-    -fx-font-weight:bold;
-
-}
-
-
-
-.secondary-action:hover{
-
-    -fx-background-color:#DBEAFE;
-
-}
-
-.inventory-table {
-
-    -fx-background-color:white;
-
-    -fx-background-radius:18;
-
-    -fx-border-color:#E5E7EB;
-
-    -fx-border-radius:18;
-
-    -fx-padding:10;
-
-}
-
-
-.inventory-table .column-header-background {
-
-    -fx-background-color:#F8FAFC;
-
-    -fx-background-radius:15 15 0 0;
-
-}
-
-
-.inventory-table .column-header .label {
-
-    -fx-text-fill:#334155;
-
-    -fx-font-weight:bold;
-
-}
-
-
-.inventory-table .table-cell {
-
-    -fx-font-size:14px;
-
-    -fx-text-fill:#334155;
-
-    -fx-padding:12;
-
-}
-
-
-.inventory-table .table-row-cell {
-
-    -fx-background-color:white;
-
-}
-
-
-.inventory-table .table-row-cell:hover {
-
-    -fx-background-color:#F0FDF4;
 
 }
