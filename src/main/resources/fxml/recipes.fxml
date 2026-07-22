@@ -9,8 +9,11 @@
       fx:controller="com.stockpilot.controller.RecipeController"
       spacing="0">
 
+
     <!-- SHARED SIDEBAR -->
-  
+
+    
+
 
     <!-- PAGE CONTENT -->
     <BorderPane HBox.hgrow="ALWAYS"
@@ -93,10 +96,6 @@
                     <Button text="View Recipe"
                             styleClass="primary-button"
                             onAction="#viewRecipe"/>
-
-                            <Button text="Dashboard"
-        onAction="#openDashboard"
-        styleClass="secondary-button"/>
 
                     <Button text="Back"
                             styleClass="secondary-button"

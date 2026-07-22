@@ -7,31 +7,31 @@ import com.stockpilot.service.SaleService;
 import com.stockpilot.util.Navigator;
 
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-
+import javafx.scene.control.*;
+import javafx.scene.layout.VBox;
 
 
 public class SalesController {
-
 
 
     @FXML
     private ComboBox<Recipe> recipeComboBox;
 
 
-
     @FXML
     private TextField quantityField;
-
 
 
     @FXML
     private Label totalLabel;
 
+
+    @FXML
+    private Button saveSaleButton;
 
 
 
@@ -43,8 +43,6 @@ public class SalesController {
 
     private final SaleService saleService =
             new SaleService();
-
-
 
 
 
@@ -75,7 +73,7 @@ public class SalesController {
         quantityField.textProperty()
                 .addListener(
 
-                        (obs,oldValue,newValue)
+                        (obs, oldValue, newValue)
                                 -> calculateTotal()
 
                 );
@@ -91,6 +89,7 @@ public class SalesController {
 
     @FXML
     private void calculateTotal(){
+
 
 
         Recipe recipe =
@@ -130,11 +129,11 @@ public class SalesController {
 
 
 
+
             double total =
                     recipe.getSellingPrice()
                     *
                     quantity;
-
 
 
 
@@ -159,7 +158,9 @@ public class SalesController {
         }
 
 
+
     }
+
 
 
 
@@ -180,6 +181,14 @@ public class SalesController {
 
         if(recipe == null){
 
+
+            showAlert(
+                    "No Recipe",
+                    "Please select a recipe.",
+                    Alert.AlertType.WARNING
+            );
+
+
             return;
 
         }
@@ -187,43 +196,143 @@ public class SalesController {
 
 
 
+
+        int quantity;
+
+
         try{
 
 
-            int quantity =
+            quantity =
                     Integer.parseInt(
                             quantityField.getText()
                     );
 
 
+            if(quantity <= 0){
 
-            double total =
-                    recipe.getSellingPrice()
-                    *
-                    quantity;
+                throw new Exception();
 
-
+            }
 
 
-            boolean success =
-                    saleService.saveSale(
-
-                            recipe.getId(),
-
-                            quantity,
-
-                            total
-
-                    );
+        }
+        catch(Exception e){
 
 
+            showAlert(
+                    "Invalid Quantity",
+                    "Enter a valid quantity.",
+                    Alert.AlertType.WARNING
+            );
+
+
+            return;
+
+        }
 
 
 
-            if(success){
+
+
+
+        double total =
+
+                recipe.getSellingPrice()
+                *
+                quantity;
+
+
+
+
+
+
+        // BUTTON LOADING STATE
+
+        saveSaleButton.setDisable(true);
+
+        saveSaleButton.setText(
+                "Saving..."
+        );
+
+
+
+        ProgressIndicator loader =
+                new ProgressIndicator();
+
+
+
+        loader.setPrefSize(
+                20,
+                20
+        );
+
+
+
+        saveSaleButton.setGraphic(
+                loader
+        );
+
+
+
+
+
+
+
+        Task<Boolean> task =
+                new Task<>() {
+
+
+                    @Override
+                    protected Boolean call()
+                            throws Exception {
+
+
+                        return saleService.saveSale(
+
+                                recipe.getId(),
+
+                                quantity,
+
+                                total
+
+                        );
+
+
+                    }
+
+
+                };
+
+
+
+
+
+
+
+        task.setOnSucceeded(e -> {
+
+
+            saveSaleButton.setDisable(false);
+
+
+            saveSaleButton.setText(
+                    "Save Sale"
+            );
+
+
+            saveSaleButton.setGraphic(null);
+
+
+
+
+
+            if(task.getValue()){
+
 
 
                 quantityField.clear();
+
 
 
                 recipeComboBox
@@ -232,23 +341,148 @@ public class SalesController {
 
 
 
-                totalLabel.setText("0");
+                totalLabel.setText(
+                        "0"
+                );
+
+
+
+
+                showAlert(
+
+                        "Sold! ✅",
+
+                        recipe.getName()
+                        +
+                        " sold successfully.\n\n"
+                        +
+                        "Quantity: "
+                        +
+                        quantity
+                        +
+                        "\nTotal: MK "
+                        +
+                        String.format(
+                                "%,.2f",
+                                total
+                        ),
+
+                        Alert.AlertType.INFORMATION
+
+                );
+
+
+
+            }
+            else{
+
+
+                showAlert(
+
+                        "Sale Failed",
+
+                        "Could not complete sale.",
+
+                        Alert.AlertType.ERROR
+
+                );
 
 
             }
 
 
 
-        }
-        catch(Exception e){
+        });
 
-            e.printStackTrace();
 
-        }
+
+
+
+
+        task.setOnFailed(e -> {
+
+
+            saveSaleButton.setDisable(false);
+
+
+            saveSaleButton.setText(
+                    "Save Sale"
+            );
+
+
+            saveSaleButton.setGraphic(null);
+
+
+
+            showAlert(
+
+                    "Error",
+
+                    "Something went wrong.",
+
+                    Alert.AlertType.ERROR
+
+            );
+
+
+        });
+
+
+
+
+
+
+
+        Thread thread =
+                new Thread(task);
+
+
+        thread.setDaemon(true);
+
+
+        thread.start();
 
 
 
     }
+
+
+
+
+
+
+
+
+
+    private void showAlert(
+
+            String title,
+
+            String message,
+
+            Alert.AlertType type
+
+    ){
+
+
+        Alert alert =
+                new Alert(type);
+
+
+        alert.setTitle(title);
+
+
+        alert.setHeaderText(null);
+
+
+        alert.setContentText(message);
+
+
+        alert.showAndWait();
+
+
+    }
+
 
 
 
@@ -267,6 +501,7 @@ public class SalesController {
 
 
     }
+
 
 
 

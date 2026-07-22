@@ -8,11 +8,16 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.layout.StackPane;
 
+
 import java.io.IOException;
 
 
 
 public class MainShellController {
+
+
+
+    private static MainShellController instance;
 
 
 
@@ -23,15 +28,43 @@ public class MainShellController {
 
 
 
+
+    public MainShellController(){
+
+
+        instance = this;
+
+
+    }
+
+
+
+
+
+
+    public static MainShellController getInstance(){
+
+
+        return instance;
+
+
+    }
+
+
+
+
+
+
+
+
+
     @FXML
     public void initialize(){
 
 
-        /*
-         * Make this controller available
-         * to SidebarController
-         */
+
         Platform.runLater(() -> {
+
 
 
             Parent root =
@@ -48,17 +81,19 @@ public class MainShellController {
 
 
 
+
+            loadPage(
+                    "/fxml/dashboard.fxml"
+            );
+
+
+
         });
 
 
 
-
-        loadPage(
-                "/fxml/dashboard.fxml"
-        );
-
-
     }
+
 
 
 
@@ -104,7 +139,9 @@ public class MainShellController {
         catch(IOException e){
 
 
+
             e.printStackTrace();
+
 
 
         }
@@ -112,6 +149,7 @@ public class MainShellController {
 
 
     }
+
 
 
 

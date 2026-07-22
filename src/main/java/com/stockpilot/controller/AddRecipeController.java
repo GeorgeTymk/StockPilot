@@ -3,8 +3,6 @@ package com.stockpilot.controller;
 
 import com.stockpilot.model.Recipe;
 import com.stockpilot.service.RecipeService;
-import com.stockpilot.util.Navigator;
-
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -16,16 +14,9 @@ import javafx.scene.control.TextField;
 public class AddRecipeController {
 
 
-
-
-
     @FXML
     private TextField nameField;
 
-        @FXML
-private void goBack(){
-
-    Navigator.goBack();}
 
     @FXML
     private TextArea descriptionField;
@@ -41,41 +32,164 @@ private void goBack(){
 
 
 
+
+
+
+    /*
+     * Load pages through MainShell
+     * Keeps sidebar visible
+     */
+    private void loadPage(String page){
+
+
+        MainShellController shell =
+                MainShellController.getInstance();
+
+
+
+        if(shell != null){
+
+
+            shell.loadPage(
+                    "/fxml/" + page
+            );
+
+
+        }
+        else{
+
+
+            System.out.println(
+                    "MainShellController not available"
+            );
+
+
+        }
+
+
+    }
+
+
+
+
+
+
+
+
+
+    /*
+     * Dashboard button
+     */
+    @FXML
+    private void openDashboard(){
+
+
+        loadPage(
+                "dashboard.fxml"
+        );
+
+
+    }
+
+
+
+
+
+
+
+
+
+    /*
+     * Back to recipes
+     */
+    @FXML
+    private void goBack(){
+
+
+        loadPage(
+                "recipes.fxml"
+        );
+
+
+    }
+
+
+
+
+
+
+
+
+
+    /*
+     * Save recipe
+     */
     @FXML
     private void saveRecipe(){
 
 
-        System.out.println("SAVE BUTTON CLICKED");
 
-
-
-        try {
+        try{
 
 
 
             String name =
-                    nameField.getText();
+                    nameField.getText()
+                            .trim();
+
 
 
             String description =
-                    descriptionField.getText();
+                    descriptionField.getText()
+                            .trim();
+
+
+
+
+            String priceText =
+                    priceField.getText()
+                            .trim();
+
+
+
+
+
+
+
+            if(name.isEmpty()
+                    || priceText.isEmpty()){
+
+
+
+                showAlert(
+                        Alert.AlertType.WARNING,
+                        "Missing Information",
+                        "Recipe name and selling price are required."
+                );
+
+
+                return;
+
+
+            }
+
+
+
+
+
+
 
 
             double price =
                     Double.parseDouble(
-                            priceField.getText()
+                            priceText
                     );
 
 
 
-            System.out.println(
-                    "Recipe name: " + name
-            );
 
 
-            System.out.println(
-                    "Price: " + price
-            );
+
 
 
 
@@ -94,51 +208,135 @@ private void goBack(){
 
 
 
+
+
+
+
+
             recipeService.addRecipe(recipe);
 
 
 
-            System.out.println(
-                    "Returned from RecipeService"
+
+
+
+
+
+            showAlert(
+                    Alert.AlertType.INFORMATION,
+                    "Success",
+                    "Recipe saved successfully."
             );
 
 
 
-            Alert alert =
-                    new Alert(
-                            Alert.AlertType.INFORMATION
-                    );
-
-
-            alert.setTitle("Success");
-
-            alert.setHeaderText(null);
-
-            alert.setContentText(
-                    "Recipe saved"
-            );
-
-
-            alert.showAndWait();
 
 
 
-            Navigator.goTo(
+
+
+            /*
+             * Clear form after save
+             */
+
+            nameField.clear();
+
+            descriptionField.clear();
+
+            priceField.clear();
+
+
+
+
+
+
+
+
+            /*
+             * Return to recipes page
+             * Sidebar remains
+             */
+
+            loadPage(
                     "recipes.fxml"
             );
 
 
 
-        }catch(Exception e){
+
+
+
+
+        }
+        catch(NumberFormatException e){
+
+
+
+            showAlert(
+                    Alert.AlertType.ERROR,
+                    "Invalid Price",
+                    "Selling price must contain numbers only."
+            );
+
+
+        }
+        catch(Exception e){
+
 
 
             e.printStackTrace();
 
 
+
+            showAlert(
+                    Alert.AlertType.ERROR,
+                    "Error",
+                    "Could not save recipe."
+            );
+
+
         }
 
 
+
     }
+
+
+
+
+
+
+
+
+
+    private void showAlert(
+            Alert.AlertType type,
+            String title,
+            String message
+    ){
+
+
+        Alert alert =
+                new Alert(type);
+
+
+
+        alert.setTitle(title);
+
+
+        alert.setHeaderText(null);
+
+
+        alert.setContentText(message);
+
+
+        alert.showAndWait();
+
+
+
+    }
+
+
 
 
 }

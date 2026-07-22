@@ -7,7 +7,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-
 import java.util.Stack;
 
 
@@ -26,6 +25,7 @@ public class Navigator {
 
 
 
+
     public static void setStage(Stage primaryStage){
 
         stage = primaryStage;
@@ -39,7 +39,7 @@ public class Navigator {
     public static void goTo(String fxmlFile){
 
 
-        try {
+        try{
 
 
             if(stage == null){
@@ -52,9 +52,18 @@ public class Navigator {
 
 
 
-            if(currentPage != null
-                    && !currentPage.equals(fxmlFile)){
+            // prevent adding same page repeatedly
+            if(currentPage != null &&
+                    currentPage.equals(fxmlFile)){
 
+                return;
+
+            }
+
+
+
+
+            if(currentPage != null){
 
                 history.push(currentPage);
 
@@ -62,53 +71,61 @@ public class Navigator {
 
 
 
+
+
+
             FXMLLoader loader =
                     new FXMLLoader(
-                            Navigator.class.getResource(
-                                    "/fxml/" + fxmlFile
-                            )
+
+                            Navigator.class
+                                    .getResource(
+                                            "/fxml/" + fxmlFile
+                                    )
+
                     );
 
 
 
-            Parent root = loader.load();
 
 
-
-            root.setUserData(fxmlFile);
-
-
-
-            currentPage = fxmlFile;
+            Parent root =
+                    loader.load();
 
 
 
 
-            Scene scene = stage.getScene();
+
+            currentPage =
+                    fxmlFile;
+
+
+
+
+
+
+            Scene scene =
+                    stage.getScene();
+
 
 
 
             if(scene == null){
 
 
-                scene = new Scene(
-                        root,
-                        1280,
-                        750
-                );
+                scene =
+                        new Scene(
+                                root,
+                                1280,
+                                750
+                        );
 
 
                 stage.setScene(scene);
 
 
             }
-            else {
+            else{
 
-
-                /*
-                 * Instant page swap
-                 * No animation = no flashing
-                 */
 
                 scene.setRoot(root);
 
@@ -118,11 +135,25 @@ public class Navigator {
 
 
 
+
+
+            stage.setTitle(
+                    "StockPilot"
+            );
+
+
             stage.setResizable(true);
 
-            stage.setMinWidth(1100);
 
-            stage.setMinHeight(650);
+            stage.setMinWidth(
+                    1100
+            );
+
+
+            stage.setMinHeight(
+                    650
+            );
+
 
 
             stage.show();
@@ -130,25 +161,33 @@ public class Navigator {
 
 
 
+
+
             Platform.runLater(() -> {
+
 
                 root.applyCss();
 
                 root.layout();
 
+
             });
+
 
 
 
         }
         catch(Exception e){
 
+
             e.printStackTrace();
+
 
         }
 
 
     }
+
 
 
 
@@ -159,6 +198,7 @@ public class Navigator {
     public static void goBack(){
 
 
+
         if(history.isEmpty()){
 
             return;
@@ -167,15 +207,26 @@ public class Navigator {
 
 
 
+
+
         String previous =
                 history.pop();
+
+
+
+
+
+        // remove current before loading previous
+        currentPage = null;
 
 
 
         goTo(previous);
 
 
+
     }
+
 
 
 
@@ -185,9 +236,12 @@ public class Navigator {
 
     public static String getCurrentPage(){
 
+
         return currentPage;
 
+
     }
+
 
 
 
@@ -197,9 +251,14 @@ public class Navigator {
 
     public static void clearHistory(){
 
+
         history.clear();
 
+        currentPage = null;
+
+
     }
+
 
 
 }

@@ -1,5 +1,6 @@
 package com.stockpilot.controller;
 
+
 import com.stockpilot.model.Recipe;
 import com.stockpilot.service.RecipeService;
 import com.stockpilot.util.Navigator;
@@ -12,27 +13,34 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 
+
 public class RecipeController {
+
 
 
     @FXML
     private TableView<Recipe> recipeTable;
 
 
+
     @FXML
     private TableColumn<Recipe, Integer> idColumn;
+
 
 
     @FXML
     private TableColumn<Recipe, String> nameColumn;
 
 
+
     @FXML
     private TableColumn<Recipe, String> descriptionColumn;
 
 
+
     @FXML
     private TableColumn<Recipe, Double> priceColumn;
+
 
 
 
@@ -46,14 +54,19 @@ public class RecipeController {
 
 
 
+
+
     @FXML
     public void initialize() {
+
 
         setupColumns();
 
         loadRecipes();
 
+
     }
+
 
 
 
@@ -100,22 +113,32 @@ public class RecipeController {
 
         );
 
+
     }
+
+
 
 
 
 
 
     @FXML
-    private void addRecipe() {
+private void addRecipe() {
 
+    MainShellController shell =
+            MainShellController.getInstance();
 
-        Navigator.goTo(
-                "add_recipe.fxml"
-        );
+    if (shell != null) {
 
+        shell.loadPage("/fxml/add_recipe.fxml");
+
+    } else {
+
+        System.out.println("MainShell not found.");
 
     }
+}
+
 
 
 
@@ -149,7 +172,9 @@ public class RecipeController {
 
 
 
+
         selectedRecipe = recipe;
+
 
 
 
@@ -159,6 +184,15 @@ public class RecipeController {
 
 
     }
+
+
+
+
+
+
+
+
+
 
 
 
@@ -179,19 +213,6 @@ public class RecipeController {
 
 
 
-    @FXML
-    private void openDashboard() {
-
-
-        Navigator.goTo(
-                "dashboard.fxml"
-        );
-
-
-    }
-
-
-
 
 
 
@@ -202,6 +223,7 @@ public class RecipeController {
 
 
     }
+
 
 
 
@@ -220,6 +242,7 @@ public class RecipeController {
     ) {
 
 
+
         Alert alert =
                 new Alert(type);
 
@@ -228,16 +251,22 @@ public class RecipeController {
         alert.setTitle(title);
 
 
+
         alert.setHeaderText(null);
+
 
 
         alert.setContentText(message);
 
 
+
         alert.showAndWait();
 
 
+
     }
+
+
 
 
 }

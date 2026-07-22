@@ -3,7 +3,6 @@ package com.stockpilot.controller;
 
 import com.stockpilot.util.Navigator;
 
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
@@ -12,11 +11,6 @@ import javafx.scene.layout.VBox;
 
 public class SidebarController {
 
-
-
-    // =====================================================
-    // BUTTONS
-    // =====================================================
 
 
     @FXML
@@ -47,11 +41,6 @@ public class SidebarController {
     private Button lowStockBtn;
 
 
-
-
-    // =====================================================
-    // NAV CONTAINERS
-    // =====================================================
 
 
     @FXML
@@ -85,81 +74,28 @@ public class SidebarController {
 
 
 
-    // =====================================================
-    // INITIALIZE
-    // =====================================================
 
-
-    @FXML
-    public void initialize(){
-
-
-        Platform.runLater(() -> {
-
-
-            setActive("dashboard");
-
-
-        });
-
-
-    }
-
-
-
-
-
-
-    // =====================================================
-    // LOAD PAGE THROUGH MAIN SHELL
-    // =====================================================
 
 
     private void loadPage(String page){
 
 
-        try {
-
-
-            MainShellController shell =
-                    (MainShellController)
-                    dashboardBtn.getScene()
-                            .getRoot()
-                            .getProperties()
-                            .get("controller");
+        MainShellController shell =
+                MainShellController.getInstance();
 
 
 
-            if(shell != null){
+        if(shell != null){
 
 
-                shell.loadPage(
-                        "/fxml/" + page
-                );
+            shell.loadPage(
+                    "/fxml/" + page
+            );
 
 
-                setActive(
-                        page.replace(".fxml","")
-                );
-
-
-            }
-            else {
-
-
-                System.out.println(
-                        "MainShellController not found"
-                );
-
-
-            }
-
-
-        }
-        catch(Exception e){
-
-
-            e.printStackTrace();
+            setActive(
+                    page.replace(".fxml","")
+            );
 
 
         }
@@ -172,35 +108,32 @@ public class SidebarController {
 
 
 
-
-    // =====================================================
-    // NAVIGATION
-    // =====================================================
 
 
     @FXML
     private void openDashboard(){
 
-
         loadPage(
                 "dashboard.fxml"
         );
 
-
     }
+
+
+
 
 
 
     @FXML
     private void openInventory(){
 
-
         loadPage(
                 "inventory.fxml"
         );
 
-
     }
+
+
 
 
 
@@ -208,13 +141,13 @@ public class SidebarController {
     @FXML
     private void openIngredients(){
 
-
         loadPage(
                 "ingredients.fxml"
         );
 
-
     }
+
+
 
 
 
@@ -222,13 +155,12 @@ public class SidebarController {
     @FXML
     private void openRecipes(){
 
-
         loadPage(
                 "recipes.fxml"
         );
 
-
     }
+
 
 
 
@@ -237,13 +169,12 @@ public class SidebarController {
     @FXML
     private void openSuppliers(){
 
-
         loadPage(
                 "suppliers.fxml"
         );
 
-
     }
+
 
 
 
@@ -252,13 +183,12 @@ public class SidebarController {
     @FXML
     private void openSales(){
 
-
         loadPage(
                 "sales.fxml"
         );
 
-
     }
+
 
 
 
@@ -267,13 +197,12 @@ public class SidebarController {
     @FXML
     private void openSalesHistory(){
 
-
         loadPage(
                 "sales_history.fxml"
         );
 
-
     }
+
 
 
 
@@ -282,13 +211,12 @@ public class SidebarController {
     @FXML
     private void openReports(){
 
-
         loadPage(
                 "reports.fxml"
         );
 
-
     }
+
 
 
 
@@ -297,11 +225,9 @@ public class SidebarController {
     @FXML
     private void openLowStock(){
 
-
         loadPage(
                 "low_stock.fxml"
         );
-
 
     }
 
@@ -328,51 +254,24 @@ public class SidebarController {
 
 
 
-    // =====================================================
-    // ACTIVE SIDEBAR
-    // =====================================================
-
 
     private void clearActive(){
 
 
-        dashboardNav.getStyleClass()
-                .remove("nav-active");
-
-
-        inventoryNav.getStyleClass()
-                .remove("nav-active");
-
-
-        ingredientsNav.getStyleClass()
-                .remove("nav-active");
-
-
-        recipesNav.getStyleClass()
-                .remove("nav-active");
-
-
-        suppliersNav.getStyleClass()
-                .remove("nav-active");
-
-
-        salesNav.getStyleClass()
-                .remove("nav-active");
-
-
-        salesHistoryNav.getStyleClass()
-                .remove("nav-active");
-
-
-        reportsNav.getStyleClass()
-                .remove("nav-active");
-
-
-        lowStockNav.getStyleClass()
-                .remove("nav-active");
+        dashboardNav.getStyleClass().remove("nav-active");
+        inventoryNav.getStyleClass().remove("nav-active");
+        ingredientsNav.getStyleClass().remove("nav-active");
+        recipesNav.getStyleClass().remove("nav-active");
+        suppliersNav.getStyleClass().remove("nav-active");
+        salesNav.getStyleClass().remove("nav-active");
+        salesHistoryNav.getStyleClass().remove("nav-active");
+        reportsNav.getStyleClass().remove("nav-active");
+        lowStockNav.getStyleClass().remove("nav-active");
 
 
     }
+
+
 
 
 
@@ -383,7 +282,6 @@ public class SidebarController {
     public void setActive(String page){
 
 
-
         clearActive();
 
 
@@ -392,63 +290,46 @@ public class SidebarController {
 
 
             case "dashboard" ->
-
                     dashboardNav.getStyleClass()
                             .add("nav-active");
 
 
-
             case "inventory" ->
-
                     inventoryNav.getStyleClass()
                             .add("nav-active");
 
 
-
             case "ingredients" ->
-
                     ingredientsNav.getStyleClass()
                             .add("nav-active");
 
 
-
             case "recipes" ->
-
                     recipesNav.getStyleClass()
                             .add("nav-active");
 
 
-
             case "suppliers" ->
-
                     suppliersNav.getStyleClass()
                             .add("nav-active");
 
 
-
             case "sales" ->
-
                     salesNav.getStyleClass()
                             .add("nav-active");
 
 
-
             case "sales_history" ->
-
                     salesHistoryNav.getStyleClass()
                             .add("nav-active");
 
 
-
             case "reports" ->
-
                     reportsNav.getStyleClass()
                             .add("nav-active");
 
 
-
             case "low_stock" ->
-
                     lowStockNav.getStyleClass()
                             .add("nav-active");
 
@@ -457,6 +338,7 @@ public class SidebarController {
 
 
     }
+
 
 
 }
