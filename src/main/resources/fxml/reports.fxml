@@ -74,99 +74,123 @@
 
         <center>
 
+    <VBox spacing="25"
+          styleClass="floating-dashboard">
 
-            <VBox spacing="25">
+        <padding>
+            <Insets top="30"
+                    right="35"
+                    bottom="30"
+                    left="35"/>
+        </padding>
 
+        <!-- REPORT OPTIONS -->
 
-                <padding>
+        <VBox spacing="15"
+              styleClass="dashboard-stat-card">
 
-                    <Insets top="30"
-                            right="30"
-                            bottom="30"
-                            left="30"/>
+            <Label text="Generate Report"
+                   styleClass="section-title"/>
 
-                </padding>
+            <Label text="Choose what should be included in the report."
+                   styleClass="trend-text"/>
 
+            <GridPane hgap="40"
+                      vgap="15">
 
+                <columnConstraints>
+                    <ColumnConstraints percentWidth="50"/>
+                    <ColumnConstraints percentWidth="50"/>
+                </columnConstraints>
 
+                <CheckBox fx:id="salesSummaryCheck"
+                          text="Sales Summary"
+                          GridPane.columnIndex="0"
+                          GridPane.rowIndex="0"/>
 
+                <CheckBox fx:id="todaySalesCheck"
+                          text="Today's Sales"
+                          GridPane.columnIndex="1"
+                          GridPane.rowIndex="0"/>
 
+                <CheckBox fx:id="inventoryCheck"
+                          text="Inventory Status"
+                          GridPane.columnIndex="0"
+                          GridPane.rowIndex="1"/>
 
-                <!-- REPORT CARDS -->
+                <CheckBox fx:id="lowStockCheck"
+                          text="Low Stock Items"
+                          GridPane.columnIndex="1"
+                          GridPane.rowIndex="1"/>
 
-                <HBox spacing="30">
+                <CheckBox fx:id="outOfStockCheck"
+                          text="Out Of Stock Items"
+                          GridPane.columnIndex="0"
+                          GridPane.rowIndex="2"/>
 
+                <CheckBox fx:id="recipeCheck"
+                          text="Recipe Performance"
+                          GridPane.columnIndex="1"
+                          GridPane.rowIndex="2"/>
 
+                <CheckBox fx:id="activityCheck"
+                          text="Recent Activity"
+                          GridPane.columnIndex="0"
+                          GridPane.rowIndex="3"/>
 
-                    <VBox spacing="10"
-                          alignment="CENTER"
-                          styleClass="stat-card">
+                <CheckBox fx:id="bestSellerCheck"
+                          text="Best Selling Recipe"
+                          GridPane.columnIndex="1"
+                          GridPane.rowIndex="3"/>
 
+            </GridPane>
 
-                        <Label text="Today's Sales"/>
-
-
-                        <Label fx:id="todaySalesLabel"
-                               text="0"
-                               styleClass="stat-value"/>
-
-
-                    </VBox>
-
-
-
-
-
-
-
-                    <VBox spacing="10"
-                          alignment="CENTER"
-                          styleClass="stat-card">
-
-
-                        <Label text="Best Selling Recipe"/>
-
-
-                        <Label fx:id="bestSellerLabel"
-                               text="None"
-                               styleClass="stat-value"/>
-
-
-                    </VBox>
-
-
-
-
-                </HBox>
-
-
-
-
-
-
-
-
-                <!-- BUTTONS -->
-
-                <HBox spacing="15">
-
-
-                    <Button text="Back"
-                            onAction="#goBack"
-                            styleClass="secondary-button"/>
-
-
-                </HBox>
+        </VBox>
 
 
 
+        <!-- PREVIEW -->
+
+        <VBox spacing="15"
+              VBox.vgrow="ALWAYS"
+              styleClass="chart-card">
+
+            <Label text="Report Preview"
+                   styleClass="section-title"/>
+
+            <TextArea fx:id="previewArea"
+                      editable="false"
+                      wrapText="true"
+                      prefHeight="320"
+                      promptText="The report preview will appear here..."/>
+
+        </VBox>
 
 
-            </VBox>
 
+        <!-- ACTION BUTTONS -->
 
+        <HBox spacing="15">
 
-        </center>
+            <Button text="Generate Preview"
+                    onAction="#generatePreview"
+                    styleClass="green-action-button"/>
+
+            <Button text="Export PDF"
+                    onAction="#exportPDF"
+                    styleClass="green-action-button"/>
+
+            <Region HBox.hgrow="ALWAYS"/>
+
+            <Button text="Back"
+                    onAction="#goBack"
+                    styleClass="secondary-button"/>
+
+        </HBox>
+
+    </VBox>
+
+</center>
 
 
 

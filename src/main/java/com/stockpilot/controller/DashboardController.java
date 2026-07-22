@@ -293,16 +293,10 @@ public class DashboardController {
 
 
 
-        System.out.println(
-                "LOW STOCK: "
-                + lowStock
-        );
-
-
-        System.out.println(
-                "OUT OF STOCK: "
-                + outOfStock
-        );
+        System.out.println("----------------------------");
+System.out.println("Low Stock Count  : " + lowStock);
+System.out.println("Out of Stock Count : " + outOfStock);
+System.out.println("----------------------------");
 
 
     }

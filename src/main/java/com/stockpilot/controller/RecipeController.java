@@ -1,10 +1,8 @@
 package com.stockpilot.controller;
 
-
 import com.stockpilot.model.Recipe;
 import com.stockpilot.service.RecipeService;
 import com.stockpilot.util.Navigator;
-
 
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -12,7 +10,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-
 
 
 public class RecipeController {
@@ -44,29 +41,24 @@ public class RecipeController {
 
 
 
-    // Selected recipe shared with RecipeDetailsController
+    // Shared selected recipe
     public static Recipe selectedRecipe;
 
 
 
-
     @FXML
-    public void initialize(){
-
+    public void initialize() {
 
         setupColumns();
 
-
         loadRecipes();
-
 
     }
 
 
 
 
-
-    private void setupColumns(){
+    private void setupColumns() {
 
 
         idColumn.setCellValueFactory(
@@ -95,8 +87,7 @@ public class RecipeController {
 
 
 
-
-    private void loadRecipes(){
+    private void loadRecipes() {
 
 
         recipeTable.setItems(
@@ -109,17 +100,14 @@ public class RecipeController {
 
         );
 
-
     }
 
 
 
 
 
-
-
     @FXML
-    private void addRecipe(){
+    private void addRecipe() {
 
 
         Navigator.goTo(
@@ -134,21 +122,18 @@ public class RecipeController {
 
 
 
-
     @FXML
-    private void viewRecipe(){
-
+    private void viewRecipe() {
 
 
         Recipe recipe =
-
                 recipeTable
                         .getSelectionModel()
                         .getSelectedItem();
 
 
 
-        if(recipe == null){
+        if(recipe == null) {
 
 
             showAlert(
@@ -164,7 +149,6 @@ public class RecipeController {
 
 
 
-
         selectedRecipe = recipe;
 
 
@@ -172,7 +156,6 @@ public class RecipeController {
         Navigator.goTo(
                 "recipe_details.fxml"
         );
-
 
 
     }
@@ -184,7 +167,7 @@ public class RecipeController {
 
 
     @FXML
-    private void goBack(){
+    private void goBack() {
 
 
         Navigator.goBack();
@@ -196,9 +179,8 @@ public class RecipeController {
 
 
 
-
     @FXML
-    private void openDashboard(){
+    private void openDashboard() {
 
 
         Navigator.goTo(
@@ -213,7 +195,7 @@ public class RecipeController {
 
 
 
-    public void refresh(){
+    public void refresh() {
 
 
         loadRecipes();
@@ -235,11 +217,12 @@ public class RecipeController {
 
             String message
 
-    ){
+    ) {
 
 
         Alert alert =
                 new Alert(type);
+
 
 
         alert.setTitle(title);
@@ -255,7 +238,6 @@ public class RecipeController {
 
 
     }
-
 
 
 }

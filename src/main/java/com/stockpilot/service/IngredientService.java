@@ -372,12 +372,12 @@ public int getLowStockCount() {
 
 
     String sql =
-            """
-            SELECT COUNT(*)
-            FROM ingredients
-            WHERE quantity > 0
-            AND quantity <= minimum_stock
-            """;
+        """
+        SELECT COUNT(*)
+        FROM ingredients
+        WHERE quantity > minimum_stock
+        AND quantity <= (minimum_stock * 1.5)
+        """;
 
 
     try (
@@ -420,46 +420,28 @@ public int getLowStockCount() {
 
 public int getOutOfStockCount() {
 
-
     String sql =
             """
             SELECT COUNT(*)
             FROM ingredients
-            WHERE quantity <= 0
+            WHERE quantity <= minimum_stock
             """;
 
-
     try (
-
-            Connection connection =
-                    Database.connect();
-
-            PreparedStatement statement =
-                    connection.prepareStatement(sql);
-
-            ResultSet result =
-                    statement.executeQuery()
-
+            Connection connection = Database.connect();
+            PreparedStatement statement = connection.prepareStatement(sql);
+            ResultSet result = statement.executeQuery()
     ) {
 
-
-        if(result.next()) {
-
+        if (result.next()) {
             return result.getInt(1);
-
         }
 
-
-    }
-    catch(Exception e){
-
+    } catch (Exception e) {
         e.printStackTrace();
-
     }
-
 
     return 0;
-
 }
 
 
