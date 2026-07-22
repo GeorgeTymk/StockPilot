@@ -9,20 +9,19 @@ import com.stockpilot.service.SaleService;
 import com.stockpilot.util.Navigator;
 
 
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import javafx.fxml.FXML;
 
 import javafx.scene.chart.LineChart;
-import javafx.scene.chart.NumberAxis;
+
 import javafx.scene.chart.XYChart;
 
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.control.Tooltip;
+
 
 import javafx.scene.layout.VBox;
 
@@ -56,7 +55,8 @@ public class DashboardController {
 
 
     private final NumberFormat currencyFormat =
-            NumberFormat.getNumberInstance(Locale.US);
+        java.text.NumberFormat
+        .getCurrencyInstance(Locale.US);
 
 
 
@@ -198,10 +198,12 @@ public class DashboardController {
         if(totalSalesLabel != null){
 
             totalSalesLabel.setText(
-                    "MK "
-                    + currencyFormat.format(totalSales)
-                    + ".00"
-            );
+        "MK "
+        + String.format(
+                "%,.2f",
+                totalSales
+        )
+);
 
         }
 
@@ -226,11 +228,13 @@ public class DashboardController {
 
         if(todaySalesLabel != null){
 
-            todaySalesLabel.setText(
-                    "MK "
-                    + currencyFormat.format(todaySales)
-                    + ".00"
-            );
+    todaySalesLabel.setText(
+        "MK "
+        + String.format(
+                "%,.2f",
+                totalSales
+        )
+);
 
         }
 
@@ -242,8 +246,13 @@ public class DashboardController {
         if(bestSellerLabel != null){
 
             bestSellerLabel.setText(
-                    bestSeller
-            );
+        bestSeller == null ||
+        bestSeller.isBlank()
+        ?
+        "No sales yet"
+        :
+        bestSeller
+);
 
         }
 

@@ -6,10 +6,13 @@ import com.stockpilot.service.IngredientService;
 import com.stockpilot.util.Navigator;
 
 import javafx.collections.FXCollections;
+
 import javafx.fxml.FXML;
+
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
+
 import javafx.scene.control.cell.PropertyValueFactory;
 
 
@@ -45,6 +48,7 @@ public class LowStockController {
 
 
 
+
     @FXML
     public void initialize() {
 
@@ -69,6 +73,7 @@ public class LowStockController {
         );
 
 
+
         loadLowStock();
 
 
@@ -81,98 +86,151 @@ public class LowStockController {
 
 
 
-    private void loadLowStock() {
-
-
-        lowStockTable.setItems(
-
-                FXCollections.observableArrayList(
-
-                        service.getLowStockIngredients()
-
-                )
-
-        );
-
-
-    }
 
 
 
+    // =====================================================
+    // LOAD LOW STOCK ITEMS
+    // =====================================================
 
+   private void loadLowStock() {
+
+
+    lowStockTable.getItems().clear();
+
+
+    lowStockTable.setItems(
+
+            FXCollections.observableArrayList(
+
+                    service.getStockAlerts()
+
+            )
+
+    );
+
+
+}
+
+
+
+
+
+
+
+
+
+    // =====================================================
+    // ROW COLORS
+    // LOW STOCK = ORANGE
+    // OUT OF STOCK = RED
+    // =====================================================
 
     private void styleRows() {
 
 
-        lowStockTable.setRowFactory(table ->
+    lowStockTable.setRowFactory(table ->
 
 
-                new TableRow<>() {
+            new TableRow<>() {
 
 
-                    @Override
-                    protected void updateItem(
+                @Override
+                protected void updateItem(
 
-                            Ingredient ingredient,
+                        Ingredient ingredient,
 
-                            boolean empty
+                        boolean empty
 
-                    ) {
+                ) {
 
 
-                        super.updateItem(
-                                ingredient,
-                                empty
+                    super.updateItem(
+                            ingredient,
+                            empty
+                    );
+
+
+                    if(empty || ingredient == null){
+
+                        setStyle("");
+
+                        return;
+
+                    }
+
+
+
+                    double quantity =
+                            ingredient.getQuantity();
+
+
+
+                    double minimum =
+                            ingredient.getMinimumStock();
+
+
+
+
+                    // 🔴 OUT OF STOCK
+
+                    if(quantity <= 0){
+
+
+                        setStyle(
+                                "-fx-background-color:#ffcccc;"
                         );
-
-
-
-                        if(empty || ingredient == null) {
-
-
-                            setStyle("");
-
-
-                        }
-                        else {
-
-
-                            if(ingredient.getQuantity()
-                                    <= ingredient.getMinimumStock()) {
-
-
-                                setStyle(
-                                        "-fx-background-color:#ffcccc;"
-                                );
-
-
-                            }
-                            else {
-
-
-                                setStyle("");
-
-                            }
-
-
-                        }
 
 
                     }
 
 
+
+                    // 🟠 LOW STOCK
+
+                    else if(quantity <= minimum){
+
+
+                        setStyle(
+                                "-fx-background-color:#ffe6b3;"
+                        );
+
+
+                    }
+
+
+
+                    else{
+
+
+                        setStyle("");
+
+                    }
+
+
+
                 }
 
 
-        );
+            }
 
 
-    }
+    );
+
+
+}
 
 
 
 
 
+
+
+
+
+    // =====================================================
+    // REFRESH TABLE
+    // =====================================================
 
     @FXML
     private void refresh() {
@@ -187,6 +245,13 @@ public class LowStockController {
 
 
 
+
+
+
+
+    // =====================================================
+    // BACK BUTTON
+    // =====================================================
 
     @FXML
     private void goBack() {

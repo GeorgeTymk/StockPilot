@@ -368,16 +368,20 @@ public class IngredientService {
 // =====================================================
 
 
+// =====================================================
+// LOW STOCK COUNT
+// =====================================================
+
 public int getLowStockCount() {
 
 
     String sql =
-        """
-        SELECT COUNT(*)
-        FROM ingredients
-        WHERE quantity > minimum_stock
-        AND quantity <= (minimum_stock * 1.5)
-        """;
+            """
+            SELECT COUNT(*)
+            FROM ingredients
+            WHERE quantity > 0
+            AND quantity <= minimum_stock
+            """;
 
 
     try (
@@ -416,34 +420,53 @@ public int getLowStockCount() {
 
 
 
-
+// =====================================================
+// OUT OF STOCK COUNT
+// =====================================================
 
 public int getOutOfStockCount() {
+
 
     String sql =
             """
             SELECT COUNT(*)
             FROM ingredients
-            WHERE quantity <= minimum_stock
+            WHERE quantity <= 0
             """;
 
+
     try (
-            Connection connection = Database.connect();
-            PreparedStatement statement = connection.prepareStatement(sql);
-            ResultSet result = statement.executeQuery()
+
+            Connection connection =
+                    Database.connect();
+
+            PreparedStatement statement =
+                    connection.prepareStatement(sql);
+
+            ResultSet result =
+                    statement.executeQuery()
+
     ) {
 
-        if (result.next()) {
+
+        if(result.next()) {
+
             return result.getInt(1);
+
         }
 
-    } catch (Exception e) {
+
+    }
+    catch(Exception e){
+
         e.printStackTrace();
+
     }
 
-    return 0;
-}
 
+    return 0;
+
+}
 
 
 
@@ -492,72 +515,172 @@ public int getIngredientCount(){
 
 }
 
+        
+// =====================================================
+// OUT OF STOCK LIST
+// =====================================================
 
-    // =====================================================
-    // FIND INGREDIENT
-    // =====================================================
+public List<Ingredient> getOutOfStockIngredients(){
+
+    List<Ingredient> ingredients =
+            new ArrayList<>();
 
 
-    public Ingredient getIngredientById(
-            int ingredientId
+    String sql =
+            """
+            SELECT *
+            FROM ingredients
+            WHERE quantity <= 0
+            ORDER BY name
+            """;
+
+
+    try(
+            Connection connection = Database.connect();
+
+            PreparedStatement statement =
+                    connection.prepareStatement(sql);
+
+            ResultSet result =
+                    statement.executeQuery()
+
     ){
 
 
-        String sql =
-                """
-                SELECT *
+        while(result.next()){
 
-                FROM ingredients
-
-                WHERE id = ?
-                """;
-
-
-
-        try(
-                Connection connection = Database.connect();
-
-                PreparedStatement statement =
-                        connection.prepareStatement(sql)
-
-        ){
-
-
-            statement.setInt(
-                    1,
-                    ingredientId
+            ingredients.add(
+                    mapIngredient(result)
             );
 
+        }
+
+
+    }
+    catch(Exception e){
+
+        e.printStackTrace();
+
+    }
+
+
+    return ingredients;
+
+}
+
+// =====================================================
+// LOW STOCK + OUT OF STOCK ALERT LIST
+// =====================================================
+
+public List<Ingredient> getStockAlerts(){
+
+    List<Ingredient> ingredients =
+            new ArrayList<>();
+
+
+    String sql =
+            """
+            SELECT *
+            FROM ingredients
+            WHERE quantity <= minimum_stock
+            ORDER BY quantity ASC
+            """;
+
+
+    try(
+            Connection connection = Database.connect();
+
+            PreparedStatement statement =
+                    connection.prepareStatement(sql);
 
             ResultSet result =
-                    statement.executeQuery();
+                    statement.executeQuery()
 
+    ){
 
+        while(result.next()){
 
-            if(result.next()){
-
-
-                return mapIngredient(result);
-
-
-            }
-
-
-        }
-        catch(Exception e){
-
-            e.printStackTrace();
+            ingredients.add(
+                    mapIngredient(result)
+            );
 
         }
 
+    }
+    catch(Exception e){
+
+        e.printStackTrace();
+
+    }
 
 
-        return null;
+    return ingredients;
+
+}
+
+
+
+
+// =====================================================
+// FIND INGREDIENT
+// =====================================================
+
+
+public Ingredient getIngredientById(
+        int ingredientId
+){
+
+
+    String sql =
+            """
+            SELECT *
+            FROM ingredients
+            WHERE id = ?
+            """;
+
+
+
+    try(
+            Connection connection = Database.connect();
+
+            PreparedStatement statement =
+                    connection.prepareStatement(sql)
+
+    ){
+
+
+        statement.setInt(
+                1,
+                ingredientId
+        );
+
+
+        ResultSet result =
+                statement.executeQuery();
+
+
+
+        if(result.next()){
+
+
+            return mapIngredient(result);
+
+
+        }
+
+
+    }
+    catch(Exception e){
+
+        e.printStackTrace();
 
     }
 
 
 
+    return null;
+
+}
 
 
 

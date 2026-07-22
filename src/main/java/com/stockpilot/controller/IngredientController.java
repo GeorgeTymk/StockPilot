@@ -110,21 +110,21 @@ public class IngredientController {
             String status;
 
 
-            if(quantity <= minimum){
+            if(quantity <= 0){
 
-                status = "RESTOCK";
+    status = "OUT OF STOCK";
 
-            }
-            else if(quantity <= minimum * 1.5){
+}
+else if(quantity <= minimum){
 
-                status = "LOW";
+    status = "LOW";
 
-            }
-            else{
+}
+else{
 
-                status = "GOOD";
+    status = "GOOD";
 
-            }
+}
 
 
             return new SimpleStringProperty(status);
@@ -367,33 +367,33 @@ public class IngredientController {
 
 
 
-                            if(status.equals("RESTOCK")){
+                            if(status.equals("OUT OF STOCK")){
 
 
-                                setStyle(
-                                        "-fx-text-fill:red;"
-                                );
+    setStyle(
+            "-fx-text-fill:red;"
+    );
 
 
-                            }
-                            else if(status.equals("LOW")){
+}
+else if(status.equals("LOW")){
 
 
-                                setStyle(
-                                        "-fx-text-fill:orange;"
-                                );
+    setStyle(
+            "-fx-text-fill:orange;"
+    );
 
 
-                            }
-                            else{
+}
+else{
 
 
-                                setStyle(
-                                        "-fx-text-fill:green;"
-                                );
+    setStyle(
+            "-fx-text-fill:green;"
+    );
 
 
-                            }
+}
 
 
                         }
@@ -420,76 +420,82 @@ public class IngredientController {
     private void styleIngredientRows(){
 
 
-        ingredientTable.setRowFactory(table ->
+    ingredientTable.setRowFactory(table ->
 
-                new TableRow<>(){
-
-
-                    @Override
-                    protected void updateItem(
-
-                            Ingredient ingredient,
-
-                            boolean empty
-
-                    ){
+            new TableRow<>(){
 
 
-                        super.updateItem(
-                                ingredient,
-                                empty
+                @Override
+                protected void updateItem(
+
+                        Ingredient ingredient,
+
+                        boolean empty
+
+                ){
+
+
+                    super.updateItem(
+                            ingredient,
+                            empty
+                    );
+
+
+
+                    if(empty || ingredient == null){
+
+
+                        setStyle("");
+
+                        return;
+
+                    }
+
+
+
+                    double quantity =
+                            ingredient.getQuantity();
+
+
+                    double minimum =
+                            ingredient.getMinimumStock();
+
+
+
+                    // 🔴 OUT OF STOCK
+
+                    if(quantity <= 0){
+
+
+                        setStyle(
+                                "-fx-background-color:#ffcccc;"
                         );
 
 
-
-                        if(empty || ingredient == null){
-
-
-                            setStyle("");
-
-                        }
-                        else{
+                    }
 
 
-                            double quantity =
-                                    ingredient.getQuantity();
+                    // 🟠 LOW STOCK
+
+                    else if(quantity < minimum){
 
 
-                            double minimum =
-                                    ingredient.getMinimumStock();
+                        setStyle(
+                                "-fx-background-color:#ffe6b3;"
+                        );
 
 
-
-                            if(quantity <= minimum){
-
-
-                                setStyle(
-                                    "-fx-background-color:#ffcccc;"
-                                );
+                    }
 
 
-                            }
-                            else if(quantity <= minimum * 1.5){
+                    // 🟢 GOOD STOCK
+
+                    else{
 
 
-                                setStyle(
-                                    "-fx-background-color:#ffe5b3;"
-                                );
-
-
-                            }
-                            else{
-
-
-                                setStyle(
-                                    "-fx-background-color:#ccffcc;"
-                                );
-
-
-                            }
-
-
-                        }
+                        setStyle(
+                                "-fx-background-color:#ccffcc;"
+                        );
 
 
                     }
@@ -497,10 +503,15 @@ public class IngredientController {
 
                 }
 
-        );
+
+            }
 
 
-    }
+    );
+
+
+}
+
 
 
 
