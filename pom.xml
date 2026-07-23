@@ -14,7 +14,6 @@
     <version>1.0</version>
 
 
-
     <properties>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -29,13 +28,10 @@
 
 
 
-
     <dependencies>
 
 
-
         <!-- JavaFX Controls -->
-
         <dependency>
 
             <groupId>org.openjfx</groupId>
@@ -49,7 +45,6 @@
 
 
         <!-- JavaFX FXML -->
-
         <dependency>
 
             <groupId>org.openjfx</groupId>
@@ -62,9 +57,20 @@
 
 
 
+        <!-- JavaFX Swing -->
+        <dependency>
 
-        <!-- AtlantaFX Theme -->
+            <groupId>org.openjfx</groupId>
 
+            <artifactId>javafx-swing</artifactId>
+
+            <version>${javafx.version}</version>
+
+        </dependency>
+
+
+
+        <!-- AtlantaFX -->
         <dependency>
 
             <groupId>io.github.mkpaz</groupId>
@@ -77,10 +83,7 @@
 
 
 
-
-
         <!-- Ikonli Core -->
-
         <dependency>
 
             <groupId>org.kordamp.ikonli</groupId>
@@ -93,10 +96,7 @@
 
 
 
-
-
         <!-- Ikonli JavaFX -->
-
         <dependency>
 
             <groupId>org.kordamp.ikonli</groupId>
@@ -108,15 +108,8 @@
         </dependency>
 
 
-<dependency>
-    <groupId>org.openjfx</groupId>
-    <artifactId>javafx-swing</artifactId>
-    <version>21.0.2</version>
-</dependency>
 
-
-        <!-- FontAwesome 6 Icons -->
-
+        <!-- FontAwesome Icons -->
         <dependency>
 
             <groupId>org.kordamp.ikonli</groupId>
@@ -129,10 +122,7 @@
 
 
 
-
-
         <!-- SQLite -->
-
         <dependency>
 
             <groupId>org.xerial</groupId>
@@ -143,17 +133,32 @@
 
         </dependency>
 
-        <dependency>
-    <groupId>com.itextpdf</groupId>
-    <artifactId>itext7-core</artifactId>
-    <version>8.0.4</version>
-    <type>pom</type>
-</dependency>
 
+
+        <!-- iText PDF -->
+        <dependency>
+
+            <groupId>com.itextpdf</groupId>
+
+            <artifactId>kernel</artifactId>
+
+            <version>8.0.4</version>
+
+        </dependency>
+
+
+        <dependency>
+
+            <groupId>com.itextpdf</groupId>
+
+            <artifactId>layout</artifactId>
+
+            <version>8.0.4</version>
+
+        </dependency>
 
 
     </dependencies>
-
 
 
 
@@ -188,6 +193,60 @@
 
 
 
+            <!-- Create Executable JAR -->
+
+            <plugin>
+
+                <groupId>org.apache.maven.plugins</groupId>
+
+                <artifactId>maven-shade-plugin</artifactId>
+
+                <version>3.5.2</version>
+
+
+                <executions>
+
+                    <execution>
+
+                        <phase>package</phase>
+
+
+                        <goals>
+
+                            <goal>shade</goal>
+
+                        </goals>
+
+
+                        <configuration>
+
+                            <createDependencyReducedPom>false</createDependencyReducedPom>
+
+
+                            <transformers>
+
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+
+                                    <mainClass>com.stockpilot.Main</mainClass>
+
+                                </transformer>
+
+
+                            </transformers>
+
+
+                        </configuration>
+
+
+                    </execution>
+
+
+                </executions>
+
+
+            </plugin>
+
+
 
 
             <!-- JavaFX Runner -->
@@ -206,6 +265,7 @@
                     <mainClass>
                         com.stockpilot.Main
                     </mainClass>
+
 
                 </configuration>
 
