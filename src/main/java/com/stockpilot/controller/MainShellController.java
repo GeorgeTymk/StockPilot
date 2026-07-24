@@ -8,13 +8,11 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.layout.StackPane;
 
-
 import java.io.IOException;
 
 
 
 public class MainShellController {
-
 
 
     private static MainShellController instance;
@@ -23,7 +21,6 @@ public class MainShellController {
 
     @FXML
     private StackPane contentArea;
-
 
 
 
@@ -56,40 +53,37 @@ public class MainShellController {
 
 
 
-
-
     @FXML
     public void initialize(){
-
 
 
         Platform.runLater(() -> {
 
 
-
-            Parent root =
-                    contentArea.getScene()
-                            .getRoot();
+            if(contentArea.getScene() != null){
 
 
-
-            root.getProperties()
-                    .put(
-                            "controller",
-                            this
-                    );
+                Parent root =
+                        contentArea.getScene()
+                                .getRoot();
 
 
 
+                root.getProperties()
+                        .put(
+                                "controller",
+                                this
+                        );
 
-            loadPage(
-                    "/fxml/dashboard.fxml"
-            );
 
+            }
+
+
+
+            showDashboard();
 
 
         });
-
 
 
     }
@@ -100,14 +94,34 @@ public class MainShellController {
 
 
 
+    /**
+     * Opens dashboard inside the existing shell.
+     * Sidebar remains visible.
+     */
+    public void showDashboard(){
 
 
+        loadPage(
+                "/fxml/dashboard.fxml"
+        );
+
+
+    }
+
+
+
+
+
+
+
+    /**
+     * Loads pages into the shell content area.
+     */
     public void loadPage(String page){
 
 
 
         try {
-
 
 
             FXMLLoader loader =
@@ -134,22 +148,17 @@ public class MainShellController {
 
 
 
-
         }
         catch(IOException e){
-
 
 
             e.printStackTrace();
 
 
-
         }
 
 
-
     }
-
 
 
 

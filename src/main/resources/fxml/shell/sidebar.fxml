@@ -282,6 +282,10 @@
 
     <VBox styleClass="nav-item">
 
+<Button text="About StockPilot"
+        onAction="#openAbout"
+        styleClass="sidebar-secondary-button"/>
+
         <Button text="Logout"
                 styleClass="modern-sidebar-button"
                 onAction="#logout">

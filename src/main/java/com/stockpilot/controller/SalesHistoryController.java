@@ -5,6 +5,7 @@ import com.stockpilot.model.Sale;
 import com.stockpilot.service.SaleService;
 import com.stockpilot.util.Navigator;
 
+import com.stockpilot.controller.MainShellController;
 
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -143,16 +144,23 @@ public class SalesHistoryController {
 
 
 
-    @FXML
-    private void openDashboard(){
+     @FXML
+private void openDashboard() {
 
+    MainShellController shell = MainShellController.getInstance();
 
-        Navigator.goTo(
-                "dashboard.fxml"
-        );
+    if (shell != null) {
 
+        // Already inside the shell
+        shell.loadPage("/fxml/dashboard.fxml");
+
+    } else {
+
+        // Coming from login or another standalone window
+        Navigator.goTo("shell/MainShell.fxml");
 
     }
+}
 
 
 

@@ -1695,3 +1695,223 @@
     );
 
 }
+
+/* ABOUT WINDOW */
+
+.about-container {
+
+    -fx-background-color: white;
+
+}
+
+
+.about-title {
+
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+
+}
+
+
+.about-subtitle {
+
+    -fx-font-size: 15px;
+
+}
+
+
+.about-info {
+
+    -fx-font-size: 13px;
+
+}
+
+
+.about-author {
+
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+
+}
+/* ABOUT WINDOW */
+
+.about-wrapper {
+
+    -fx-background-color: transparent;
+
+}
+
+
+.about-card {
+
+    -fx-background-color: white;
+
+    -fx-background-radius: 18;
+
+    -fx-effect:
+        dropshadow(
+            gaussian,
+            rgba(0,0,0,0.18),
+            20,
+            0,
+            0,
+            5
+        );
+
+}
+
+
+
+.about-title {
+
+    -fx-font-size: 30px;
+
+    -fx-font-weight: bold;
+
+}
+
+
+
+.about-subtitle {
+
+    -fx-font-size: 14px;
+
+    -fx-text-fill: #666666;
+
+}
+
+
+
+.about-info {
+
+    -fx-font-size: 13px;
+
+}
+
+
+
+.developer-box {
+
+    -fx-padding: 15 0 0 0;
+
+}
+
+
+
+.developer-label {
+
+    -fx-font-size: 12px;
+
+    -fx-text-fill: #777777;
+
+}
+
+
+
+.developer-name {
+
+    -fx-font-size: 14px;
+
+    -fx-font-weight: bold;
+
+}
+/* ABOUT STOCKPILOT SIDEBAR ITEM */
+
+.sidebar-secondary-button {
+
+    -fx-background-color: transparent;
+
+    -fx-text-fill: #777777;
+
+    -fx-font-size: 12px;
+
+    -fx-alignment: CENTER_LEFT;
+
+    -fx-padding: 8 12 8 12;
+
+    -fx-cursor: hand;
+
+}
+
+
+.sidebar-secondary-button:hover {
+
+    -fx-background-color: rgba(255,255,255,0.15);
+
+    -fx-text-fill: white;
+
+}
+
+
+.sidebar-secondary-button:pressed {
+
+    -fx-background-color: rgba(255,255,255,0.25);
+
+}
+
+/* =====================================================
+   ABOUT STOCKPILOT
+   ===================================================== */
+
+
+.sidebar-secondary-button {
+
+    -fx-background-color:transparent;
+
+    -fx-background-radius:14;
+
+    -fx-pref-height:36;
+
+    -fx-max-width:Infinity;
+
+    -fx-padding:12 12;
+
+
+    -fx-alignment:CENTER;
+
+
+    -fx-text-fill:#9CA3AF;
+
+
+    -fx-font-size:12px;
+
+
+    -fx-font-weight:600;
+
+
+    -fx-cursor:hand;
+
+    padding-bottom: 6px;
+
+}
+
+
+
+
+
+.sidebar-secondary-button:hover {
+
+
+    -fx-background-color:
+
+        rgba(255,255,255,0.10);
+
+
+    -fx-text-fill:white;
+
+
+}
+
+
+
+
+
+.sidebar-secondary-button:pressed {
+
+
+    -fx-background-color:
+
+        rgba(22,163,74,0.6);
+
+
+}

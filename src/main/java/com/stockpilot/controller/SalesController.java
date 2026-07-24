@@ -1,18 +1,16 @@
 package com.stockpilot.controller;
 
-
 import com.stockpilot.model.Recipe;
 import com.stockpilot.service.RecipeService;
 import com.stockpilot.service.SaleService;
 import com.stockpilot.util.Navigator;
 
+import com.stockpilot.controller.MainShellController;
 
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.layout.VBox;
 
 
 public class SalesController {
@@ -21,36 +19,25 @@ public class SalesController {
     @FXML
     private ComboBox<Recipe> recipeComboBox;
 
-
     @FXML
     private TextField quantityField;
 
-
     @FXML
     private Label totalLabel;
-
 
     @FXML
     private Button saveSaleButton;
 
 
-
-
     private final RecipeService recipeService =
             new RecipeService();
-
-
 
     private final SaleService saleService =
             new SaleService();
 
 
-
-
-
     @FXML
-    public void initialize(){
-
+    public void initialize() {
 
         recipeComboBox.setItems(
 
@@ -62,13 +49,9 @@ public class SalesController {
 
         );
 
-
-
         recipeComboBox.setOnAction(
                 e -> calculateTotal()
         );
-
-
 
         quantityField.textProperty()
                 .addListener(
@@ -78,26 +61,16 @@ public class SalesController {
 
                 );
 
-
     }
 
 
-
-
-
-
-
     @FXML
-    private void calculateTotal(){
-
-
+    private void calculateTotal() {
 
         Recipe recipe =
                 recipeComboBox.getValue();
 
-
-
-        if(recipe == null){
+        if (recipe == null) {
 
             totalLabel.setText("0");
 
@@ -105,20 +78,14 @@ public class SalesController {
 
         }
 
-
-
-
-        try{
-
+        try {
 
             int quantity =
                     Integer.parseInt(
                             quantityField.getText()
                     );
 
-
-
-            if(quantity <= 0){
+            if (quantity <= 0) {
 
                 totalLabel.setText("0");
 
@@ -126,16 +93,9 @@ public class SalesController {
 
             }
 
-
-
-
-
             double total =
                     recipe.getSellingPrice()
-                    *
-                    quantity;
-
-
+                            * quantity;
 
             totalLabel.setText(
 
@@ -146,41 +106,23 @@ public class SalesController {
 
             );
 
-
-
         }
-        catch(Exception e){
-
+        catch (Exception e) {
 
             totalLabel.setText("0");
 
-
         }
-
-
 
     }
 
 
-
-
-
-
-
-
-
     @FXML
-    private void saveSale(){
-
-
+    private void saveSale() {
 
         Recipe recipe =
                 recipeComboBox.getValue();
 
-
-
-        if(recipe == null){
-
+        if (recipe == null) {
 
             showAlert(
                     "No Recipe",
@@ -188,37 +130,27 @@ public class SalesController {
                     Alert.AlertType.WARNING
             );
 
-
             return;
 
         }
 
-
-
-
-
         int quantity;
 
-
-        try{
-
+        try {
 
             quantity =
                     Integer.parseInt(
                             quantityField.getText()
                     );
 
-
-            if(quantity <= 0){
+            if (quantity <= 0) {
 
                 throw new Exception();
 
             }
 
-
         }
-        catch(Exception e){
-
+        catch (Exception e) {
 
             showAlert(
                     "Invalid Quantity",
@@ -226,67 +158,29 @@ public class SalesController {
                     Alert.AlertType.WARNING
             );
 
-
             return;
 
         }
 
-
-
-
-
-
         double total =
-
                 recipe.getSellingPrice()
-                *
-                quantity;
-
-
-
-
-
-
-        // BUTTON LOADING STATE
+                        * quantity;
 
         saveSaleButton.setDisable(true);
-
-        saveSaleButton.setText(
-                "Saving..."
-        );
-
-
+        saveSaleButton.setText("Saving...");
 
         ProgressIndicator loader =
                 new ProgressIndicator();
 
+        loader.setPrefSize(20, 20);
 
-
-        loader.setPrefSize(
-                20,
-                20
-        );
-
-
-
-        saveSaleButton.setGraphic(
-                loader
-        );
-
-
-
-
-
-
+        saveSaleButton.setGraphic(loader);
 
         Task<Boolean> task =
                 new Task<>() {
 
-
                     @Override
-                    protected Boolean call()
-                            throws Exception {
-
+                    protected Boolean call() {
 
                         return saleService.saveSale(
 
@@ -298,84 +192,42 @@ public class SalesController {
 
                         );
 
-
                     }
-
 
                 };
 
-
-
-
-
-
-
         task.setOnSucceeded(e -> {
 
-
             saveSaleButton.setDisable(false);
-
-
-            saveSaleButton.setText(
-                    "Save Sale"
-            );
-
-
+            saveSaleButton.setText("Save Sale");
             saveSaleButton.setGraphic(null);
 
-
-
-
-
-            if(task.getValue()){
-
-
+            if (task.getValue()) {
 
                 quantityField.clear();
-
-
 
                 recipeComboBox
                         .getSelectionModel()
                         .clearSelection();
 
-
-
-                totalLabel.setText(
-                        "0"
-                );
-
-
-
+                totalLabel.setText("0");
 
                 showAlert(
 
                         "Sold! ✅",
 
                         recipe.getName()
-                        +
-                        " sold successfully.\n\n"
-                        +
-                        "Quantity: "
-                        +
-                        quantity
-                        +
-                        "\nTotal: MK "
-                        +
-                        String.format(
-                                "%,.2f",
-                                total
-                        ),
+                                + " sold successfully.\n\n"
+                                + "Quantity: "
+                                + quantity
+                                + "\nTotal: MK "
+                                + String.format("%,.2f", total),
 
                         Alert.AlertType.INFORMATION
 
                 );
 
-
-
-            }
-            else{
-
+            } else {
 
                 showAlert(
 
@@ -387,32 +239,15 @@ public class SalesController {
 
                 );
 
-
             }
-
-
 
         });
 
-
-
-
-
-
         task.setOnFailed(e -> {
 
-
             saveSaleButton.setDisable(false);
-
-
-            saveSaleButton.setText(
-                    "Save Sale"
-            );
-
-
+            saveSaleButton.setText("Save Sale");
             saveSaleButton.setGraphic(null);
-
-
 
             showAlert(
 
@@ -424,34 +259,16 @@ public class SalesController {
 
             );
 
-
         });
-
-
-
-
-
-
 
         Thread thread =
                 new Thread(task);
 
-
         thread.setDaemon(true);
-
 
         thread.start();
 
-
-
     }
-
-
-
-
-
-
-
 
 
     private void showAlert(
@@ -462,62 +279,49 @@ public class SalesController {
 
             Alert.AlertType type
 
-    ){
-
+    ) {
 
         Alert alert =
                 new Alert(type);
 
-
         alert.setTitle(title);
-
-
         alert.setHeaderText(null);
-
-
         alert.setContentText(message);
-
 
         alert.showAndWait();
 
-
     }
 
 
+    /*
+     * Return to the main application shell
+     * (Sidebar + Dashboard)
+     */
+     @FXML
+private void openDashboard() {
 
+    MainShellController shell = MainShellController.getInstance();
 
+    if (shell != null) {
 
+        // Already inside the shell
+        shell.loadPage("/fxml/dashboard.fxml");
 
+    } else {
+
+        // Coming from login or another standalone window
+        Navigator.goTo("shell/MainShell.fxml");
+
+    }
+}
 
 
 
     @FXML
-    private void openDashboard(){
-
-
-        Navigator.goTo(
-                "dashboard.fxml"
-        );
-
-
-    }
-
-
-
-
-
-
-
-
-    @FXML
-    private void goBack(){
-
+    private void goBack() {
 
         Navigator.goBack();
 
-
     }
-
-
 
 }

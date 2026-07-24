@@ -26,40 +26,49 @@
 
         <!-- HEADER -->
 
-        <top>
+<top>
 
-            <HBox alignment="CENTER_LEFT"
-                  styleClass="page-header">
-
-
-                <padding>
-
-                    <Insets top="20"
-                            right="25"
-                            bottom="20"
-                            left="25"/>
-
-                </padding>
+    <HBox alignment="CENTER_LEFT"
+          spacing="25"
+          styleClass="page-header">
 
 
-                <VBox spacing="5">
+        <padding>
+
+            <Insets top="20"
+                    right="25"
+                    bottom="20"
+                    left="25"/>
+
+        </padding>
 
 
-                    <Label text="Recipe Details"
-                           styleClass="page-title"/>
+        <!-- DASHBOARD BUTTON -->
+
+        <Button text="Dashboard"
+                onAction="#goDashboard"
+                styleClass="secondary-button"/>
 
 
-                    <Label text="View ingredients and recipe information"
-                           styleClass="subtitle"/>
+
+        <VBox spacing="5">
 
 
-                </VBox>
+            <Label text="Recipe Details"
+                   styleClass="page-title"/>
 
 
-            </HBox>
+            <Label text="View ingredients and recipe information"
+                   styleClass="subtitle"/>
 
 
-        </top>
+        </VBox>
+
+
+    </HBox>
+
+
+</top>
 
 
 
@@ -210,6 +219,8 @@
                     <Button text="Back"
                             onAction="#goBack"
                             styleClass="secondary-button"/>
+
+                        
 
 
 
